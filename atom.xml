@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Shaozj&#39;s blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-03-07T09:56:43.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Zhenjiang Shao</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>表单（Form）小结</title>
+    <link href="http://yoursite.com/2016/01/04/form/"/>
+    <id>http://yoursite.com/2016/01/04/form/</id>
+    <published>2016-01-04T02:42:44.000Z</published>
+    <updated>2016-03-07T09:56:43.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;介绍&quot;&gt;介绍&lt;/h2&gt;&lt;p&gt;这段时间做了个后台的前端项目。说实话，之前并没有做过后台的项目。在做了后台项目后，发现最重要的是要熟练掌握表单相关的技术。这篇文章将我所做的后台项目中用到的表单相关的知识做一个总结，也算是一种积累吧。:)&lt;/p&gt;
+&lt;h3&gt;一个简单的表单示例&lt;/h3&gt;
+
+&lt;p&gt;下面是一个简单的表单示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;form&lt;/span&gt; id=&lt;span class=&quot;string&quot;&gt;&quot;main-form&quot;&lt;/span&gt; action=&lt;span class=&quot;string&quot;&gt;&quot;http://somesite.com/prog/adduser&quot;&lt;/span&gt; method=&lt;span class=&quot;string&quot;&gt;&quot;post&quot;&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;name&quot;&lt;/span&gt;&amp;gt;姓名: &amp;lt;/&lt;span class=&quot;keyword&quot;&gt;label&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;text&quot;&lt;/span&gt; name=&lt;span class=&quot;string&quot;&gt;&quot;name&quot;&lt;/span&gt; id=&lt;span class=&quot;string&quot;&gt;&quot;name&quot;&lt;/span&gt;&amp;gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;br&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;label&lt;/span&gt;&amp;gt;
+        性别：
+        &amp;lt;&lt;span class=&quot;keyword&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;radio&quot;&lt;/span&gt; name=&lt;span class=&quot;string&quot;&gt;&quot;sex&quot;&lt;/span&gt; value=&lt;span class=&quot;string&quot;&gt;&quot;Male&quot;&lt;/span&gt;&amp;gt;男
+        &amp;lt;&lt;span class=&quot;keyword&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;radio&quot;&lt;/span&gt; name=&lt;span class=&quot;string&quot;&gt;&quot;sex&quot;&lt;/span&gt; value=&lt;span class=&quot;string&quot;&gt;&quot;Female&quot;&lt;/span&gt;&amp;gt;女&amp;lt;&lt;span class=&quot;keyword&quot;&gt;br&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;label&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;submit&quot;&lt;/span&gt; value=&lt;span class=&quot;string&quot;&gt;&quot;Send&quot;&lt;/span&gt;&amp;gt; &amp;lt;&lt;span class=&quot;keyword&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;reset&quot;&lt;/span&gt;&amp;gt;
+ &amp;lt;/&lt;span class=&quot;keyword&quot;&gt;form&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;页面如图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://img.alicdn.com/tps/TB1h_YhLXXXXXb3aXXXXXXXXXXX-239-81.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;当我们点击send按钮时，就能向服务器端发送表单。点击重置按钮时，input中的value值将会是我们设置的默认值。&lt;br&gt;form的action属性值为服务端处理我们提交的表单的URI。&lt;br&gt;method是表单提交的方式。&lt;/p&gt;
+&lt;p&gt;input标签是表单中的控件，用户在input中输入的值，或者用户选择了某个radio选项的值就是这个控件的value值。当提交表单时，input中的name和value值编码后传给服务器端，服务器端解码后根据name和value键值对获取用户提交的信息。&lt;/p&gt;
+&lt;h2 id=&quot;表单提交的过程&quot;&gt;表单提交的过程&lt;/h2&gt;&lt;h3&gt;成功控件&lt;/h3&gt;
+
+&lt;p&gt;成功控件是能被提交给服务端的控件，每个成功控件都有其name已经value值，以被作为form数据的一部分传给服务器端。一个成功控件必须在form标签之中，并且有name值。&lt;/p&gt;
+&lt;p&gt;此外，成功控件还需满足以下条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;控件不能设置为disabled。&lt;/li&gt;
+&lt;li&gt;如果form包含多个提交按钮，只有被点击的提交按钮才是成功控件。&lt;/li&gt;
+&lt;li&gt;被选中的checkbox才算成功控件。&lt;/li&gt;
+&lt;li&gt;被选中的radio才算成功控件。&lt;/li&gt;
+&lt;li&gt;select选项，被选中的option才是成功控件，如果没有option被选中，那么这个select不是成功控件，将不被提交。&lt;/li&gt;
+&lt;li&gt;包含了文件的file控件才是成功控件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意：如果控件的display属性被设置为none，控件仍然可以是成功的。&lt;/p&gt;
+&lt;h3&gt;提交表单&lt;/h3&gt;
+
+&lt;p&gt;表单提交可以分为以下几步：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、验证成功的控件，如上文所诉。&lt;/li&gt;
+&lt;li&gt;2、创建表单数据集，由成功控件的name和value组成的键值对序列。&lt;/li&gt;
+&lt;li&gt;3、编码表单数据集，编码方式由form元素的enctype属性来指定。&lt;/li&gt;
+&lt;li&gt;4、提交编码后的表单数据集。  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;对多个提交按钮，做不同提交任务的处理&quot;&gt;对多个提交按钮，做不同提交任务的处理&lt;/h2&gt;&lt;p&gt;我们经常会碰到这样的需求，一个页面中有多个不同的按钮，点击按钮时服务端做不同的处理。此时我们改如何处理呢？&lt;br&gt;一种方式是可以给提交按钮设置不同的name，服务端通过判断name来判断用户点击了哪个按钮，然后做相应的处理。另一种方式是给提交按钮设置相同的name，不同的value，服务端通过判断value值来判断用户点击了哪个按钮。&lt;/p&gt;
+&lt;p&gt;以上两种方式将判断的工作交给了服务端。对于前端，我们可以用ajax的方式提交表单来实现多个提交按钮的处理。用ajax提交的另一个好处是可以防止页面刷新或者跳转到action指定的页面。&lt;/p&gt;
+&lt;p&gt;如果用jQuery，我们可以这么提交：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$(&lt;span class=&quot;string&quot;&gt;&quot;#main-form&quot;&lt;/span&gt;).on(&lt;span class=&quot;string&quot;&gt;&quot;submit&quot;&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;) &lt;/span&gt;{
+    e.preventDefault();
+    $.post(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.action, $(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;).serialize());
+}); 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用jQuery，如果想上传部分表单，我们可以这么提交&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;div id=&lt;span class=&quot;string&quot;&gt;&quot;divCustomerInfo&quot;&lt;/span&gt;&amp;gt;
+    &amp;lt;p&amp;gt;名称: &amp;lt;input &lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;text&quot;&lt;/span&gt; name=&lt;span class=&quot;string&quot;&gt;&quot;CustomerName&quot;&lt;/span&gt; /&amp;gt;&amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;电话: &amp;lt;input &lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;text&quot;&lt;/span&gt; name=&lt;span class=&quot;string&quot;&gt;&quot;CustomerTel&quot;&lt;/span&gt; /&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+
+$(&lt;span class=&quot;string&quot;&gt;&quot;#btnId&quot;&lt;/span&gt;).click(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;{
+    $.ajax({
+        url: &lt;span class=&quot;string&quot;&gt;&quot;test.htm&quot;&lt;/span&gt;, 
+        &lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;POST&quot;&lt;/span&gt;,
+        data: $(&lt;span class=&quot;string&quot;&gt;&#39;#divCustomerInfo :text&#39;&lt;/span&gt;).fieldSerialize(),
+        success: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(responseText)&lt;/span&gt;&lt;/span&gt;{
+            alert(responseText);
+        }
+    });
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;;
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;利用H5的FormData对象，我们可以这么提交：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;document.getElementById(&lt;span class=&quot;string&quot;&gt;&quot;main-form&quot;&lt;/span&gt;).onsubmit = function(e) {
+
+    e.preventDefault();
+
+    var f = e.target,
+        formData = new FormData(f),
+        xhr = new XMLHttpRequest();
+
+    xhr.open(&lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;keyword&quot;&gt;POST&lt;/span&gt;&quot;&lt;/span&gt;, f.action);
+    xhr.send(formData);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;对于jQuery，还有一个强大的插件jquery.form.js，利用这个插件，我们可以这么提交：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; $(&lt;span class=&quot;string&quot;&gt;&#39;.send-message&#39;&lt;/span&gt;).click(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;)&lt;/span&gt;{
+    e.preventDefault();
+    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(self.validateForm(VALIDATE_TYPE.TEST_MESSAGE)){
+        $(&lt;span class=&quot;string&quot;&gt;&#39;#main-form&#39;&lt;/span&gt;).ajaxSubmit({
+            url: &lt;span class=&quot;string&quot;&gt;&#39;/message/send_test_message.htm&#39;&lt;/span&gt;,
+            success: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
+                &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt; res === &lt;span class=&quot;string&quot;&gt;&#39;string&#39;&lt;/span&gt;)
+                    res = &lt;span class=&quot;built_in&quot;&gt;JSON&lt;/span&gt;.parse(res);
+                &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(res);
+                &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(res.result === &lt;span class=&quot;string&quot;&gt;&#39;success&#39;&lt;/span&gt;){
+                    $(&lt;span class=&quot;string&quot;&gt;&#39;.test-success&#39;&lt;/span&gt;).removeClass(&lt;span class=&quot;string&quot;&gt;&#39;hide&#39;&lt;/span&gt;);
+                }
+                &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;{
+                    alert(res.errorMsg);
+                    $(&lt;span class=&quot;string&quot;&gt;&#39;.test-success&#39;&lt;/span&gt;).addClass(&lt;span class=&quot;string&quot;&gt;&#39;hide&#39;&lt;/span&gt;);
+                }
+            },
+            error: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;xhr, type&lt;/span&gt;)&lt;/span&gt;{
+                $(&lt;span class=&quot;string&quot;&gt;&#39;.test-success&#39;&lt;/span&gt;).addClass(&lt;span class=&quot;string&quot;&gt;&#39;hide&#39;&lt;/span&gt;);
+                alert(&lt;span class=&quot;string&quot;&gt;&#39;提交测试失败，请重试！&#39;&lt;/span&gt;);
+                &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&#39;Ajax error! &#39;&lt;/span&gt; + type);
+            }
+        });
+    }&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;{
+        $(&lt;span class=&quot;string&quot;&gt;&#39;.test-success&#39;&lt;/span&gt;).addClass(&lt;span class=&quot;string&quot;&gt;&#39;hide&#39;&lt;/span&gt;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;利用ajaxSubmit，我们可以设置提交的url，以及成功和失败的回调函数，在处理业务时的确方便很多。而且不用手动序列化提交的表单数据。&lt;br&gt;ajaxSubmit还有一个强大的地方是能够处理文件的提交。&lt;/p&gt;
+&lt;h2 id=&quot;表单文件上传&quot;&gt;表单文件上传&lt;/h2&gt;&lt;p&gt;下面是一个表单文件上传的例子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;form action=&lt;span class=&quot;string&quot;&gt;&quot;/message/upload_image.htm&quot;&lt;/span&gt; method=&lt;span class=&quot;string&quot;&gt;&quot;post&quot;&lt;/span&gt; enctype=&lt;span class=&quot;string&quot;&gt;&quot;multipart/form-data&quot;&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;postimg-form&quot;&lt;/span&gt;&amp;gt;
+    &amp;lt;div &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;form-group&quot;&lt;/span&gt;&amp;gt;
+        &amp;lt;input name=&lt;span class=&quot;string&quot;&gt;&quot;file&quot;&lt;/span&gt; id=&lt;span class=&quot;string&quot;&gt;&quot;file&quot;&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;file&quot;&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;send-file&quot;&lt;/span&gt;  style=&lt;span class=&quot;string&quot;&gt;&quot;display: inline-block;&quot;&lt;/span&gt;/&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;urlinput-wrap&quot;&lt;/span&gt;&amp;gt;
+        &amp;lt;span&amp;gt;图片&lt;span class=&quot;type&quot;&gt;URL&lt;/span&gt;：&amp;lt;/span&amp;gt;
+        &amp;lt;input name=&lt;span class=&quot;string&quot;&gt;&quot;picurlList&quot;&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;text&quot;&lt;/span&gt; value=&lt;span class=&quot;string&quot;&gt;&quot;$!{picurlList}&quot;&lt;/span&gt;  &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;img-url not-hidden&quot;&lt;/span&gt;&amp;gt;&amp;lt;/input&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+    &amp;lt;button &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;button&quot;&lt;/span&gt;&amp;gt;取消&amp;lt;/button&amp;gt;
+    &amp;lt;input &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;submit&quot;&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;=&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;commit-changepic&quot;&lt;/span&gt;&amp;gt;确定&amp;lt;/button&amp;gt;
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;对于文件上传，必须采用post方式，并且form元素的enctype需要设置为multipart/form-data。&lt;/p&gt;
+&lt;p&gt;表单的enctype一般常用的有两种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;application/x-www-form-urlencoded:&lt;/p&gt;
+&lt;p&gt;  这是默认的编码方式。它只处理表单域里的value属性值，采用这种变法方式的表单会将表单域的值处理成URL方式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;multipart/form-data: &lt;/p&gt;
+&lt;p&gt; 这种编码方式会以二进制流的方式来处理表单数据，这中编码方式会把文件域指定的文件内容也封装到请求参数里。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;用form的submit提交文件，会导致刷新页面，或者无法在提交成功后在回调函数中处理相应的业务。&lt;/p&gt;
+&lt;p&gt;而一般的ajax无法满足文件的上传(HTML5提出了XMLHttpRequest对象的第二版，从此ajax能够上传文件了。)。所幸的是，ajaxSubmit可以支持文件的提交。&lt;/p&gt;
+&lt;p&gt;示例代码如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$(&lt;span class=&quot;string&quot;&gt;&#39;.commit-changepic&#39;&lt;/span&gt;).click(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;e&lt;/span&gt;)&lt;/span&gt;{
+    e.preventDefault();
+    $(&lt;span class=&quot;string&quot;&gt;&#39;.postimg-form&#39;&lt;/span&gt;).ajaxSubmit({
+        success: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
+            &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(res);
+            &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(res.fileUrl);
+            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(res.fileUrl){
+                $(&lt;span class=&quot;string&quot;&gt;&#39;.poster-img&#39;&lt;/span&gt;).attr(&lt;span class=&quot;string&quot;&gt;&#39;src&#39;&lt;/span&gt;,res.fileUrl);
+                $($(&lt;span class=&quot;string&quot;&gt;&#39;.img-url&#39;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]).val(res.fileUrl);
+            }&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;{
+                alert(&lt;span class=&quot;string&quot;&gt;&#39;图片上传失败！&#39;&lt;/span&gt;);
+            }
+        },
+        error: &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
+            &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(res);
+            alert(&lt;span class=&quot;string&quot;&gt;&#39;图片上传失败！&#39;&lt;/span&gt;);
+        }
+    });
+   });
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用H5的FormData上传文件，示例如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;.FormData) {　
+　　　　&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; formData = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; FormData();
+　　　　&lt;span class=&quot;comment&quot;&gt;// 建立一个upload表单项，值为上传的文件&lt;/span&gt;
+　　　　formData.append(&lt;span class=&quot;string&quot;&gt;&#39;upload&#39;&lt;/span&gt;, &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;&#39;upload&#39;&lt;/span&gt;).files[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]);
+　　　　&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; xhr = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; XMLHttpRequest();
+　　　　xhr.open(&lt;span class=&quot;string&quot;&gt;&#39;POST&#39;&lt;/span&gt;, $(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;).attr(&lt;span class=&quot;string&quot;&gt;&#39;action&#39;&lt;/span&gt;));
+　　　　xhr.onload = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+　　　　　　&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (xhr.status === &lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;) {
+　　　　　　　　&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&#39;上传成功&#39;&lt;/span&gt;);
+　　　　　　} &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; {
+　　　　　　　　&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&#39;出错了&#39;&lt;/span&gt;);
+　　　　　　}
+　　　　};
+　　　　xhr.send(formData);
+　　}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;ajaxSubmit上传文件的原理还不清楚（猜测可能使用iframe实现的），有空可以研究一下。。。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;介绍&quot;&gt;介绍&lt;/h2&gt;&lt;p&gt;这段时间做了个后台的前端项目。说实话，之前并没有做过后台的项目。在做了后台项目后，发现最重要的是要熟练掌握表单相关的技术。这篇文章将我所做的后台项目中用到的表单相关的知识做一个总结，也算是一种积累吧。:)&lt;/p&gt;
+&lt;h3&gt;一个简单的表单
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="form" scheme="http://yoursite.com/tags/form/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 使用小记</title>
+    <link href="http://yoursite.com/2015/09/11/my-new-post/"/>
+    <id>http://yoursite.com/2015/09/11/my-new-post/</id>
+    <published>2015-09-11T00:56:29.000Z</published>
+    <updated>2016-03-07T09:54:46.000Z</updated>
+    
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;用markdown写文章，使用方法参照博客&lt;a href=&quot;http://zipperary.com/2013/05/22/introduction-to-markdown/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Introduction to markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;hexo的使用&quot;&gt;hexo的使用&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;发表新文章   &lt;code&gt;hexo new &amp;quot;my new post&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在H:\hexo\source_posts中编辑&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;title: my &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; post &lt;span class=&quot;preprocessor&quot;&gt;#可以改成中文的，如&lt;span class=&quot;string&quot;&gt;&quot;新文章&quot;&lt;/span&gt;&lt;/span&gt;
+
+date: &lt;span class=&quot;number&quot;&gt;2015&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;09&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;08&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;56&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;29&lt;/span&gt; &lt;span class=&quot;preprocessor&quot;&gt;#发表日期，一般不改动&lt;/span&gt;
+
+categories: blog &lt;span class=&quot;preprocessor&quot;&gt;#文章文类&lt;/span&gt;
+
+tags: [博客，文章] &lt;span class=&quot;preprocessor&quot;&gt;#文章标签，多于一项时用这种格式&lt;/span&gt;
+
+这里是正文，用markdown写
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;hexo server&lt;/code&gt;，访问localhost:4000预览效果。（退出server用Ctrl+c）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hexo deploy --generate&lt;/code&gt;，同步到github。访问网站看看效果。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;用markdown写文章，使用方法参照博客&lt;a href=&quot;http://zipperary.com/2013/05/22/introduction-to-markdown/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Introductio
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="webFront" scheme="http://yoursite.com/tags/webFront/"/>
+    
+  </entry>
+  
+</feed>

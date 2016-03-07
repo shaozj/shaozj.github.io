@@ -47,6 +47,8 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Shaozj's blog" type="application/atom+xml" />
+
 
 
 
@@ -147,7 +149,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/blog" rel="section">
+          <a href="/categories" rel="section">
             
               <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
             
@@ -167,7 +169,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/博客，文章/" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
@@ -242,8 +244,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -523,8 +525,8 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -642,7 +644,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
+               src="https://avatars2.githubusercontent.com/u/7326406?v=3&s=460"
                alt="Zhenjiang Shao" />
           <p class="site-author-name" itemprop="name">Zhenjiang Shao</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -657,7 +659,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
           
             <div class="site-state-item site-state-categories">
-              <a href="/categories/blog">
+              <a href="/categories">
                 <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -666,8 +668,8 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags/博客，文章/">
-                <span class="site-state-item-count">1</span>
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -676,8 +678,25 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         </nav>
 
         
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shaozj" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
           
         </div>
 
@@ -819,6 +838,30 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
   
   
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
 
   
 

@@ -41,11 +41,13 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="博客，文章," />
+  <meta name="keywords" content="form," />
 
 
 
 
+
+  <link rel="alternate" href="/atom.xml" title="Shaozj's blog" type="application/atom+xml" />
 
 
 
@@ -72,7 +74,7 @@
 下面是一个简单的表单示例：
 &amp;lt;form id=&quot;main-form&quot; action=&quot;http://somesite.com/prog/adduser&quot; meth">
 <meta property="og:image" content="http://img.alicdn.com/tps/TB1h_YhLXXXXXb3aXXXXXXXXXXX-239-81.jpg">
-<meta property="og:updated_time" content="2016-01-04T02:54:42.000Z">
+<meta property="og:updated_time" content="2016-03-07T09:56:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="表单（Form）小结">
 <meta name="twitter:description" content="介绍这段时间做了个后台的前端项目。说实话，之前并没有做过后台的项目。在做了后台项目后，发现最重要的是要熟练掌握表单相关的技术。这篇文章将我所做的后台项目中用到的表单相关的知识做一个总结，也算是一种积累吧。:)
@@ -159,7 +161,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/blog" rel="section">
+          <a href="/categories" rel="section">
             
               <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
             
@@ -179,7 +181,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/博客，文章/" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
@@ -251,8 +253,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index">
-                    <span itemprop="name">blog</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -471,7 +473,7 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
       
         <div class="post-tags">
           
-            <a href="/tags/博客，文章/" rel="tag">#博客，文章</a>
+            <a href="/tags/form/" rel="tag">#form</a>
           
         </div>
       
@@ -550,7 +552,7 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
+               src="https://avatars2.githubusercontent.com/u/7326406?v=3&s=460"
                alt="Zhenjiang Shao" />
           <p class="site-author-name" itemprop="name">Zhenjiang Shao</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -565,7 +567,7 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
           
           
             <div class="site-state-item site-state-categories">
-              <a href="/categories/blog">
+              <a href="/categories">
                 <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -574,8 +576,8 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags/博客，文章/">
-                <span class="site-state-item-count">1</span>
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -584,8 +586,25 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
         </nav>
 
         
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shaozj" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
           
         </div>
 
@@ -905,6 +924,30 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
   
   
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
 
   
 
