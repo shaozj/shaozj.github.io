@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="webFront," />
+  <meta name="keywords" content="css," />
 
 
 
@@ -59,46 +59,43 @@
 
 
 
-<meta name="description" content="用markdown写文章，使用方法参照博客Introduction to markdown
-
-hexo的使用
-发表新文章   hexo new &amp;quot;my new post&amp;quot;
-
-在H:\hexo\source_posts中编辑
-title: my new post #可以改成中文的，如&quot;新文章&quot;
-
-date: 2015-09-11 08:56:29 #发表日期，一般不改动
-
-cat">
+<meta name="description" content="在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：
+.middle-div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin: 0 auto;
+}
+如上的方式并不能实现元素的水平居中。而采用相对定位则可以：
+.middle-div {
+    width: 100px;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo 使用小记">
-<meta property="og:url" content="http://yoursite.com/2015/09/11/my-new-post/index.html">
+<meta property="og:title" content="absolute定位下的margin居中失效">
+<meta property="og:url" content="http://yoursite.com/2016/03/14/absolute-margin/index.html">
 <meta property="og:site_name" content="Shaozj's blog">
-<meta property="og:description" content="用markdown写文章，使用方法参照博客Introduction to markdown
-
-hexo的使用
-发表新文章   hexo new &amp;quot;my new post&amp;quot;
-
-在H:\hexo\source_posts中编辑
-title: my new post #可以改成中文的，如&quot;新文章&quot;
-
-date: 2015-09-11 08:56:29 #发表日期，一般不改动
-
-cat">
-<meta property="og:updated_time" content="2016-03-07T09:54:46.000Z">
+<meta property="og:description" content="在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：
+.middle-div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin: 0 auto;
+}
+如上的方式并不能实现元素的水平居中。而采用相对定位则可以：
+.middle-div {
+    width: 100px;">
+<meta property="og:updated_time" content="2016-03-14T15:50:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo 使用小记">
-<meta name="twitter:description" content="用markdown写文章，使用方法参照博客Introduction to markdown
-
-hexo的使用
-发表新文章   hexo new &amp;quot;my new post&amp;quot;
-
-在H:\hexo\source_posts中编辑
-title: my new post #可以改成中文的，如&quot;新文章&quot;
-
-date: 2015-09-11 08:56:29 #发表日期，一般不改动
-
-cat">
+<meta name="twitter:title" content="absolute定位下的margin居中失效">
+<meta name="twitter:description" content="在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：
+.middle-div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin: 0 auto;
+}
+如上的方式并不能实现元素的水平居中。而采用相对定位则可以：
+.middle-div {
+    width: 100px;">
 
 
 
@@ -116,7 +113,7 @@ cat">
   };
 </script>
 
-  <title> hexo 使用小记 | Shaozj's blog </title>
+  <title> absolute定位下的margin居中失效 | Shaozj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -244,7 +241,7 @@ cat">
             
             
               
-                hexo 使用小记
+                absolute定位下的margin居中失效
               
             
           </h1>
@@ -256,8 +253,8 @@ cat">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-11T08:56:29+08:00" content="2015-09-11">
-              2015-09-11
+            <time itemprop="dateCreated" datetime="2016-03-14T23:25:34+08:00" content="2016-03-14">
+              2016-03-14
             </time>
           </span>
 
@@ -277,6 +274,18 @@ cat">
 
                 
                 
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
 
               
             </span>
@@ -286,8 +295,8 @@ cat">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/09/11/my-new-post/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/11/my-new-post/" itemprop="commentsCount"></span>
+                <a href="/2016/03/14/absolute-margin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/14/absolute-margin/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -309,27 +318,46 @@ cat">
       
 
       
-        <ul>
-<li>用markdown写文章，使用方法参照博客<a href="http://zipperary.com/2013/05/22/introduction-to-markdown/" target="_blank" rel="external">Introduction to markdown</a></li>
-</ul>
-<h2 id="hexo的使用">hexo的使用</h2><ul>
-<li><p>发表新文章   <code>hexo new &quot;my new post&quot;</code></p>
-</li>
-<li><p>在H:\hexo\source_posts中编辑</p>
-<pre><code>title: my <span class="keyword">new</span> post <span class="preprocessor">#可以改成中文的，如<span class="string">"新文章"</span></span>
-
-date: <span class="number">2015</span>-<span class="number">09</span>-<span class="number">11</span> <span class="number">08</span>:<span class="number">56</span>:<span class="number">29</span> <span class="preprocessor">#发表日期，一般不改动</span>
-
-categories: blog <span class="preprocessor">#文章文类</span>
-
-tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项时用这种格式</span>
-
-这里是正文，用markdown写
-</code></pre></li>
-<li><p><code>hexo server</code>，访问localhost:4000预览效果。（退出server用Ctrl+c）</p>
-</li>
-<li><code>hexo deploy --generate</code>，同步到github。访问网站看看效果。</li>
-</ul>
+        <p>在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+}</span>
+</code></pre><p>如上的方式并不能实现元素的水平居中。而采用相对定位则可以：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+}</span>
+</code></pre><p>然而，absolute定位下，margin是可以工作的，例如</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+}</span>
+</code></pre><p>这样元素的确能相对父元素向右移动父元素宽度的50％。</p>
+<p>一般对于absolute定位的元素，我们居中的方式为：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">50px</span></span></span>;
+}</span>
+</code></pre><p>还有有趣的一点是，如下代码，也能实现absolute定位元素的水平居中：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">positon</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+}</span>
+</code></pre><p>这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。</p>
 
       
     </div>
@@ -344,7 +372,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
       
         <div class="post-tags">
           
-            <a href="/tags/webFront/" rel="tag">#webFront</a>
+            <a href="/tags/css/" rel="tag">#css</a>
           
         </div>
       
@@ -353,13 +381,13 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/01/04/form/" rel="next" title="表单（Form）小结">
+                <i class="fa fa-chevron-left"></i> 表单（Form）小结
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/04/form/" rel="prev" title="表单（Form）小结">
-                表单（Form）小结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -385,8 +413,8 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/09/11/my-new-post/"
-           data-title="hexo 使用小记" data-url="http://yoursite.com/2015/09/11/my-new-post/">
+      <div class="ds-thread" data-thread-key="2016/03/14/absolute-margin/"
+           data-title="absolute定位下的margin居中失效" data-url="http://yoursite.com/2016/03/14/absolute-margin/">
       </div>
     
   </div>
@@ -505,7 +533,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo的使用"><span class="nav-number">1.</span> <span class="nav-text">hexo的使用</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

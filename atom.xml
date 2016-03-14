@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-07T09:56:43.000Z</updated>
+  <updated>2016-03-14T15:50:27.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,77 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>absolute定位下的margin居中失效</title>
+    <link href="http://yoursite.com/2016/03/14/absolute-margin/"/>
+    <id>http://yoursite.com/2016/03/14/absolute-margin/</id>
+    <published>2016-03-14T15:25:34.000Z</published>
+    <updated>2016-03-14T15:50:27.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; auto&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如上的方式并不能实现元素的水平居中。而采用相对定位则可以：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; relative&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; auto&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然而，absolute定位下，margin是可以工作的，例如&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样元素的确能相对父元素向右移动父元素宽度的50％。&lt;/p&gt;
+&lt;p&gt;一般对于absolute定位的元素，我们居中的方式为：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;50px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;还有有趣的一点是，如下代码，也能实现absolute定位元素的水平居中：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;positon&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;right&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; auto&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="css" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/css/"/>
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
     <title>表单（Form）小结</title>
     <link href="http://yoursite.com/2016/01/04/form/"/>
     <id>http://yoursite.com/2016/01/04/form/</id>
     <published>2016-01-04T02:42:44.000Z</published>
-    <updated>2016-03-07T09:56:43.000Z</updated>
+    <updated>2016-03-14T15:47:51.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;介绍&quot;&gt;介绍&lt;/h2&gt;&lt;p&gt;这段时间做了个后台的前端项目。说实话，之前并没有做过后台的项目。在做了后台项目后，发现最重要的是要熟练掌握表单相关的技术。这篇文章将我所做的后台项目中用到的表单相关的知识做一个总结，也算是一种积累吧。:)&lt;/p&gt;
 &lt;h3&gt;一个简单的表单示例&lt;/h3&gt;

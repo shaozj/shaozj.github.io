@@ -216,6 +216,172 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/14/absolute-margin/" itemprop="url">
+                  absolute定位下的margin居中失效
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-14T23:25:34+08:00" content="2016-03-14">
+              2016-03-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/14/absolute-margin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/14/absolute-margin/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+}</span>
+</code></pre><p>如上的方式并不能实现元素的水平居中。而采用相对定位则可以：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+}</span>
+</code></pre><p>然而，absolute定位下，margin是可以工作的，例如</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+}</span>
+</code></pre><p>这样元素的确能相对父元素向右移动父元素宽度的50％。</p>
+<p>一般对于absolute定位的元素，我们居中的方式为：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">50px</span></span></span>;
+}</span>
+</code></pre><p>还有有趣的一点是，如下代码，也能实现absolute定位元素的水平居中：</p>
+<pre><code><span class="class">.middle-div</span> <span class="rules">{
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
+    <span class="rule"><span class="attribute">positon</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
+}</span>
+</code></pre><p>这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/01/04/form/" itemprop="url">
                   表单（Form）小结
                 </a>
@@ -652,7 +818,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -660,7 +826,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
