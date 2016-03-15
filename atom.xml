@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-14T15:50:27.000Z</updated>
+  <updated>2016-03-15T15:55:53.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,70 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>30+有用css代码片段</title>
+    <link href="http://yoursite.com/2016/03/15/30pluscss/"/>
+    <id>http://yoursite.com/2016/03/15/30pluscss/</id>
+    <published>2016-03-15T15:37:29.000Z</published>
+    <updated>2016-03-15T15:55:53.000Z</updated>
+    
+    <content type="html">&lt;p&gt;原文：&lt;a href=&quot;http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;amp;utm_medium=referral&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;amp;utm_medium=referral&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;1、垂直对齐&quot;&gt;1、垂直对齐&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.vc&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; relative&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-webkit-transform&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;translateY&lt;/span&gt;(-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-o-transform&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;translateY&lt;/span&gt;(-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;transform&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;translateY&lt;/span&gt;(-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;2、只在一侧或两侧具有投影&quot;&gt;2、只在一侧或两侧具有投影&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.box-shadow&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;background-color&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;hexcolor&quot;&gt;#AC92EC&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;160px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;90px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;45px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;80px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+
+&lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;.box-shadow&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt;after {
+    content: &lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;150px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;1px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;88px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;75px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;display&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; block&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;z-index&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-webkit-box-shadow&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;8px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2px&lt;/span&gt; &lt;span class=&quot;hexcolor&quot;&gt;#000000&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+       &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-moz-box-shadow&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;8px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2px&lt;/span&gt; &lt;span class=&quot;hexcolor&quot;&gt;#000000&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+            &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;box-shadow&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;8px&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2px&lt;/span&gt; &lt;span class=&quot;hexcolor&quot;&gt;#000000&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;3、渐变背景动画效果&quot;&gt;3、渐变背景动画效果&lt;/h4&gt;&lt;p&gt;。。。未完待续&lt;/p&gt;
+&lt;p&gt;。。。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;原文：&lt;a href=&quot;http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;amp;utm_medium=referral&quot; target=&quot;_blan
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="css" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/css/"/>
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
     <title>absolute定位下的margin居中失效</title>
     <link href="http://yoursite.com/2016/03/14/absolute-margin/"/>
     <id>http://yoursite.com/2016/03/14/absolute-margin/</id>
     <published>2016-03-14T15:25:34.000Z</published>
-    <updated>2016-03-14T15:50:27.000Z</updated>
+    <updated>2016-03-14T15:54:00.000Z</updated>
     
     <content type="html">&lt;p&gt;在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{

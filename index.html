@@ -216,6 +216,167 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/15/30pluscss/" itemprop="url">
+                  30+有用css代码片段
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-15T23:37:29+08:00" content="2016-03-15">
+              2016-03-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/15/30pluscss/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/30pluscss/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文：<a href="http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;utm_medium=referral</a></p>
+<h4 id="1、垂直对齐">1、垂直对齐</h4><pre><code><span class="class">.vc</span> <span class="rules">{
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
+    <span class="rule"><span class="attribute">-o-transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
+    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
+}</span>
+</code></pre><h4 id="2、只在一侧或两侧具有投影">2、只在一侧或两侧具有投影</h4><pre><code><span class="class">.box-shadow</span> <span class="rules">{
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#AC92EC</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">160px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">90px</span></span></span>;
+    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">45px</span></span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">80px</span></span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+}</span>
+
+<span class="rule"><span class="attribute">.box-shadow</span>:<span class="value">after {
+    content: <span class="string">""</span></span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">150px</span></span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">1px</span></span></span>;
+    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">88px</span></span></span>;
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">75px</span></span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
+    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
+    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">1</span></span></span>;
+    <span class="rule"><span class="attribute">-webkit-box-shadow</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span> <span class="number">8px</span> <span class="number">2px</span> <span class="hexcolor">#000000</span></span></span>;
+       <span class="rule"><span class="attribute">-moz-box-shadow</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span> <span class="number">8px</span> <span class="number">2px</span> <span class="hexcolor">#000000</span></span></span>;
+            <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span> <span class="number">8px</span> <span class="number">2px</span> <span class="hexcolor">#000000</span></span></span>;
+}
+</code></pre><h4 id="3、渐变背景动画效果">3、渐变背景动画效果</h4><p>。。。未完待续</p>
+<p>。。。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/14/absolute-margin/" itemprop="url">
                   absolute定位下的margin居中失效
                 </a>
@@ -818,7 +979,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
