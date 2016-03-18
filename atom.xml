@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-18T09:20:06.000Z</updated>
+  <updated>2016-03-18T09:24:42.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/03/18/%E4%BC%98%E5%8C%96%E6%98%BE%E7%A4%BA%E6%95%88%E7%8E%87/"/>
     <id>http://yoursite.com/2016/03/18/优化显示效率/</id>
     <published>2016-03-18T09:17:45.000Z</published>
-    <updated>2016-03-18T09:20:06.000Z</updated>
+    <updated>2016-03-18T09:24:42.000Z</updated>
     
     <content type="html">&lt;p&gt;转载自@笑博，翻译自google大牛&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;number&quot;&gt;1.&lt;/span&gt; 删除不必要的下载（即减少http访问请求）
@@ -138,6 +138,10 @@
     
     </summary>
     
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端 性能" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF-%E6%80%A7%E8%83%BD/"/>
     
   </entry>
   
@@ -146,7 +150,7 @@
     <link href="http://yoursite.com/2016/03/17/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/"/>
     <id>http://yoursite.com/2016/03/17/Charles抓包实战/</id>
     <published>2016-03-17T06:01:06.000Z</published>
-    <updated>2016-03-17T06:12:25.000Z</updated>
+    <updated>2016-03-18T09:25:03.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;下载&quot;&gt;下载&lt;/h3&gt;&lt;p&gt;官网下载地址：&lt;a href=&quot;http://www.charlesproxy.com/latest-release/download.do&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.charlesproxy.com/latest-release/download.do&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;下载后直接安装即可&lt;/p&gt;
@@ -162,6 +166,8 @@
       &lt;h3 id=&quot;下载&quot;&gt;下载&lt;/h3&gt;&lt;p&gt;官网下载地址：&lt;a href=&quot;http://www.charlesproxy.com/latest-release/download.do&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.char
     
     </summary>
+    
+      <category term="调试" scheme="http://yoursite.com/categories/%E8%B0%83%E8%AF%95/"/>
     
     
       <category term="调试" scheme="http://yoursite.com/tags/%E8%B0%83%E8%AF%95/"/>
