@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-15T15:55:53.000Z</updated>
+  <updated>2016-03-18T09:20:06.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,159 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谷歌前端开发指南之优化内容显示效率</title>
+    <link href="http://yoursite.com/2016/03/18/%E4%BC%98%E5%8C%96%E6%98%BE%E7%A4%BA%E6%95%88%E7%8E%87/"/>
+    <id>http://yoursite.com/2016/03/18/优化显示效率/</id>
+    <published>2016-03-18T09:17:45.000Z</published>
+    <updated>2016-03-18T09:20:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;转载自@笑博，翻译自google大牛&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;number&quot;&gt;1.&lt;/span&gt; 删除不必要的下载（即减少http访问请求）
+&lt;span class=&quot;number&quot;&gt;2.&lt;/span&gt; 优化基于文本的资产的编码和传输大小
+&lt;span class=&quot;number&quot;&gt;3.&lt;/span&gt; 图片优化
+&lt;span class=&quot;number&quot;&gt;4.&lt;/span&gt; 网页字体优化
+&lt;span class=&quot;number&quot;&gt;5.&lt;/span&gt; HTTP 缓存
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;1-_删除不必要的下载（即减少http访问请求）（最快和最好的优化资源是不需要下载的资源。）&quot;&gt;1. 删除不必要的下载（即减少http访问请求）（最快和最好的优化资源是不需要下载的资源。）&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;网页往往会包含一些不必要的资源；或者更糟的是，包含的某些资源会影响网页性能，同时还无法给访问者或所处的网站带来太大价值。&lt;/li&gt;
+&lt;li&gt;要实现最佳效果，应针对网页上的每个资源，定期清点和重新评估。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;2-_优化基于文本的资产的编码和传输大小&quot;&gt;2. 优化基于文本的资产的编码和传输大小&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;数据压缩&lt;ul&gt;
+&lt;li&gt;将浏览器必须下载的剩余资源的总大小减至最小&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;源码压缩：预处理和特定于内容的优化&lt;/li&gt;
+&lt;li&gt;使用 GZIP 进行文本压缩&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;3-_图片优化&quot;&gt;3. 图片优化&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;删除和替换图片：&lt;code&gt;要实现所需的效果，是否确实需要图片&lt;/code&gt; —— 能否利用CSS效果等更高效的方式替代&lt;/li&gt;
+&lt;li&gt;矢量图与光栅图：&lt;ul&gt;
+&lt;li&gt;矢量图（使用线、点和多边形来展示图片）：最适用于由简单的几何形状（例如徽标、文字、图标等）组成的图片，任何分辨率和缩放设置都可以提供清晰的效果，该格式最适用于需要以不同尺寸显示的高分辨率场景和资源。&lt;/li&gt;
+&lt;li&gt;光栅图（通过对矩形栅格内每个像素的值进行编码来展示图片）：场景复杂（例如照片等），就应使用光栅图格式 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;高分辨率屏幕的含义（高分辨率屏幕需要高分辨率图片）：尽可能选择矢量图，因为矢量图与分辨率无关，始终可以实现清晰的效果，如果需要光栅图，应提供并优化每个图片的多个版本。&lt;/li&gt;
+&lt;li&gt;优化矢量图（SVG文件）&lt;ul&gt;
+&lt;li&gt;通过运行 svgo 之类的工具缩减 SVG 文件 &lt;/li&gt;
+&lt;li&gt;因为 SVG 是基于 XML 的格式，所以，还可以采用 GZIP 压缩来减小传输大小 - 确保将服务器配置为压缩 SVG 资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;优化光栅图&lt;ul&gt;
+&lt;li&gt;光栅图是一个 2 维’像素’栅格（如：100 x 100 像素的图片是 10000 个像素的序列），每个像素存储’RGBA‘值：(R) 红色通道、(G) 绿色通道、(B) 蓝色通道和 (A) alpha（透明度）通道&lt;/li&gt;
+&lt;li&gt;无论将数据从服务器传输到客户端时使用哪种图片格式，在浏览器对图片进行解码时，每个像素始终占用 4 个字节的内存。对于较大的图片以及可用内存不足的设备（例如低端移动设备）来说，这可能是一个重要的约束条件。&lt;/li&gt;
+&lt;li&gt;压缩图片，考虑使用webp&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;无损图片压缩与有损图片压缩：&lt;ul&gt;
+&lt;li&gt;使用’有损‘过滤器处理图片，删除一些像素数据&lt;/li&gt;
+&lt;li&gt;使用’无损‘过滤器处理图片，压缩像素数据&lt;/li&gt;
+&lt;li&gt;因为对图片进行编码所使用的算法不同，所以，不同图片格式的质量级别无法直接进行比较：质量为 90 的 JPEG 与质量为 90 的 WebP 效果截然不同。实际上，即使相同图片格式的质量级别，根据压缩程序的使用方式不同，视觉效果可能也会不同！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;选择正确的图片格式：&lt;ul&gt;
+&lt;li&gt;普遍支持的三种格式为：GIF、PNG 和 JPEG。除了这些格式之外，某些浏览器还支持 WebP 和 JPEG XR 等较新的格式，可以提供更好的整体压缩以及更多的功能。&lt;/li&gt;
+&lt;li&gt;平均来说，与可比的 JPEG 图片相比，WebP 可以使文件大小减少 30%。&lt;/li&gt;
+&lt;li&gt;优化工具：&lt;ul&gt;
+&lt;li&gt;gifsicle    创建和优化 GIF 图片&lt;/li&gt;
+&lt;li&gt;jpegtran    优化 JPEG 图片&lt;/li&gt;
+&lt;li&gt;optipng    无损 PNG 优化&lt;/li&gt;
+&lt;li&gt;pngquant    有损 PNG 优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;提供缩放的图片资源：尽量提供尺寸合适的图片，减少因图片缩放耗费性能&lt;ul&gt;
+&lt;li&gt;尽管您也许无法保证每个资源都以精确的显示尺寸提供，但是，应确保不必要的像素数最少，并确保特别是较大资产以尽可能接近显示尺寸的尺寸提供。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在优化图片时，要记住下列技巧和方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首选矢量格式：矢量图与分辨率和缩放无关，最适用于多设备或高分辨率的情况。&lt;/li&gt;
+&lt;li&gt;缩减和压缩 SVG 资源：大多数绘图应用程序生成的 XML 标记通常包含不必要的元数据，可以删除；确保服务器配置为对 SVG 资源采用 GZIP 压缩。&lt;/li&gt;
+&lt;li&gt;选择最佳光栅图格式：确定功能要求，然后选择适合每个特定资源的格式。&lt;/li&gt;
+&lt;li&gt;体验光栅格式的最优质量设置：随意降低’质量’设置，效果通常非常好，而字节可能会节省很多。&lt;/li&gt;
+&lt;li&gt;删除不必要的图片元数据：许多光栅图包含不必要的资源元数据：地理信息、相机信息等。使用适合的工具删除这些数据。&lt;/li&gt;
+&lt;li&gt;提供缩放的图片：调整服务器上的图片尺寸，确保’显示’尺寸尽可能接近图片的’自然’尺寸。尤其要密切关注较大的图片，因为这些图片在调整尺寸时，占用了最大的额外开销！&lt;/li&gt;
+&lt;li&gt;自动：投资自动化的工具和基础设施，这样，可以确保所有图片资源始终会进行优化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;4-_网页字体优化&quot;&gt;4. 网页字体优化&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;网页字体解析&lt;ul&gt;
+&lt;li&gt;网页字体格式&lt;/li&gt;
+&lt;li&gt;通过压缩减小字体大小&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;使用 @font-face 定义字体系列&lt;ul&gt;
+&lt;li&gt;格式选择&lt;/li&gt;
+&lt;li&gt;Unicode-range 子集内嵌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;优化加载和呈现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;5-_HTTP_缓存&quot;&gt;5. HTTP 缓存&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用 ETag 验证缓存的响应&lt;ul&gt;
+&lt;li&gt;服务器会生成并返回一个随机令牌，通常是文件内容的哈希值或者某个其他指纹码。客户端不必了解指纹码是如何生成的，只需要在下一个请求中将其发送给服务器：如果指纹码仍然一致，说明资源未被修改，我们就可以跳过下载。&lt;/li&gt;
+&lt;li&gt;实际上，我们唯一要做的就是确保服务器提供必要的 ETag 令牌：查看服务器文档中是否有必要的配置标志。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Cache-Control&lt;/li&gt;
+&lt;li&gt;废弃和更新已缓存的响应&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在定义缓存策略时，要记住下列技巧和方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用一致的网址：如果您在不同的网址上提供相同的内容，将会多次获取和存储该内容。提示：注意，网址区分大小写！&lt;/li&gt;
+&lt;li&gt;确保服务器提供验证令牌 (ETag)：通过验证令牌，如果服务器上的资源未被更改，就不必传输相同的字节。&lt;/li&gt;
+&lt;li&gt;确定中继缓存可以缓存哪些资源：对所有用户的响应完全相同的资源很适合由 CDN 或其他中继缓存进行缓存。&lt;/li&gt;
+&lt;li&gt;确定每个资源的最优缓存周期：不同的资源可能有不同的更新要求。审查并确定每个资源适合的 max-age。&lt;/li&gt;
+&lt;li&gt;确定网站的最佳缓存层级：对 HTML 文档组合使用包含内容指纹码的资源网址以及短时间或 no-cache 的生命周期，可以控制客户端获取更新的速度。&lt;/li&gt;
+&lt;li&gt;搅动最小化：有些资源的更新比其他资源频繁。如果资源的特定部分（例如 JavaScript 函数或一组 CSS 样式）会经常更新，应考虑将其代码作为单独的文件提供。这样，每次获取更新时，剩余内容（例如不会频繁更新的库代码）可以从缓存中获取，确保下载的内容量最少。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;转载自@笑博，翻译自google大牛&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;number&quot;&gt;1.&lt;/span&gt; 删除不必要的下载（即减少http访问请求）
+&lt;span class=&quot;number&quot;&gt;2.&lt;/span&gt; 优化基于文本的资产的编码和传输大小
+&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Charles抓包实战</title>
+    <link href="http://yoursite.com/2016/03/17/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/"/>
+    <id>http://yoursite.com/2016/03/17/Charles抓包实战/</id>
+    <published>2016-03-17T06:01:06.000Z</published>
+    <updated>2016-03-17T06:12:25.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;下载&quot;&gt;下载&lt;/h3&gt;&lt;p&gt;官网下载地址：&lt;a href=&quot;http://www.charlesproxy.com/latest-release/download.do&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.charlesproxy.com/latest-release/download.do&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载后直接安装即可&lt;/p&gt;
+&lt;h3 id=&quot;抓包&quot;&gt;抓包&lt;/h3&gt;&lt;h4 id=&quot;一、http抓包&quot;&gt;一、http抓包&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;1、打开Charles程序&lt;/li&gt;
+&lt;li&gt;2、查看Mac电脑的IP地址，系统偏好设置-&amp;gt;网络就可以查看到了，比如我的ip地址是：30.11.160.175&lt;/li&gt;
+&lt;li&gt;3、打开iOS设置，进入当前wifi连接(Mac在一个局域网内)，设置HTTP代理Group，将服务器填为上一步中获得的IP，即30.11.160.175，端口填8888：&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;下载&quot;&gt;下载&lt;/h3&gt;&lt;p&gt;官网下载地址：&lt;a href=&quot;http://www.charlesproxy.com/latest-release/download.do&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.char
+    
+    </summary>
+    
+    
+      <category term="调试" scheme="http://yoursite.com/tags/%E8%B0%83%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>30+有用css代码片段</title>
@@ -79,7 +232,7 @@
     <link href="http://yoursite.com/2016/03/14/absolute-margin/"/>
     <id>http://yoursite.com/2016/03/14/absolute-margin/</id>
     <published>2016-03-14T15:25:34.000Z</published>
-    <updated>2016-03-14T15:54:00.000Z</updated>
+    <updated>2016-03-18T03:31:48.000Z</updated>
     
     <content type="html">&lt;p&gt;在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
@@ -121,6 +274,7 @@
     &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt; auto&lt;/span&gt;&lt;/span&gt;;
 }&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/petehunt/react-howto/blob/master/README-zh.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何学习react&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
