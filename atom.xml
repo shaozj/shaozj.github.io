@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-18T09:24:42.000Z</updated>
+  <updated>2016-08-07T03:50:22.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6 模板字符串</title>
+    <link href="http://yoursite.com/2016/08/07/ES6-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <id>http://yoursite.com/2016/08/07/ES6-模板字符串/</id>
+    <published>2016-08-07T03:49:14.000Z</published>
+    <updated>2016-08-07T03:50:22.000Z</updated>
+    
+    <content type="html">&lt;p&gt;ddddd&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ddddd&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>webpack学习</title>
+    <link href="http://yoursite.com/2016/03/23/webpack%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2016/03/23/webpack学习/</id>
+    <published>2016-03-23T02:51:53.000Z</published>
+    <updated>2016-03-23T07:12:56.000Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;功能需求&quot;&gt;功能需求&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;编译&lt;/li&gt;
+&lt;li&gt;压缩&lt;/li&gt;
+&lt;li&gt;web服务器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;webpack学习&quot;&gt;webpack学习&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;$ webpack --config XXX&lt;span class=&quot;class&quot;&gt;.js&lt;/span&gt;   &lt;span class=&quot;comment&quot;&gt;//使用另一份配置文件（比如webpack.config2.js）来打包&lt;/span&gt;
+
+$ webpack --watch   &lt;span class=&quot;comment&quot;&gt;//监听变动并自动打包&lt;/span&gt;
+
+$ webpack -&lt;span class=&quot;tag&quot;&gt;p&lt;/span&gt;    &lt;span class=&quot;comment&quot;&gt;//压缩混淆脚本，这个非常非常重要！&lt;/span&gt;
+
+$ webpack -d    &lt;span class=&quot;comment&quot;&gt;//生成map映射文件，告知哪些模块被最终打包到哪里了&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;功能需求&quot;&gt;功能需求&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;编译&lt;/li&gt;
+&lt;li&gt;压缩&lt;/li&gt;
+&lt;li&gt;web服务器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;webpack学习&quot;&gt;webpack学习&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;$ webpack --config XXX
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>谷歌前端开发指南之优化内容显示效率</title>
@@ -238,7 +299,7 @@
     <link href="http://yoursite.com/2016/03/14/absolute-margin/"/>
     <id>http://yoursite.com/2016/03/14/absolute-margin/</id>
     <published>2016-03-14T15:25:34.000Z</published>
-    <updated>2016-03-18T03:31:48.000Z</updated>
+    <updated>2016-03-18T09:41:16.000Z</updated>
     
     <content type="html">&lt;p&gt;在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.middle-div&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
@@ -281,6 +342,7 @@
 }&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/petehunt/react-howto/blob/master/README-zh.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何学习react&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/36516604&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;react 有哪些最佳实践?&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">

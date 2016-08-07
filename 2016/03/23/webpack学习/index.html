@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="css," />
+  <meta name="keywords" content="前端," />
 
 
 
@@ -59,43 +59,49 @@
 
 
 
-<meta name="description" content="在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：
-.middle-div {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    margin: 0 auto;
-}
-如上的方式并不能实现元素的水平居中。而采用相对定位则可以：
-.middle-div {
-    width: 100px;">
+<meta name="description" content="功能需求
+编译
+压缩
+web服务器
+
+webpack学习$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
+
+$ webpack --watch   //监听变动并自动打包
+
+$ webpack -p    //压缩混淆脚本，这个非常非常重要！
+
+$ webpack -d    //生成map映射文件，告知哪些模块被最终">
 <meta property="og:type" content="article">
-<meta property="og:title" content="absolute定位下的margin居中失效">
-<meta property="og:url" content="http://yoursite.com/2016/03/14/absolute-margin/index.html">
+<meta property="og:title" content="webpack学习">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/webpack学习/index.html">
 <meta property="og:site_name" content="Shaozj's blog">
-<meta property="og:description" content="在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：
-.middle-div {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    margin: 0 auto;
-}
-如上的方式并不能实现元素的水平居中。而采用相对定位则可以：
-.middle-div {
-    width: 100px;">
-<meta property="og:updated_time" content="2016-03-18T09:41:16.000Z">
+<meta property="og:description" content="功能需求
+编译
+压缩
+web服务器
+
+webpack学习$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
+
+$ webpack --watch   //监听变动并自动打包
+
+$ webpack -p    //压缩混淆脚本，这个非常非常重要！
+
+$ webpack -d    //生成map映射文件，告知哪些模块被最终">
+<meta property="og:updated_time" content="2016-03-23T07:12:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="absolute定位下的margin居中失效">
-<meta name="twitter:description" content="在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：
-.middle-div {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    margin: 0 auto;
-}
-如上的方式并不能实现元素的水平居中。而采用相对定位则可以：
-.middle-div {
-    width: 100px;">
+<meta name="twitter:title" content="webpack学习">
+<meta name="twitter:description" content="功能需求
+编译
+压缩
+web服务器
+
+webpack学习$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
+
+$ webpack --watch   //监听变动并自动打包
+
+$ webpack -p    //压缩混淆脚本，这个非常非常重要！
+
+$ webpack -d    //生成map映射文件，告知哪些模块被最终">
 
 
 
@@ -113,7 +119,7 @@
   };
 </script>
 
-  <title> absolute定位下的margin居中失效 | Shaozj's blog </title>
+  <title> webpack学习 | Shaozj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +247,7 @@
             
             
               
-                absolute定位下的margin居中失效
+                webpack学习
               
             
           </h1>
@@ -253,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-14T23:25:34+08:00" content="2016-03-14">
-              2016-03-14
+            <time itemprop="dateCreated" datetime="2016-03-23T10:51:53+08:00" content="2016-03-23">
+              2016-03-23
             </time>
           </span>
 
@@ -274,18 +280,6 @@
 
                 
                 
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
 
               
             </span>
@@ -295,8 +289,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/14/absolute-margin/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/14/absolute-margin/" itemprop="commentsCount"></span>
+                <a href="/2016/03/23/webpack学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/23/webpack学习/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -318,49 +312,19 @@
       
 
       
-        <p>在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-}</span>
-</code></pre><p>如上的方式并不能实现元素的水平居中。而采用相对定位则可以：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-}</span>
-</code></pre><p>然而，absolute定位下，margin是可以工作的，例如</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-}</span>
-</code></pre><p>这样元素的确能相对父元素向右移动父元素宽度的50％。</p>
-<p>一般对于absolute定位的元素，我们居中的方式为：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">50px</span></span></span>;
-}</span>
-</code></pre><p>还有有趣的一点是，如下代码，也能实现absolute定位元素的水平居中：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">positon</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-}</span>
-</code></pre><p>这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。</p>
-<p><a href="https://github.com/petehunt/react-howto/blob/master/README-zh.md" target="_blank" rel="external">如何学习react</a></p>
-<p><a href="https://www.zhihu.com/question/36516604" target="_blank" rel="external">react 有哪些最佳实践?</a></p>
+        <h4 id="功能需求">功能需求</h4><ul>
+<li>编译</li>
+<li>压缩</li>
+<li>web服务器</li>
+</ul>
+<h4 id="webpack学习">webpack学习</h4><pre><code>$ webpack --config XXX<span class="class">.js</span>   <span class="comment">//使用另一份配置文件（比如webpack.config2.js）来打包</span>
 
+$ webpack --watch   <span class="comment">//监听变动并自动打包</span>
+
+$ webpack -<span class="tag">p</span>    <span class="comment">//压缩混淆脚本，这个非常非常重要！</span>
+
+$ webpack -d    <span class="comment">//生成map映射文件，告知哪些模块被最终打包到哪里了</span>
+</code></pre>
       
     </div>
 
@@ -374,7 +338,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css/" rel="tag">#css</a>
+            <a href="/tags/前端/" rel="tag">#前端</a>
           
         </div>
       
@@ -383,16 +347,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/04/form/" rel="next" title="表单（Form）小结">
-                <i class="fa fa-chevron-left"></i> 表单（Form）小结
+              <a href="/2016/03/18/优化显示效率/" rel="next" title="谷歌前端开发指南之优化内容显示效率">
+                <i class="fa fa-chevron-left"></i> 谷歌前端开发指南之优化内容显示效率
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/15/30pluscss/" rel="prev" title="30+有用css代码片段">
-                30+有用css代码片段 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/07/ES6-模板字符串/" rel="prev" title="ES6 模板字符串">
+                ES6 模板字符串 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -419,8 +383,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/14/absolute-margin/"
-           data-title="absolute定位下的margin居中失效" data-url="http://yoursite.com/2016/03/14/absolute-margin/">
+      <div class="ds-thread" data-thread-key="2016/03/23/webpack学习/"
+           data-title="webpack学习" data-url="http://yoursite.com/2016/03/23/webpack学习/">
       </div>
     
   </div>
@@ -539,7 +503,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能需求"><span class="nav-number">1.</span> <span class="nav-text">功能需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack学习"><span class="nav-number">2.</span> <span class="nav-text">webpack学习</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
