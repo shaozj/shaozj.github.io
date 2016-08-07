@@ -285,7 +285,72 @@
       
         
           
-            <p>ddddd</p>
+            <p>无论是前端还是后端，都存在着模板引擎。模板引擎有着丰富的表现力，使得我们可以根据不同的数据渲染出不同的页面结构以及内容。在es6中引入了模板字符串，使得我们可以在字符串中嵌入变量、表达式以及可以直接写多行字符串。另外，模板字符串还支持嵌套使用。这些特性，一些模板引擎基本的功能，我们可以用es6模板字符串来实现。</p>
+<h3 id="for_循环">for 循环</h3><ul>
+<li><p>一种比较直接的方式是：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$&#123;</span><br><span class="line">	(()=&gt;&#123;</span><br><span class="line">      <span class="keyword">let</span> html = <span class="string">''</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = blocksData.length; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> curData = blocksData[i];</span><br><span class="line">        <span class="keyword">let</span> jsonData = <span class="built_in">JSON</span>.stringify(curData);</span><br><span class="line">        html += <span class="string">`&lt;div class="item-box block4in1 <span class="subst">$&#123;setClass(i)&#125;</span>" data-json="<span class="subst">$&#123;eH(jsonData)&#125;</span>" fe-role="Widget"&gt;</span><br><span class="line">                    &lt;div class="item-content"&gt;</span><br><span class="line">                        &lt;img class="poster" src="<span class="subst">$&#123;eH(baseUrl + curData.recommendImage)&#125;</span>"&gt;</span><br><span class="line">                        &lt;div class="item-mask"&gt;&lt;/div&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                &lt;/div&gt;`</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> html;</span><br><span class="line">    &#125;)()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以看到，我们利用一个立即执行函数，在函数内写一个for循环来实现。</p>
+<ul>
+<li><p>对以上的方法稍加优化，我们可以得到如下的代码：</p>
+  <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$&#123;</span><br><span class="line">	blocksData.reduce((prev, next, i, arr) =&gt; &#123;</span><br><span class="line">		<span class="keyword">let</span> jsonData = JSON.stringify(next);</span><br><span class="line">		<span class="keyword">return</span> prev += `&lt;div <span class="keyword">class</span>=<span class="string">"item-box block4in1 $&#123;setClass(i)&#125;"</span> data-json=<span class="string">"$&#123;eH(jsonData)&#125;"</span> fe-role=<span class="string">"Widget"</span>&gt;</span><br><span class="line">							&lt;div <span class="keyword">class</span>=<span class="string">"item-content"</span>&gt;</span><br><span class="line">								&lt;img <span class="keyword">class</span>=<span class="string">"poster"</span> src=<span class="string">"$&#123;eH(baseUrl + next.recommendImage)&#125;"</span>&gt;</span><br><span class="line">								&lt;div <span class="keyword">class</span>=<span class="string">"item-mask"</span>&gt;&lt;/div&gt;</span><br><span class="line">							&lt;/div&gt;</span><br><span class="line">						&lt;/div&gt;`;</span><br><span class="line">	&#125;, <span class="string">''</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们利用了Array的reduce方法，从而不需要将代码封装在一个立即执行函数之中。</p>
+<h3 id="if_else_条件判断">if else 条件判断</h3><ul>
+<li><p>很容易想到用三目运算符：</p>
+  <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	$&#123;</span><br><span class="line">		(<span class="built_in">data</span> <span class="subst">&amp;&amp;</span> <span class="built_in">data</span> != <span class="string">''</span>) ? <span class="string">`&lt;div&gt;$&#123;data&#125;&lt;/div&gt;`</span> : <span class="string">`&lt;div&gt;no contnet&lt;/div&gt;`</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="string">``</span><span class="string">` </span><br><span class="line">	</span><br><span class="line">* 如果只在存在数据时有相应的html，不存在数据时没有html，则可以这么写：</span></span><br></pre></td></tr></table></figure>
+<pre><code>(<span class="typedef"><span class="keyword">data</span> &amp;&amp; <span class="keyword">data</span> != '') &amp;&amp; `&lt;div&gt;$<span class="container">{<span class="title">data</span>}</span>&lt;/div&gt;`</span>
+</code></pre>  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">	</span></span><br><span class="line"><span class="header">### 特殊字符转义</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>在模板中非常重要的一点是字符串的转义，因为涉及到安全的问题，一个简单的方式是利用标签模板：</span><br></pre></td></tr></table></figure>
+<p>  var message = SaferHTML<code>&lt;p&gt;${bonk.sender} has sent you a bonk.&lt;/p&gt;</code>;</p>
+  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上面的代码等价于：</span><br></pre></td></tr></table></figure>
+<p>  var message = SaferHTML(templateData, bonk.sender);</p>
+  <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其中，	templateData 是一个不可变的字符串数组，在上例中为：</span><br><span class="line"><span class="escape">`O</span>bject.freeze([<span class="string">"&lt;p&gt;"</span>, <span class="string">" has sent you a bonk.&lt;/p&gt;"</span>]<span class="escape">`</span><br><span class="line"></span></span><br><span class="line">SaferHTML需要我们自己去实现：</span><br></pre></td></tr></table></figure>
+<p>  function SaferHTML(templateData) {</p>
+<pre><code><span class="keyword">var</span> s = templateData[0];
+<span class="keyword">for</span> (<span class="keyword">var</span> i = 1; i &lt; arguments.length; i++) {
+  <span class="keyword">var</span> arg = <span class="literal">String</span>(arguments[i]);
+
+  <span class="comment">// Escape special characters in the substitution.</span>
+  s += arg.<span class="keyword">replace</span>(/&amp;/<span class="keyword">g</span>, <span class="string">"&amp;amp;"</span>)
+          .<span class="keyword">replace</span>(/&lt;/<span class="keyword">g</span>, <span class="string">"&amp;lt;"</span>)
+          .<span class="keyword">replace</span>(/&gt;/<span class="keyword">g</span>, <span class="string">"&amp;gt;"</span>);
+
+  <span class="comment">// Don't escape special characters in the template.</span>
+  s += templateData[i];
+}
+<span class="keyword">return</span> s;
+</code></pre><p>  }</p>
+  <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">从安全角度来看，这个 SaferHTML 非常脆弱。在 HTML 中，不同的地方需要用不同的方式去转义，SaferHTML 并没有做到。  </span><br><span class="line">另外一点是，这个方法只适用于没有嵌套使用模板字符串的情况，如果嵌套使用，那么一些不该被转义的字符串页会被转义。在这种情况下，我们还是老老实实地对每一处改转义的地方进行转义.</span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>首先，需要编写一个转义函数：</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>转义 html 字符，防止 xss 攻击</li>
+<li>@author: lanqin <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#122;&#104;&#101;&#110;&#106;&#x69;&#x61;&#x6e;&#103;&#46;&#x73;&#x7a;&#x6a;&#x40;&#x61;&#x6c;&#105;&#98;&#x61;&#x62;&#x61;&#45;&#105;&#110;&#99;&#46;&#x63;&#x6f;&#109;">&#122;&#104;&#101;&#110;&#106;&#x69;&#x61;&#x6e;&#103;&#46;&#x73;&#x7a;&#x6a;&#x40;&#x61;&#x6c;&#105;&#98;&#x61;&#x62;&#x61;&#45;&#105;&#110;&#99;&#46;&#x63;&#x6f;&#109;</a></li>
+<li>@date: since 2016.08.07<br>*/</li>
+</ul>
+<p>const reUnescapedHtml = /[&amp;&lt;&gt;”‘<code>]/g; // 需要被转码的字符
+const reHasUnescapedHtml = RegExp(reUnescapedHtml.source); // 测试是否有unescaped字符时不需要 &#39;g&#39;
+const htmlEscapes = {
+        &#39;&amp;&#39;: &#39;&amp;amp;&#39;,
+        &#39;&lt;&#39;: &#39;&amp;lt;&#39;,
+        &#39;&gt;&#39;: &#39;&amp;gt;&#39;,
+        &#39;&quot;&#39;: &#39;&amp;quot;&#39;,
+        &quot;&#39;&quot;: &#39;&amp;#39;&#39;,
+        &#39;</code>‘: ‘&#96;’<br>      };<br>const escapeHtmlChar = basePropertyOf(htmlEscapes);</p>
+<p>function basePropertyOf(object) {<br>  return function(key) {<br>    return object == null ? undefined : object[key];<br>  };<br>}</p>
+<p>/**</p>
+<ul>
+<li>转义html字符串</li>
+<li>@param string {String} 输入的字符串</li>
+<li>@return {String} 转义后的字符串<br>*/<br>function escapeHTML(string) {<br>return (string &amp;&amp; reHasUnescapedHtml.test(string))<br>  ? string.replace(reUnescapedHtml, escapeHtmlChar)<br>  : string;<br>} </li>
+</ul>
+<p>module.exports = escapeHTML;</p>
+<p>```</p>
+<p>然后我们在每一个需要转义字符串的地方调用 escapeHTML 方法进行转义。</p>
+<h4 id="参考文献：">参考文献：</h4><p><a href="https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet" target="_blank" rel="external">DOM based XSS Prevention Cheat Sheet</a><br><a href="https://segmentfault.com/a/1190000003874852" target="_blank" rel="external">[Web 安全] 了解XSS与防范</a><br><a href="http://wiki.jikexueyuan.com/project/es-six-deeply/template-strings.html" target="_blank" rel="external">模版字符串</a><br><a href="http://jaysoo.ca/2014/03/20/i18n-with-es6-template-strings/" target="_blank" rel="external">i18n with tagged template strings in ECMAScript 6</a></p>
 
           
         
