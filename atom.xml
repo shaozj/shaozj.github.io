@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-14T07:46:46.000Z</updated>
+  <updated>2016-08-14T07:49:06.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>xss 安全防范</title>
+    <title>XSS 安全防范</title>
     <link href="http://yoursite.com/2016/08/14/xss-%E5%AE%89%E5%85%A8%E9%98%B2%E8%8C%83/"/>
     <id>http://yoursite.com/2016/08/14/xss-安全防范/</id>
     <published>2016-08-14T06:18:15.000Z</published>
-    <updated>2016-08-14T07:46:46.000Z</updated>
+    <updated>2016-08-14T07:49:06.000Z</updated>
     
     <content type="html">&lt;p&gt;XSS是跨站脚本攻击，主要特点是开发者之外的人向页面内容注入了脚本执行。&lt;br&gt;XSS攻击有两个要素，一是来自用户或者三方的内容，二是被当做html或者javascript代码执行。&lt;br&gt;在面对XSS攻击时，需要牢记的一句话是：&lt;strong&gt;一切输入和输出都是敌对的！&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&quot;XSS_攻击的输入点&quot;&gt;XSS 攻击的输入点&lt;/h3&gt;&lt;p&gt;开发者之外的人可以通过以下输入点向页面中注入攻击脚本：&lt;/p&gt;
