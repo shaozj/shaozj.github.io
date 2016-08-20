@@ -71,7 +71,7 @@ window.location/document.location/docume">
 XSS 攻击的输入点开发者之外的人可以通过以下输入点向页面中注入攻击脚本：
 
 window.location/document.location/docume">
-<meta property="og:updated_time" content="2016-08-14T07:53:26.000Z">
+<meta property="og:updated_time" content="2016-08-15T06:24:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XSS 安全防范">
 <meta name="twitter:description" content="XSS是跨站脚本攻击，主要特点是开发者之外的人向页面内容注入了脚本执行。XSS攻击有两个要素，一是来自用户或者三方的内容，二是被当做html或者javascript代码执行。在面对XSS攻击时，需要牢记的一句话是：一切输入和输出都是敌对的！
@@ -345,7 +345,20 @@ window.location/document.location/docume">
 <li><p>window.location：跳转url，因为uri可能是javascript协议，建议使用lib.httpurl解析url的结构和参数，确定域名属于安全域名。</p>
 </li>
 </ul>
-<h3 id="XSS_攻击方式">XSS 攻击方式</h3>
+<h3 id="XSS_攻击实例">XSS 攻击实例</h3><h4 id="HTML_攻击">HTML 攻击</h4><ul>
+<li><p>输出点</p>
+<ul>
+<li><code>&lt;img src=&quot;[代码]&quot;&gt;</code></li>
+<li><p>现在弹个窗:</p>
+<p> <code>&lt;img src=&quot;x&quot; onerror=&quot;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#49;&amp;#41;&quot;&gt;</code></p>
+</li>
+<li><p>原code:</p>
+<p>  <code>&lt;img src=&quot;x&quot; onerror=&quot;alert(1)&quot;&gt;</code></p>
+</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
 
@@ -377,6 +390,10 @@ window.location/document.location/docume">
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/20/vim前端配置/" rel="prev" title="vim前端配置">
+                vim前端配置 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -448,7 +465,7 @@ window.location/document.location/docume">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -456,7 +473,7 @@ window.location/document.location/docume">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -465,7 +482,7 @@ window.location/document.location/docume">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -522,7 +539,7 @@ window.location/document.location/docume">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS_攻击的输入点"><span class="nav-number">1.</span> <span class="nav-text">XSS 攻击的输入点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS_攻击的输出点"><span class="nav-number">2.</span> <span class="nav-text">XSS 攻击的输出点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS_攻击方式"><span class="nav-number">3.</span> <span class="nav-text">XSS 攻击方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS_攻击的输入点"><span class="nav-number">1.</span> <span class="nav-text">XSS 攻击的输入点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS_攻击的输出点"><span class="nav-number">2.</span> <span class="nav-text">XSS 攻击的输出点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS_攻击实例"><span class="nav-number">3.</span> <span class="nav-text">XSS 攻击实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML_攻击"><span class="nav-number">3.1.</span> <span class="nav-text">HTML 攻击</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

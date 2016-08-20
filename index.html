@@ -216,6 +216,197 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/20/vim前端配置/" itemprop="url">
+                  vim前端配置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-20T15:37:52+08:00" content="2016-08-20">
+              2016-08-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/vim/" itemprop="url" rel="index">
+                    <span itemprop="name">vim</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/20/vim前端配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/20/vim前端配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="VIM_插件管理器">VIM 插件管理器</h3><p><a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">Vundle</a>  </p>
+<ul>
+<li><p>下载<br>  <code>$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></p>
+</li>
+<li><p>配置插件<br>  在<code>~/.vimrc</code>文件中添加  </p>
+<pre><code><span class="operator"><span class="keyword">set</span> nocompatible              <span class="string">" be iMproved, required
+filetype off                  "</span> <span class="keyword">required</span>
+
+<span class="string">" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"</span> alternatively, pass a <span class="keyword">path</span> <span class="keyword">where</span> Vundle should <span class="keyword">install</span> plugins
+<span class="string">"call vundle#begin('~/some/path/here')
+
+"</span> let Vundle manage Vundle, <span class="keyword">required</span>
+<span class="keyword">Plugin</span> <span class="string">'VundleVim/Vundle.vim'</span>
+
+<span class="string">" The following are examples of different formats supported.
+"</span> <span class="keyword">Keep</span> <span class="keyword">Plugin</span> commands <span class="keyword">between</span> vundle#<span class="keyword">begin</span>/<span class="keyword">end</span>.
+<span class="string">" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+"</span> <span class="keyword">plugin</span> <span class="keyword">from</span> <span class="keyword">http</span>://vim-scripts.org/vim/scripts.html
+<span class="keyword">Plugin</span> <span class="string">'L9'</span>
+<span class="string">" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+"</span> git repos <span class="keyword">on</span> your <span class="keyword">local</span> machine (<span class="keyword">i</span>.<span class="keyword">e</span>. <span class="keyword">when</span> working <span class="keyword">on</span> your own <span class="keyword">plugin</span>)
+<span class="keyword">Plugin</span> <span class="string">'file:///home/gmarik/path/to/plugin'</span>
+<span class="string">" The sparkup vim script is in a subdirectory of this repo called vim.
+"</span> Pass the <span class="keyword">path</span> <span class="keyword">to</span> <span class="keyword">set</span> the runtimepath properly.
+<span class="keyword">Plugin</span> <span class="string">'rstacruz/sparkup'</span>, {<span class="string">'rtp'</span>: <span class="string">'vim/'</span>}
+<span class="string">" Install L9 and avoid a Naming conflict if you've already installed a
+"</span> different <span class="keyword">version</span> somewhere <span class="keyword">else</span>.
+<span class="keyword">Plugin</span> <span class="string">'ascenator/L9'</span>, {<span class="string">'name'</span>: <span class="string">'newL9'</span>}
+
+<span class="string">" All of your Plugins must be added before the following line
+call vundle#end()            "</span> <span class="keyword">required</span>
+filetype <span class="keyword">plugin</span> indent <span class="keyword">on</span>    <span class="string">" required
+"</span> <span class="keyword">To</span> <span class="keyword">ignore</span> <span class="keyword">plugin</span> indent changes, instead <span class="keyword">use</span>:
+<span class="string">"filetype plugin on
+"</span>
+<span class="string">" Brief help
+"</span> :PluginList       - lists configured plugins
+<span class="string">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"</span> :PluginSearch foo - searches <span class="keyword">for</span> foo;</span> append `!` to refresh local <span class="operator"><span class="keyword">cache</span>
+<span class="string">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"</span>
+<span class="string">" see :h vundle for more details or wiki for FAQ
+"</span> Put your non-<span class="keyword">Plugin</span> <span class="keyword">stuff</span> <span class="keyword">after</span> this line  </span>
+</code></pre></li>
+<li><p>安装插件<br>   打开<code>vim</code>，运行<code>:PluginInstall</code></p>
+</li>
+</ul>
+<h3 id="vim-jsbeautify">vim-jsbeautify</h3><p><a href="https://github.com/maksimr/vim-jsbeautify" target="_blank" rel="external">vim-jsbeautify</a></p>
+<ul>
+<li>在<code>~/.vimrc</code>中添加<br>  <code>Plugin &#39;maksimr/vim-jsbeautify&#39;</code></li>
+<li>打开<code>vim</code>，运行<code>:PluginInstall</code></li>
+</ul>
+<h3 id="vim-javascript">vim-javascript</h3><p><a href="https://github.com/pangloss/vim-javascript" target="_blank" rel="external">vim-javascript</a></p>
+<ul>
+<li><ul>
+<li>在<code>~/.vimrc</code>中添加<br><code>Plugin &#39;pangloss/vim-javascript&#39;</code></li>
+</ul>
+</li>
+<li>打开<code>vim</code>，运行<code>:PluginInstall</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/14/xss-安全防范/" itemprop="url">
                   XSS 安全防范
                 </a>
@@ -342,7 +533,20 @@
 <li><p>window.location：跳转url，因为uri可能是javascript协议，建议使用lib.httpurl解析url的结构和参数，确定域名属于安全域名。</p>
 </li>
 </ul>
-<h3 id="XSS_攻击方式">XSS 攻击方式</h3>
+<h3 id="XSS_攻击实例">XSS 攻击实例</h3><h4 id="HTML_攻击">HTML 攻击</h4><ul>
+<li><p>输出点</p>
+<ul>
+<li><code>&lt;img src=&quot;[代码]&quot;&gt;</code></li>
+<li><p>现在弹个窗:</p>
+<p> <code>&lt;img src=&quot;x&quot; onerror=&quot;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#49;&amp;#41;&quot;&gt;</code></p>
+</li>
+<li><p>原code:</p>
+<p>  <code>&lt;img src=&quot;x&quot; onerror=&quot;alert(1)&quot;&gt;</code></p>
+</li>
+</ul>
+</li>
+</ul>
+
           
         
       
@@ -1760,7 +1964,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1768,7 +1972,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1777,7 +1981,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
