@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-20T09:02:11.000Z</updated>
+  <updated>2016-08-20T09:09:21.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/08/20/vim%E5%89%8D%E7%AB%AF%E9%85%8D%E7%BD%AE/"/>
     <id>http://yoursite.com/2016/08/20/vim前端配置/</id>
     <published>2016-08-20T07:37:52.000Z</published>
-    <updated>2016-08-20T09:02:11.000Z</updated>
+    <updated>2016-08-20T09:09:21.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;VIM_插件管理器&quot;&gt;VIM 插件管理器&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/VundleVim/Vundle.vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vundle&lt;/a&gt;  &lt;/p&gt;
 &lt;ul&gt;
@@ -91,7 +91,7 @@ filetype &lt;span class=&quot;keyword&quot;&gt;plugin&lt;/span&gt; indent &lt;sp
 &lt;pre&gt;&lt;code&gt;&lt;span class=&quot;keyword&quot;&gt;syntax&lt;/span&gt; enable &lt;span class=&quot;string&quot;&gt;&quot; enable syntax hightlight and completion
 &lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;syntax&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot; syntax highlighing
 &lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;filetype&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;on&lt;/span&gt; &quot; &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;to&lt;/span&gt; detect &lt;span class=&quot;keyword&quot;&gt;file&lt;/span&gt; types
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;emmet-vim&quot;&gt;emmet-vim&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/mattn/emmet-vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;emmet-vim&lt;/a&gt;&lt;br&gt;还是一样的套路&lt;br&gt;&lt;code&gt;Plugin &amp;#39;mattn/emmet-vim&amp;#39;&lt;/code&gt;&lt;br&gt;教程网站&lt;a href=&quot;http://mattn.github.io/emmet-vim/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mattn.github.io/emmet-vim/&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;emmet-vim&quot;&gt;emmet-vim&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/mattn/emmet-vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;emmet-vim&lt;/a&gt;&lt;br&gt;还是一样的套路&lt;br&gt;&lt;code&gt;Plugin &amp;#39;mattn/emmet-vim&amp;#39;&lt;/code&gt;&lt;br&gt;教程网站&lt;a href=&quot;http://mattn.github.io/emmet-vim/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mattn.github.io/emmet-vim/&lt;/a&gt;&lt;br&gt;中文教程&lt;a href=&quot;https://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&quot;我的_-vimrc_配置文件&quot;&gt;我的 .vimrc 配置文件&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/shaozj/vimrc&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/shaozj/vimrc&lt;/a&gt;&lt;/p&gt;
 </content>
     
