@@ -83,7 +83,7 @@
 
 通过以上描述，绝对居中（AbsoluteCentering）的工作机理可以阐述如下：
 1、在普通内容流（norma">
-<meta property="og:updated_time" content="2016-08-20T10:00:39.000Z">
+<meta property="og:updated_time" content="2016-08-20T10:49:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="老生常谈之 css 居中">
 <meta name="twitter:description" content="绝对定位居中(Absolute Centering)技术.Absolute-Center {  
@@ -355,7 +355,7 @@
       <span class="rule"><span class="attribute">-ms-transform</span>:<span class="value"> <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;  
           <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;  
 }</span>  
-</code></pre><h3 id="表格单元格（Table-Cell）居中">表格单元格（Table-Cell）居中</h3><pre><code>// html：
+</code></pre><h3 id="表格单元格（Table-Cell）居中">表格单元格（Table-Cell）居中</h3><pre><code>// HTML:
 <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"Center-Container is-Table"</span>&gt;</span>  
   <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"Table-Cell"</span>&gt;</span>  
     <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"Center-Block"</span>&gt;</span>  
@@ -363,28 +363,28 @@
     <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
   <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
-
-// css
-.Center-Container.is-Table { display: table; }  
-.is-Table .Table-Cell {  
-  display: table-cell;  
-  vertical-align: middle;  
+</code></pre><p>css:</p>
+<pre><code><span class="comment">// CSS:</span>
+<span class="class">.Center-Container</span><span class="class">.is-Table</span> { <span class="attribute">display</span>: table; }  
+<span class="class">.is-Table</span> <span class="class">.Table-Cell</span> {  
+  <span class="attribute">display</span>: table-cell;  
+  <span class="attribute">vertical-align</span>: middle;  
 }  
-.is-Table .Center-Block {  
-  width: 50%;  
-  margin: 0 auto;  
+<span class="class">.is-Table</span> <span class="class">.Center-Block</span> {  
+  <span class="attribute">width</span>: <span class="number">50%</span>;  
+  <span class="attribute">margin</span>: <span class="number">0</span> auto;  
 }  
-</code></pre><h3 id="行内块元素（Inline-Block）居中">行内块元素（Inline-Block）居中</h3><pre><code><span class="comment">// HTML:</span>
-&lt;<span class="keyword">div</span> id=<span class="string">"box"</span>&gt;
-    &lt;<span class="keyword">div</span> id=<span class="string">"content"</span>&gt;我是内容&lt;br /&gt;我也是内容&lt;/<span class="keyword">div</span>&gt;
-    &lt;<span class="keyword">div</span> id=<span class="string">"actor"</span>&gt;我是演员&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-
-<span class="comment">// CSS:</span>
-<span class="preprocessor">#box { height: 400px; background: #c00;}</span>
-<span class="preprocessor">#content, #actor { display: inline-block; vertical-align: middle;}</span>
-<span class="preprocessor">#content { font-size: 12px; color: #fff;}</span>
-<span class="preprocessor">#actor {height: 400px; font-size: 0;}</span>
+</code></pre><h3 id="行内块元素（Inline-Block）居中">行内块元素（Inline-Block）居中</h3><pre><code>// HTML:
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"box"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"content"</span>&gt;</span>我是内容<span class="tag">&lt;<span class="title">br</span> /&gt;</span>我也是内容<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"actor"</span>&gt;</span>我是演员<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>css:</p>
+<pre><code><span class="comment">// CSS:</span>
+<span class="id">#box</span> { <span class="attribute">height</span>: <span class="number">400px</span>; <span class="attribute">background</span>: <span class="hexcolor">#c00</span>;}
+<span class="id">#content</span>, <span class="id">#actor</span> { <span class="attribute">display</span>: inline-block; <span class="attribute">vertical-align</span>: middle;}
+<span class="id">#content</span> { <span class="attribute">font-size</span>: <span class="number">12px</span>; <span class="attribute">color</span>: <span class="hexcolor">#fff</span>;}
+<span class="id">#actor</span> {<span class="attribute">height</span>: <span class="number">400px</span>; <span class="attribute">font-size</span>: <span class="number">0</span>;}
 </code></pre><p>加粗体的部分是关键所在。原理是都显示为行框的高度由最高的行内框决定。div#actor作为演员，高度指定和父元素一致。<br>兼容性：支持inline-block的浏览器均可。对于IE6/7，可以先使用hack方式使其支持Inline-block后，使用此方法实现垂直居中。</p>
 <h3 id="Flexbox居中">Flexbox居中</h3><pre><code><span class="class">.box</span> <span class="rules">{
   <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
