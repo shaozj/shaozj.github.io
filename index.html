@@ -216,6 +216,205 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/20/老生常谈之-css-居中/" itemprop="url">
+                  老生常谈之 css 居中
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-20T17:37:02+08:00" content="2016-08-20">
+              2016-08-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/css/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/20/老生常谈之-css-居中/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/20/老生常谈之-css-居中/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="绝对定位居中(Absolute_Centering)技术">绝对定位居中(Absolute Centering)技术</h3><pre><code><span class="class">.Absolute-Center</span> <span class="rules">{  
+  <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;  
+  <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;  
+  <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>; <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>; <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>; <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;  
+}</span>  
+</code></pre><ul>
+<li>解释：</li>
+</ul>
+<p>通过以上描述，绝对居中（AbsoluteCentering）的工作机理可以阐述如下：</p>
+<p>1、在普通内容流（normal content flow）中，margin:auto的效果等同于margin-top:0;margin-bottom:0。<br>W3C中写道If ‘margin-top’, or’margin-bottom’ are ‘auto’, their used value is 0.</p>
+<p>2、position:absolute使绝对定位块跳出了内容流，内容流中的其余部分渲染时绝对定位部分不进行渲染。</p>
+<p>Developer.mozilla.org:…an element that is positioned absolutely is taken out of the flow and thustakes up no space</p>
+<p>3、为块区域设置top: 0; left: 0; bottom: 0; right: 0;将给浏览器重新分配一个边界框，此时该块block将填充其父元素的所有可用空间，父元素一般为body或者声明为position:relative;的容器。</p>
+<p>Developer.mozilla.org:For absolutely positioned elements, the top, right, bottom, and left propertiesspecify offsets from the edge of the element’s containing block (what theelement is positioned relative to).</p>
+<p>4、  给内容块设置一个高度height或宽度width，能够防止内容块占据所有的可用空间，促使浏览器根据新的边界框重新计算margin:auto</p>
+<p>Developer.mozilla.org: The margin of the[absolutely positioned] element is then positioned inside these offsets.</p>
+<p>5、由于内容块被绝对定位，脱离了正常的内容流，浏览器会给margin-top,margin-bottom相同的值，使元素块在先前定义的边界内居中。<br>W3.org: If none of the three [top, bottom,height] are ‘auto’: If both ‘margin-top’ and ‘margin-bottom’ are ‘auto’, solvethe equation under the extra constraint that the two margins get equal values.AKA: center the block vertically</p>
+<p>这么看来， margin:auto似乎生来就是为绝对居中(Absolute Centering)设计的，所以绝对居中(Absolute Centering)应该都兼容符合标准的现代浏览器。</p>
+<p>简而言之（TL;DR）：绝对定位元素不在普通内容流中渲染，因此margin:auto可以使内容在通过top: 0; left: 0; bottom: 0;right: 0;设置的边界内垂直居中。</p>
+<h3 id="负外边距(Negative_Margins)居中">负外边距(Negative Margins)居中</h3><pre><code><span class="class">.is-Negative</span> <span class="rules">{  
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">300px</span></span></span>;  
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;  
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">20px</span></span></span>;  
+    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;  
+    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>; <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;  
+    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">170px</span></span></span>; <span class="comment">/* (width + padding)/2 */</span>  
+    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">120px</span></span></span>; <span class="comment">/* (height + padding)/2 */</span>  
+}</span>
+</code></pre><h3 id="Transform_居中">Transform 居中</h3><pre><code><span class="class">.is-Transformed</span> <span class="rules">{   
+  <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">50%</span></span></span>;  
+  <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;  
+  <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;  
+  <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>; <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;  
+  <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;  
+      <span class="rule"><span class="attribute">-ms-transform</span>:<span class="value"> <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;  
+          <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>)</span></span>;  
+}</span>  
+</code></pre><h3 id="表格单元格（Table-Cell）居中">表格单元格（Table-Cell）居中</h3><pre><code>// html：
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"Center-Container is-Table"</span>&gt;</span>  
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"Table-Cell"</span>&gt;</span>  
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"Center-Block"</span>&gt;</span>  
+    <span class="comment">&lt;!-- CONTENT --&gt;</span>  
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>  
+
+// css
+.Center-Container.is-Table { display: table; }  
+.is-Table .Table-Cell {  
+  display: table-cell;  
+  vertical-align: middle;  
+}  
+.is-Table .Center-Block {  
+  width: 50%;  
+  margin: 0 auto;  
+}  
+</code></pre><h3 id="行内块元素（Inline-Block）居中">行内块元素（Inline-Block）居中</h3><pre><code><span class="comment">// HTML:</span>
+&lt;<span class="keyword">div</span> id=<span class="string">"box"</span>&gt;
+    &lt;<span class="keyword">div</span> id=<span class="string">"content"</span>&gt;我是内容&lt;br /&gt;我也是内容&lt;/<span class="keyword">div</span>&gt;
+    &lt;<span class="keyword">div</span> id=<span class="string">"actor"</span>&gt;我是演员&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// CSS:</span>
+<span class="preprocessor">#box { height: 400px; background: #c00;}</span>
+<span class="preprocessor">#content, #actor { display: inline-block; vertical-align: middle;}</span>
+<span class="preprocessor">#content { font-size: 12px; color: #fff;}</span>
+<span class="preprocessor">#actor {height: 400px; font-size: 0;}</span>
+</code></pre><p>加粗体的部分是关键所在。原理是都显示为行框的高度由最高的行内框决定。div#actor作为演员，高度指定和父元素一致。<br>兼容性：支持inline-block的浏览器均可。对于IE6/7，可以先使用hack方式使其支持Inline-block后，使用此方法实现垂直居中。</p>
+<h3 id="Flexbox居中">Flexbox居中</h3><pre><code><span class="class">.box</span> <span class="rules">{
+  <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;
+  <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> center</span></span>;
+  <span class="rule"><span class="attribute">align-items</span>:<span class="value"> center</span></span>;
+}</span>
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/20/vim前端配置/" itemprop="url">
                   vim前端配置
                 </a>
@@ -1794,144 +1993,13 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/11/my-new-post/" itemprop="url">
-                  hexo 使用小记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-11T08:56:29+08:00" content="2015-09-11">
-              2015-09-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/09/11/my-new-post/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/11/my-new-post/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>用markdown写文章，使用方法参照博客<a href="http://zipperary.com/2013/05/22/introduction-to-markdown/" target="_blank" rel="external">Introduction to markdown</a></li>
-</ul>
-<h2 id="hexo的使用">hexo的使用</h2><ul>
-<li><p>发表新文章   <code>hexo new &quot;my new post&quot;</code></p>
-</li>
-<li><p>在H:\hexo\source_posts中编辑</p>
-<pre><code>title: my <span class="keyword">new</span> post <span class="preprocessor">#可以改成中文的，如<span class="string">"新文章"</span></span>
-
-date: <span class="number">2015</span>-<span class="number">09</span>-<span class="number">11</span> <span class="number">08</span>:<span class="number">56</span>:<span class="number">29</span> <span class="preprocessor">#发表日期，一般不改动</span>
-
-categories: blog <span class="preprocessor">#文章文类</span>
-
-tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项时用这种格式</span>
-
-这里是正文，用markdown写
-</code></pre></li>
-<li><p><code>hexo server</code>，访问localhost:4000预览效果。（退出server用Ctrl+c）</p>
-</li>
-<li><code>hexo deploy --generate</code>，同步到github。访问网站看看效果。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1970,7 +2038,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1978,7 +2046,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

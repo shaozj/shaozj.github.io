@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-20T09:09:21.000Z</updated>
+  <updated>2016-08-20T10:00:39.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,105 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>老生常谈之 css 居中</title>
+    <link href="http://yoursite.com/2016/08/20/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E4%B9%8B-css-%E5%B1%85%E4%B8%AD/"/>
+    <id>http://yoursite.com/2016/08/20/老生常谈之-css-居中/</id>
+    <published>2016-08-20T09:37:02.000Z</published>
+    <updated>2016-08-20T10:00:39.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;绝对定位居中(Absolute_Centering)技术&quot;&gt;绝对定位居中(Absolute Centering)技术&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.Absolute-Center&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; auto&lt;/span&gt;&lt;/span&gt;;  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;bottom&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;right&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+}&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;解释：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过以上描述，绝对居中（AbsoluteCentering）的工作机理可以阐述如下：&lt;/p&gt;
+&lt;p&gt;1、在普通内容流（normal content flow）中，margin:auto的效果等同于margin-top:0;margin-bottom:0。&lt;br&gt;W3C中写道If ‘margin-top’, or’margin-bottom’ are ‘auto’, their used value is 0.&lt;/p&gt;
+&lt;p&gt;2、position:absolute使绝对定位块跳出了内容流，内容流中的其余部分渲染时绝对定位部分不进行渲染。&lt;/p&gt;
+&lt;p&gt;Developer.mozilla.org:…an element that is positioned absolutely is taken out of the flow and thustakes up no space&lt;/p&gt;
+&lt;p&gt;3、为块区域设置top: 0; left: 0; bottom: 0; right: 0;将给浏览器重新分配一个边界框，此时该块block将填充其父元素的所有可用空间，父元素一般为body或者声明为position:relative;的容器。&lt;/p&gt;
+&lt;p&gt;Developer.mozilla.org:For absolutely positioned elements, the top, right, bottom, and left propertiesspecify offsets from the edge of the element’s containing block (what theelement is positioned relative to).&lt;/p&gt;
+&lt;p&gt;4、  给内容块设置一个高度height或宽度width，能够防止内容块占据所有的可用空间，促使浏览器根据新的边界框重新计算margin:auto&lt;/p&gt;
+&lt;p&gt;Developer.mozilla.org: The margin of the[absolutely positioned] element is then positioned inside these offsets.&lt;/p&gt;
+&lt;p&gt;5、由于内容块被绝对定位，脱离了正常的内容流，浏览器会给margin-top,margin-bottom相同的值，使元素块在先前定义的边界内居中。&lt;br&gt;W3.org: If none of the three [top, bottom,height] are ‘auto’: If both ‘margin-top’ and ‘margin-bottom’ are ‘auto’, solvethe equation under the extra constraint that the two margins get equal values.AKA: center the block vertically&lt;/p&gt;
+&lt;p&gt;这么看来， margin:auto似乎生来就是为绝对居中(Absolute Centering)设计的，所以绝对居中(Absolute Centering)应该都兼容符合标准的现代浏览器。&lt;/p&gt;
+&lt;p&gt;简而言之（TL;DR）：绝对定位元素不在普通内容流中渲染，因此margin:auto可以使内容在通过top: 0; left: 0; bottom: 0;right: 0;设置的边界内垂直居中。&lt;/p&gt;
+&lt;h3 id=&quot;负外边距(Negative_Margins)居中&quot;&gt;负外边距(Negative Margins)居中&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.is-Negative&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;300px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;200px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;padding&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;20px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;170px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;comment&quot;&gt;/* (width + padding)/2 */&lt;/span&gt;  
+    &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin-top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; -&lt;span class=&quot;number&quot;&gt;120px&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;comment&quot;&gt;/* (height + padding)/2 */&lt;/span&gt;  
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;Transform_居中&quot;&gt;Transform 居中&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.is-Transformed&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{   
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; auto&lt;/span&gt;&lt;/span&gt;;  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;position&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; absolute&lt;/span&gt;&lt;/span&gt;;  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;top&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;; &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;left&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;;  
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-webkit-transform&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;translate&lt;/span&gt;(-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;,-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;  
+      &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;-ms-transform&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;translate&lt;/span&gt;(-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;,-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;  
+          &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;transform&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; &lt;span class=&quot;function&quot;&gt;translate&lt;/span&gt;(-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;,-&lt;span class=&quot;number&quot;&gt;50%&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;  
+}&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;表格单元格（Table-Cell）居中&quot;&gt;表格单元格（Table-Cell）居中&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;// html：
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Center-Container is-Table&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;  
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Table-Cell&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;  
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Center-Block&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;  
+    &lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- CONTENT --&amp;gt;&lt;/span&gt;  
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;  
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;  
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;  
+
+// css
+.Center-Container.is-Table { display: table; }  
+.is-Table .Table-Cell {  
+  display: table-cell;  
+  vertical-align: middle;  
+}  
+.is-Table .Center-Block {  
+  width: 50%;  
+  margin: 0 auto;  
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;行内块元素（Inline-Block）居中&quot;&gt;行内块元素（Inline-Block）居中&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;comment&quot;&gt;// HTML:&lt;/span&gt;
+&amp;lt;&lt;span class=&quot;keyword&quot;&gt;div&lt;/span&gt; id=&lt;span class=&quot;string&quot;&gt;&quot;box&quot;&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;div&lt;/span&gt; id=&lt;span class=&quot;string&quot;&gt;&quot;content&quot;&lt;/span&gt;&amp;gt;我是内容&amp;lt;br /&amp;gt;我也是内容&amp;lt;/&lt;span class=&quot;keyword&quot;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span class=&quot;keyword&quot;&gt;div&lt;/span&gt; id=&lt;span class=&quot;string&quot;&gt;&quot;actor&quot;&lt;/span&gt;&amp;gt;我是演员&amp;lt;/&lt;span class=&quot;keyword&quot;&gt;div&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span class=&quot;keyword&quot;&gt;div&lt;/span&gt;&amp;gt;
+
+&lt;span class=&quot;comment&quot;&gt;// CSS:&lt;/span&gt;
+&lt;span class=&quot;preprocessor&quot;&gt;#box { height: 400px; background: #c00;}&lt;/span&gt;
+&lt;span class=&quot;preprocessor&quot;&gt;#content, #actor { display: inline-block; vertical-align: middle;}&lt;/span&gt;
+&lt;span class=&quot;preprocessor&quot;&gt;#content { font-size: 12px; color: #fff;}&lt;/span&gt;
+&lt;span class=&quot;preprocessor&quot;&gt;#actor {height: 400px; font-size: 0;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;加粗体的部分是关键所在。原理是都显示为行框的高度由最高的行内框决定。div#actor作为演员，高度指定和父元素一致。&lt;br&gt;兼容性：支持inline-block的浏览器均可。对于IE6/7，可以先使用hack方式使其支持Inline-block后，使用此方法实现垂直居中。&lt;/p&gt;
+&lt;h3 id=&quot;Flexbox居中&quot;&gt;Flexbox居中&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.box&lt;/span&gt; &lt;span class=&quot;rules&quot;&gt;{
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;display&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; flex&lt;/span&gt;&lt;/span&gt;;
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;justify-content&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; center&lt;/span&gt;&lt;/span&gt;;
+  &lt;span class=&quot;rule&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;align-items&lt;/span&gt;:&lt;span class=&quot;value&quot;&gt; center&lt;/span&gt;&lt;/span&gt;;
+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;绝对定位居中(Absolute_Centering)技术&quot;&gt;绝对定位居中(Absolute Centering)技术&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;class&quot;&gt;.Absolute-Center&lt;/span&gt; &lt;span class=&quot;r
+    
+    </summary>
+    
+      <category term="css" scheme="http://yoursite.com/categories/css/"/>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/css/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>vim前端配置</title>
