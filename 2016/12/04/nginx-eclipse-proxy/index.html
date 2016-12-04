@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="调试," />
+  <meta name="keywords" content="eclipse,nginx,代理,端口," />
 
 
 
@@ -59,31 +59,67 @@
 
 
 
-<meta name="description" content="下载官网下载地址：http://www.charlesproxy.com/latest-release/download.do
-下载后直接安装即可
-抓包一、http抓包
-1、打开Charles程序
-2、查看Mac电脑的IP地址，系统偏好设置-&amp;gt;网络就可以查看到了，比如我的ip地址是：30.11.160.175
-3、打开iOS设置，进入当前wifi连接(Mac在一个局域网内)，设置HTTP代理">
+<meta name="description" content="方法
+使用第三方代理软件nginx
+
+步骤
+1、安装pcre
+
+下载pcre http://www.pcre.org/
+安装pcre  
+$ cd ~/Downloads
+$ tar xvzf pcre-8.5
+$ cd pcre-8.5
+$ sudo ./configure --prefix=/usr/local
+$ sudo make
+$ sudo make install 
+
+
+
+2、安装N">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Charles抓包实战">
-<meta property="og:url" content="http://yoursite.com/2016/03/17/Charles抓包实战/index.html">
+<meta property="og:title" content="mac下eclipse起服务器使用80端口">
+<meta property="og:url" content="http://yoursite.com/2016/12/04/nginx-eclipse-proxy/index.html">
 <meta property="og:site_name" content="Shaozj's blog">
-<meta property="og:description" content="下载官网下载地址：http://www.charlesproxy.com/latest-release/download.do
-下载后直接安装即可
-抓包一、http抓包
-1、打开Charles程序
-2、查看Mac电脑的IP地址，系统偏好设置-&amp;gt;网络就可以查看到了，比如我的ip地址是：30.11.160.175
-3、打开iOS设置，进入当前wifi连接(Mac在一个局域网内)，设置HTTP代理">
-<meta property="og:updated_time" content="2016-03-18T09:25:03.000Z">
+<meta property="og:description" content="方法
+使用第三方代理软件nginx
+
+步骤
+1、安装pcre
+
+下载pcre http://www.pcre.org/
+安装pcre  
+$ cd ~/Downloads
+$ tar xvzf pcre-8.5
+$ cd pcre-8.5
+$ sudo ./configure --prefix=/usr/local
+$ sudo make
+$ sudo make install 
+
+
+
+2、安装N">
+<meta property="og:updated_time" content="2016-12-04T08:21:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Charles抓包实战">
-<meta name="twitter:description" content="下载官网下载地址：http://www.charlesproxy.com/latest-release/download.do
-下载后直接安装即可
-抓包一、http抓包
-1、打开Charles程序
-2、查看Mac电脑的IP地址，系统偏好设置-&amp;gt;网络就可以查看到了，比如我的ip地址是：30.11.160.175
-3、打开iOS设置，进入当前wifi连接(Mac在一个局域网内)，设置HTTP代理">
+<meta name="twitter:title" content="mac下eclipse起服务器使用80端口">
+<meta name="twitter:description" content="方法
+使用第三方代理软件nginx
+
+步骤
+1、安装pcre
+
+下载pcre http://www.pcre.org/
+安装pcre  
+$ cd ~/Downloads
+$ tar xvzf pcre-8.5
+$ cd pcre-8.5
+$ sudo ./configure --prefix=/usr/local
+$ sudo make
+$ sudo make install 
+
+
+
+2、安装N">
 
 
 
@@ -101,7 +137,7 @@
   };
 </script>
 
-  <title> Charles抓包实战 | Shaozj's blog </title>
+  <title> mac下eclipse起服务器使用80端口 | Shaozj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +265,7 @@
             
             
               
-                Charles抓包实战
+                mac下eclipse起服务器使用80端口
               
             
           </h1>
@@ -241,8 +277,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-17T14:01:06+08:00" content="2016-03-17">
-              2016-03-17
+            <time itemprop="dateCreated" datetime="2016-12-04T16:18:45+08:00" content="2016-12-04">
+              2016-12-04
             </time>
           </span>
 
@@ -255,8 +291,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/调试/" itemprop="url" rel="index">
-                    <span itemprop="name">调试</span>
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
                   </a>
                 </span>
 
@@ -271,8 +307,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/17/Charles抓包实战/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/17/Charles抓包实战/" itemprop="commentsCount"></span>
+                <a href="/2016/12/04/nginx-eclipse-proxy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/04/nginx-eclipse-proxy/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,12 +330,69 @@
       
 
       
-        <h3 id="下载">下载</h3><p>官网下载地址：<a href="http://www.charlesproxy.com/latest-release/download.do" target="_blank" rel="external">http://www.charlesproxy.com/latest-release/download.do</a></p>
-<p>下载后直接安装即可</p>
-<h3 id="抓包">抓包</h3><h4 id="一、http抓包">一、http抓包</h4><ul>
-<li>1、打开Charles程序</li>
-<li>2、查看Mac电脑的IP地址，系统偏好设置-&gt;网络就可以查看到了，比如我的ip地址是：30.11.160.175</li>
-<li>3、打开iOS设置，进入当前wifi连接(Mac在一个局域网内)，设置HTTP代理Group，将服务器填为上一步中获得的IP，即30.11.160.175，端口填8888：</li>
+        <h3 id="方法">方法</h3><ul>
+<li>使用第三方代理软件nginx</li>
+</ul>
+<h3 id="步骤">步骤</h3><ul>
+<li><p>1、安装pcre</p>
+<ul>
+<li>下载pcre <a href="http://www.pcre.org/" target="_blank" rel="external">http://www.pcre.org/</a></li>
+<li><p>安装pcre  </p>
+<pre><code><span class="char">$ </span>cd ~/<span class="class">Downloads</span>
+<span class="char">$ </span>tar xvzf pcre-<span class="number">8.5</span>
+<span class="char">$ </span>cd pcre-<span class="number">8.5</span>
+<span class="char">$ </span>sudo ./configure --prefix=/usr/local
+<span class="char">$ </span>sudo make
+<span class="char">$ </span>sudo make install 
+</code></pre></li>
+</ul>
+</li>
+<li><p>2、安装Nginx</p>
+<ul>
+<li><p>下载Nginx <a href="http://nginx.org/" target="_blank" rel="external">http://nginx.org/</a></p>
+</li>
+<li><p>安装Nginx</p>
+<pre><code><span class="char">$ </span>cd ~/<span class="class">Downloads</span>
+<span class="char">$ </span>tar xvzf nginx-<span class="number">1.6</span><span class="number">.0</span>.tar.gz
+<span class="char">$ </span>cd nginx-<span class="number">1.6</span><span class="number">.0</span>
+<span class="char">$ </span>sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-cc-opt=<span class="comment">"-Wno-deprecated-declarations"</span>
+<span class="char">$ </span>sudo make
+<span class="char">$ </span>sudo make install
+</code></pre></li>
+</ul>
+</li>
+<li><p>3、开启Nginx</p>
+<ul>
+<li>将/usr/local/nginx/sbin加入到环境变量里</li>
+<li><p>运行  </p>
+<pre><code><span class="variable">$ </span>sudo nginx 
+</code></pre></li>
+<li><p>停止</p>
+<pre><code>$ sudo nginx <span class="operator">-s</span> stop
+</code></pre></li>
+</ul>
+</li>
+<li><p>3、配置Nginx</p>
+<ul>
+<li><p>配置nginx，监听80端口，然后跳转到8080端口。在目录<code>/usr/local/nginx/conf</code>下找到配置文件<code>nginx.conf</code>，如下编辑</p>
+<pre><code><span class="title">server</span> {
+    <span class="title">listen</span>       <span class="number">80</span>;
+    <span class="title">server_name</span>  tv-lq.alibaba.net;
+    <span class="title">add_header</span> Cache-Control private;
+    <span class="title">charset</span> utf-<span class="number">8</span>;
+    <span class="title">fastcgi_intercept_errors</span> <span class="built_in">on</span>;
+
+    <span class="title">location</span> / {
+        <span class="title">proxy_next_upstream</span> http_502 http_504 <span class="built_in">error</span> timeout invalid_header;
+        <span class="title">proxy_pass</span> <span class="url">http://127.0.0.1:8080</span>;
+        <span class="title">proxy_set_header</span> Host <span class="variable">$host</span>;
+        <span class="title">proxy_set_header</span> X-Forwarded-For <span class="variable">$remote_addr</span>;
+        <span class="title">proxy_intercept_errors</span> <span class="built_in">on</span>;
+    }
+}
+</code></pre></li>
+</ul>
+</li>
 </ul>
 
       
@@ -315,7 +408,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/调试/" rel="tag">#调试</a>
+            <a href="/tags/eclipse/" rel="tag">#eclipse</a>
+          
+            <a href="/tags/nginx/" rel="tag">#nginx</a>
+          
+            <a href="/tags/代理/" rel="tag">#代理</a>
+          
+            <a href="/tags/端口/" rel="tag">#端口</a>
           
         </div>
       
@@ -324,17 +423,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/15/30pluscss/" rel="next" title="30+有用css代码片段">
-                <i class="fa fa-chevron-left"></i> 30+有用css代码片段
+              <a href="/2016/12/04/webpack-muti-page-build/" rel="next" title="webpack 多页面构建">
+                <i class="fa fa-chevron-left"></i> webpack 多页面构建
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/18/优化显示效率/" rel="prev" title="谷歌前端开发指南之优化内容显示效率">
-                谷歌前端开发指南之优化内容显示效率 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -360,8 +455,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/17/Charles抓包实战/"
-           data-title="Charles抓包实战" data-url="http://yoursite.com/2016/03/17/Charles抓包实战/">
+      <div class="ds-thread" data-thread-key="2016/12/04/nginx-eclipse-proxy/"
+           data-title="mac下eclipse起服务器使用80端口" data-url="http://yoursite.com/2016/12/04/nginx-eclipse-proxy/">
       </div>
     
   </div>
@@ -480,7 +575,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抓包"><span class="nav-number">2.</span> <span class="nav-text">抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、http抓包"><span class="nav-number">2.1.</span> <span class="nav-text">一、http抓包</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

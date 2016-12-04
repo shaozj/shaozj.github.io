@@ -216,6 +216,184 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/04/nginx-eclipse-proxy/" itemprop="url">
+                  mac下eclipse起服务器使用80端口
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-04T16:18:45+08:00" content="2016-12-04">
+              2016-12-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/04/nginx-eclipse-proxy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/04/nginx-eclipse-proxy/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="方法">方法</h3><ul>
+<li>使用第三方代理软件nginx</li>
+</ul>
+<h3 id="步骤">步骤</h3><ul>
+<li><p>1、安装pcre</p>
+<ul>
+<li>下载pcre <a href="http://www.pcre.org/" target="_blank" rel="external">http://www.pcre.org/</a></li>
+<li><p>安装pcre  </p>
+<pre><code><span class="char">$ </span>cd ~/<span class="class">Downloads</span>
+<span class="char">$ </span>tar xvzf pcre-<span class="number">8.5</span>
+<span class="char">$ </span>cd pcre-<span class="number">8.5</span>
+<span class="char">$ </span>sudo ./configure --prefix=/usr/local
+<span class="char">$ </span>sudo make
+<span class="char">$ </span>sudo make install 
+</code></pre></li>
+</ul>
+</li>
+<li><p>2、安装Nginx</p>
+<ul>
+<li><p>下载Nginx <a href="http://nginx.org/" target="_blank" rel="external">http://nginx.org/</a></p>
+</li>
+<li><p>安装Nginx</p>
+<pre><code><span class="char">$ </span>cd ~/<span class="class">Downloads</span>
+<span class="char">$ </span>tar xvzf nginx-<span class="number">1.6</span><span class="number">.0</span>.tar.gz
+<span class="char">$ </span>cd nginx-<span class="number">1.6</span><span class="number">.0</span>
+<span class="char">$ </span>sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-cc-opt=<span class="comment">"-Wno-deprecated-declarations"</span>
+<span class="char">$ </span>sudo make
+<span class="char">$ </span>sudo make install
+</code></pre></li>
+</ul>
+</li>
+<li><p>3、开启Nginx</p>
+<ul>
+<li>将/usr/local/nginx/sbin加入到环境变量里</li>
+<li><p>运行  </p>
+<pre><code><span class="variable">$ </span>sudo nginx 
+</code></pre></li>
+<li><p>停止</p>
+<pre><code>$ sudo nginx <span class="operator">-s</span> stop
+</code></pre></li>
+</ul>
+</li>
+<li><p>3、配置Nginx</p>
+<ul>
+<li><p>配置nginx，监听80端口，然后跳转到8080端口。在目录<code>/usr/local/nginx/conf</code>下找到配置文件<code>nginx.conf</code>，如下编辑</p>
+<pre><code><span class="title">server</span> {
+    <span class="title">listen</span>       <span class="number">80</span>;
+    <span class="title">server_name</span>  tv-lq.alibaba.net;
+    <span class="title">add_header</span> Cache-Control private;
+    <span class="title">charset</span> utf-<span class="number">8</span>;
+    <span class="title">fastcgi_intercept_errors</span> <span class="built_in">on</span>;
+
+    <span class="title">location</span> / {
+        <span class="title">proxy_next_upstream</span> http_502 http_504 <span class="built_in">error</span> timeout invalid_header;
+        <span class="title">proxy_pass</span> <span class="url">http://127.0.0.1:8080</span>;
+        <span class="title">proxy_set_header</span> Host <span class="variable">$host</span>;
+        <span class="title">proxy_set_header</span> X-Forwarded-For <span class="variable">$remote_addr</span>;
+        <span class="title">proxy_intercept_errors</span> <span class="built_in">on</span>;
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/04/webpack-muti-page-build/" itemprop="url">
                   webpack 多页面构建
                 </a>
@@ -1922,174 +2100,6 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/14/absolute-margin/" itemprop="url">
-                  absolute定位下的margin居中失效
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-14T23:25:34+08:00" content="2016-03-14">
-              2016-03-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/14/absolute-margin/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/14/absolute-margin/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在绝对定位时，css样式中设置margin：0 auto；失效问题，例子如下：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-}</span>
-</code></pre><p>如上的方式并不能实现元素的水平居中。而采用相对定位则可以：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-}</span>
-</code></pre><p>然而，absolute定位下，margin是可以工作的，例如</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-}</span>
-</code></pre><p>这样元素的确能相对父元素向右移动父元素宽度的50％。</p>
-<p>一般对于absolute定位的元素，我们居中的方式为：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">50px</span></span></span>;
-}</span>
-</code></pre><p>还有有趣的一点是，如下代码，也能实现absolute定位元素的水平居中：</p>
-<pre><code><span class="class">.middle-div</span> <span class="rules">{
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;
-    <span class="rule"><span class="attribute">positon</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;
-    <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;
-}</span>
-</code></pre><p>这其中的原理，上网搜索了很多内容，但都没有讲清楚，后续将继续研究，今天暂且做个记录。</p>
-<p><a href="https://github.com/petehunt/react-howto/blob/master/README-zh.md" target="_blank" rel="external">如何学习react</a></p>
-<p><a href="https://www.zhihu.com/question/36516604" target="_blank" rel="external">react 有哪些最佳实践?</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2135,7 +2145,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2143,7 +2153,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2152,7 +2162,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

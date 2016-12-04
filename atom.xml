@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-04T06:06:20.000Z</updated>
+  <updated>2016-12-04T08:21:26.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,109 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>mac下eclipse起服务器使用80端口</title>
+    <link href="http://yoursite.com/2016/12/04/nginx-eclipse-proxy/"/>
+    <id>http://yoursite.com/2016/12/04/nginx-eclipse-proxy/</id>
+    <published>2016-12-04T08:18:45.000Z</published>
+    <updated>2016-12-04T08:21:26.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;方法&quot;&gt;方法&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用第三方代理软件nginx&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;步骤&quot;&gt;步骤&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;1、安装pcre&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下载pcre &lt;a href=&quot;http://www.pcre.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.pcre.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装pcre  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;cd ~/&lt;span class=&quot;class&quot;&gt;Downloads&lt;/span&gt;
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;tar xvzf pcre-&lt;span class=&quot;number&quot;&gt;8.5&lt;/span&gt;
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;cd pcre-&lt;span class=&quot;number&quot;&gt;8.5&lt;/span&gt;
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;sudo ./configure --prefix=/usr/local
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;sudo make
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;sudo make install 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;2、安装Nginx&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;下载Nginx &lt;a href=&quot;http://nginx.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://nginx.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装Nginx&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;cd ~/&lt;span class=&quot;class&quot;&gt;Downloads&lt;/span&gt;
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;tar xvzf nginx-&lt;span class=&quot;number&quot;&gt;1.6&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.0&lt;/span&gt;.tar.gz
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;cd nginx-&lt;span class=&quot;number&quot;&gt;1.6&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.0&lt;/span&gt;
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-cc-opt=&lt;span class=&quot;comment&quot;&gt;&quot;-Wno-deprecated-declarations&quot;&lt;/span&gt;
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;sudo make
+&lt;span class=&quot;char&quot;&gt;$ &lt;/span&gt;sudo make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;3、开启Nginx&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将/usr/local/nginx/sbin加入到环境变量里&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;运行  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;variable&quot;&gt;$ &lt;/span&gt;sudo nginx 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;停止&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo nginx &lt;span class=&quot;operator&quot;&gt;-s&lt;/span&gt; stop
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;3、配置Nginx&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;配置nginx，监听80端口，然后跳转到8080端口。在目录&lt;code&gt;/usr/local/nginx/conf&lt;/code&gt;下找到配置文件&lt;code&gt;nginx.conf&lt;/code&gt;，如下编辑&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;title&quot;&gt;server&lt;/span&gt; {
+    &lt;span class=&quot;title&quot;&gt;listen&lt;/span&gt;       &lt;span class=&quot;number&quot;&gt;80&lt;/span&gt;;
+    &lt;span class=&quot;title&quot;&gt;server_name&lt;/span&gt;  tv-lq.alibaba.net;
+    &lt;span class=&quot;title&quot;&gt;add_header&lt;/span&gt; Cache-Control private;
+    &lt;span class=&quot;title&quot;&gt;charset&lt;/span&gt; utf-&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;;
+    &lt;span class=&quot;title&quot;&gt;fastcgi_intercept_errors&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;on&lt;/span&gt;;
+
+    &lt;span class=&quot;title&quot;&gt;location&lt;/span&gt; / {
+        &lt;span class=&quot;title&quot;&gt;proxy_next_upstream&lt;/span&gt; http_502 http_504 &lt;span class=&quot;built_in&quot;&gt;error&lt;/span&gt; timeout invalid_header;
+        &lt;span class=&quot;title&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;url&quot;&gt;http://127.0.0.1:8080&lt;/span&gt;;
+        &lt;span class=&quot;title&quot;&gt;proxy_set_header&lt;/span&gt; Host &lt;span class=&quot;variable&quot;&gt;$host&lt;/span&gt;;
+        &lt;span class=&quot;title&quot;&gt;proxy_set_header&lt;/span&gt; X-Forwarded-For &lt;span class=&quot;variable&quot;&gt;$remote_addr&lt;/span&gt;;
+        &lt;span class=&quot;title&quot;&gt;proxy_intercept_errors&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;on&lt;/span&gt;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;方法&quot;&gt;方法&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用第三方代理软件nginx&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;步骤&quot;&gt;步骤&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;1、安装pcre&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下载pcre &lt;a href=&quot;http://www.pcre.o
+    
+    </summary>
+    
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+    
+    
+      <category term="eclipse" scheme="http://yoursite.com/tags/eclipse/"/>
+    
+      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
+    
+      <category term="代理" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%90%86/"/>
+    
+      <category term="端口" scheme="http://yoursite.com/tags/%E7%AB%AF%E5%8F%A3/"/>
+    
+  </entry>
+  
+  <entry>
     <title>webpack 多页面构建</title>
     <link href="http://yoursite.com/2016/12/04/webpack-muti-page-build/"/>
     <id>http://yoursite.com/2016/12/04/webpack-muti-page-build/</id>
     <published>2016-12-04T05:29:23.000Z</published>
-    <updated>2016-12-04T06:06:20.000Z</updated>
+    <updated>2016-12-04T06:07:06.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;webpack_多页面构建&quot;&gt;webpack 多页面构建&lt;/h2&gt;&lt;h3 id=&quot;目标：&quot;&gt;目标：&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;基于webpack支持react多页面构建（不用gulp，gulp-webpack 构建速度太慢[3]), generator-react-webpack 对单页面支持很好，但对多页面，需要改造&lt;/li&gt;
