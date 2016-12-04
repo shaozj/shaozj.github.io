@@ -216,6 +216,287 @@
             
               
                 
+                <a class="post-title-link" href="/2016/01/04/form/" itemprop="url">
+                  表单（Form）小结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-04T10:42:44+08:00" content="2016-01-04">
+              2016-01-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/04/form/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/04/form/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="介绍">介绍</h2><p>这段时间做了个后台的前端项目。说实话，之前并没有做过后台的项目。在做了后台项目后，发现最重要的是要熟练掌握表单相关的技术。这篇文章将我所做的后台项目中用到的表单相关的知识做一个总结，也算是一种积累吧。:)</p>
+<h3>一个简单的表单示例</h3>
+
+<p>下面是一个简单的表单示例：</p>
+<pre><code>&lt;<span class="keyword">form</span> id=<span class="string">"main-form"</span> action=<span class="string">"http://somesite.com/prog/adduser"</span> method=<span class="string">"post"</span>&gt;
+    &lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"name"</span>&gt;姓名: &lt;/<span class="keyword">label</span>&gt;
+    &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"text"</span> name=<span class="string">"name"</span> id=<span class="string">"name"</span>&gt;&lt;<span class="keyword">br</span>&gt;
+    &lt;<span class="keyword">label</span>&gt;
+        性别：
+        &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"radio"</span> name=<span class="string">"sex"</span> value=<span class="string">"Male"</span>&gt;男
+        &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"radio"</span> name=<span class="string">"sex"</span> value=<span class="string">"Female"</span>&gt;女&lt;<span class="keyword">br</span>&gt;
+    &lt;<span class="keyword">label</span>&gt;
+    &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"submit"</span> value=<span class="string">"Send"</span>&gt; &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"reset"</span>&gt;
+ &lt;/<span class="keyword">form</span>&gt;
+</code></pre><p>页面如图所示：</p>
+<p><img src="http://img.alicdn.com/tps/TB1h_YhLXXXXXb3aXXXXXXXXXXX-239-81.jpg" alt=""></p>
+<p>当我们点击send按钮时，就能向服务器端发送表单。点击重置按钮时，input中的value值将会是我们设置的默认值。<br>form的action属性值为服务端处理我们提交的表单的URI。<br>method是表单提交的方式。</p>
+<p>input标签是表单中的控件，用户在input中输入的值，或者用户选择了某个radio选项的值就是这个控件的value值。当提交表单时，input中的name和value值编码后传给服务器端，服务器端解码后根据name和value键值对获取用户提交的信息。</p>
+<h2 id="表单提交的过程">表单提交的过程</h2><h3>成功控件</h3>
+
+<p>成功控件是能被提交给服务端的控件，每个成功控件都有其name已经value值，以被作为form数据的一部分传给服务器端。一个成功控件必须在form标签之中，并且有name值。</p>
+<p>此外，成功控件还需满足以下条件：</p>
+<ul>
+<li>控件不能设置为disabled。</li>
+<li>如果form包含多个提交按钮，只有被点击的提交按钮才是成功控件。</li>
+<li>被选中的checkbox才算成功控件。</li>
+<li>被选中的radio才算成功控件。</li>
+<li>select选项，被选中的option才是成功控件，如果没有option被选中，那么这个select不是成功控件，将不被提交。</li>
+<li>包含了文件的file控件才是成功控件。</li>
+</ul>
+<p>注意：如果控件的display属性被设置为none，控件仍然可以是成功的。</p>
+<h3>提交表单</h3>
+
+<p>表单提交可以分为以下几步：</p>
+<ul>
+<li>1、验证成功的控件，如上文所诉。</li>
+<li>2、创建表单数据集，由成功控件的name和value组成的键值对序列。</li>
+<li>3、编码表单数据集，编码方式由form元素的enctype属性来指定。</li>
+<li>4、提交编码后的表单数据集。  </li>
+</ul>
+<h2 id="对多个提交按钮，做不同提交任务的处理">对多个提交按钮，做不同提交任务的处理</h2><p>我们经常会碰到这样的需求，一个页面中有多个不同的按钮，点击按钮时服务端做不同的处理。此时我们改如何处理呢？<br>一种方式是可以给提交按钮设置不同的name，服务端通过判断name来判断用户点击了哪个按钮，然后做相应的处理。另一种方式是给提交按钮设置相同的name，不同的value，服务端通过判断value值来判断用户点击了哪个按钮。</p>
+<p>以上两种方式将判断的工作交给了服务端。对于前端，我们可以用ajax的方式提交表单来实现多个提交按钮的处理。用ajax提交的另一个好处是可以防止页面刷新或者跳转到action指定的页面。</p>
+<p>如果用jQuery，我们可以这么提交：</p>
+<pre><code>$(<span class="string">"#main-form"</span>).on(<span class="string">"submit"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
+    e.preventDefault();
+    $.post(<span class="keyword">this</span>.action, $(<span class="keyword">this</span>).serialize());
+}); 
+</code></pre><p>用jQuery，如果想上传部分表单，我们可以这么提交</p>
+<pre><code>&lt;div id=<span class="string">"divCustomerInfo"</span>&gt;
+    &lt;p&gt;名称: &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"CustomerName"</span> /&gt;&lt;/p&gt;
+    &lt;p&gt;电话: &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"CustomerTel"</span> /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+$(<span class="string">"#btnId"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    $.ajax({
+        url: <span class="string">"test.htm"</span>, 
+        <span class="built_in">type</span>: <span class="string">"POST"</span>,
+        data: $(<span class="string">'#divCustomerInfo :text'</span>).fieldSerialize(),
+        success: <span class="function"><span class="keyword">function</span><span class="params">(responseText)</span></span>{
+            alert(responseText);
+        }
+    });
+    <span class="keyword">return</span> <span class="keyword">false</span>;
+});
+</code></pre><p>利用H5的FormData对象，我们可以这么提交：</p>
+<pre><code>document.getElementById(<span class="string">"main-form"</span>).onsubmit = function(e) {
+
+    e.preventDefault();
+
+    var f = e.target,
+        formData = new FormData(f),
+        xhr = new XMLHttpRequest();
+
+    xhr.open(<span class="string">"<span class="keyword">POST</span>"</span>, f.action);
+    xhr.send(formData);
+}
+</code></pre><p>对于jQuery，还有一个强大的插件jquery.form.js，利用这个插件，我们可以这么提交：</p>
+<pre><code> $(<span class="string">'.send-message'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+    e.preventDefault();
+    <span class="keyword">if</span>(self.validateForm(VALIDATE_TYPE.TEST_MESSAGE)){
+        $(<span class="string">'#main-form'</span>).ajaxSubmit({
+            url: <span class="string">'/message/send_test_message.htm'</span>,
+            success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>{
+                <span class="keyword">if</span>(<span class="keyword">typeof</span> res === <span class="string">'string'</span>)
+                    res = <span class="built_in">JSON</span>.parse(res);
+                <span class="built_in">console</span>.log(res);
+                <span class="keyword">if</span>(res.result === <span class="string">'success'</span>){
+                    $(<span class="string">'.test-success'</span>).removeClass(<span class="string">'hide'</span>);
+                }
+                <span class="keyword">else</span>{
+                    alert(res.errorMsg);
+                    $(<span class="string">'.test-success'</span>).addClass(<span class="string">'hide'</span>);
+                }
+            },
+            error: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>{
+                $(<span class="string">'.test-success'</span>).addClass(<span class="string">'hide'</span>);
+                alert(<span class="string">'提交测试失败，请重试！'</span>);
+                <span class="built_in">console</span>.log(<span class="string">'Ajax error! '</span> + type);
+            }
+        });
+    }<span class="keyword">else</span>{
+        $(<span class="string">'.test-success'</span>).addClass(<span class="string">'hide'</span>);
+    }
+});
+</code></pre><p>利用ajaxSubmit，我们可以设置提交的url，以及成功和失败的回调函数，在处理业务时的确方便很多。而且不用手动序列化提交的表单数据。<br>ajaxSubmit还有一个强大的地方是能够处理文件的提交。</p>
+<h2 id="表单文件上传">表单文件上传</h2><p>下面是一个表单文件上传的例子：</p>
+<pre><code>&lt;form action=<span class="string">"/message/upload_image.htm"</span> method=<span class="string">"post"</span> enctype=<span class="string">"multipart/form-data"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"postimg-form"</span>&gt;
+    &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"form-group"</span>&gt;
+        &lt;input name=<span class="string">"file"</span> id=<span class="string">"file"</span> <span class="class"><span class="keyword">type</span>=</span><span class="string">"file"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"send-file"</span>  style=<span class="string">"display: inline-block;"</span>/&gt;
+    &lt;/div&gt;
+    &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"urlinput-wrap"</span>&gt;
+        &lt;span&gt;图片<span class="type">URL</span>：&lt;/span&gt;
+        &lt;input name=<span class="string">"picurlList"</span> <span class="class"><span class="keyword">type</span>=</span><span class="string">"text"</span> value=<span class="string">"$!{picurlList}"</span>  <span class="class"><span class="keyword">class</span>=</span><span class="string">"img-url not-hidden"</span>&gt;&lt;/input&gt;
+    &lt;/div&gt;
+
+    &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span>&gt;取消&lt;/button&gt;
+    &lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"submit"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"commit-changepic"</span>&gt;确定&lt;/button&gt;
+&lt;/form&gt;
+</code></pre><p>对于文件上传，必须采用post方式，并且form元素的enctype需要设置为multipart/form-data。</p>
+<p>表单的enctype一般常用的有两种：</p>
+<ul>
+<li><p>application/x-www-form-urlencoded:</p>
+<p>  这是默认的编码方式。它只处理表单域里的value属性值，采用这种变法方式的表单会将表单域的值处理成URL方式。</p>
+</li>
+<li><p>multipart/form-data: </p>
+<p> 这种编码方式会以二进制流的方式来处理表单数据，这中编码方式会把文件域指定的文件内容也封装到请求参数里。</p>
+</li>
+</ul>
+<p>用form的submit提交文件，会导致刷新页面，或者无法在提交成功后在回调函数中处理相应的业务。</p>
+<p>而一般的ajax无法满足文件的上传(HTML5提出了XMLHttpRequest对象的第二版，从此ajax能够上传文件了。)。所幸的是，ajaxSubmit可以支持文件的提交。</p>
+<p>示例代码如下：</p>
+<pre><code>$(<span class="string">'.commit-changepic'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
+    e.preventDefault();
+    $(<span class="string">'.postimg-form'</span>).ajaxSubmit({
+        success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>{
+            <span class="built_in">console</span>.log(res);
+            <span class="built_in">console</span>.log(res.fileUrl);
+            <span class="keyword">if</span>(res.fileUrl){
+                $(<span class="string">'.poster-img'</span>).attr(<span class="string">'src'</span>,res.fileUrl);
+                $($(<span class="string">'.img-url'</span>)[<span class="number">0</span>]).val(res.fileUrl);
+            }<span class="keyword">else</span>{
+                alert(<span class="string">'图片上传失败！'</span>);
+            }
+        },
+        error: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>{
+            <span class="built_in">console</span>.log(res);
+            alert(<span class="string">'图片上传失败！'</span>);
+        }
+    });
+   });
+</code></pre><p>用H5的FormData上传文件，示例如下：</p>
+<pre><code><span class="keyword">if</span>(<span class="built_in">window</span>.FormData) {　
+　　　　<span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();
+　　　　<span class="comment">// 建立一个upload表单项，值为上传的文件</span>
+　　　　formData.append(<span class="string">'upload'</span>, <span class="built_in">document</span>.getElementById(<span class="string">'upload'</span>).files[<span class="number">0</span>]);
+　　　　<span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();
+　　　　xhr.open(<span class="string">'POST'</span>, $(<span class="keyword">this</span>).attr(<span class="string">'action'</span>));
+　　　　xhr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+　　　　　　<span class="keyword">if</span> (xhr.status === <span class="number">200</span>) {
+　　　　　　　　<span class="built_in">console</span>.log(<span class="string">'上传成功'</span>);
+　　　　　　} <span class="keyword">else</span> {
+　　　　　　　　<span class="built_in">console</span>.log(<span class="string">'出错了'</span>);
+　　　　　　}
+　　　　};
+　　　　xhr.send(formData);
+　　}
+</code></pre><p>ajaxSubmit上传文件的原理还不清楚（猜测可能使用iframe实现的），有空可以研究一下。。。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/09/11/my-new-post/" itemprop="url">
                   hexo 使用小记
                 </a>
@@ -375,7 +656,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -392,7 +673,7 @@ tags: [博客，文章] <span class="preprocessor">#文章标签，多于一项�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

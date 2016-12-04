@@ -216,6 +216,384 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/04/webpack-muti-page-build/" itemprop="url">
+                  webpack 多页面构建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-04T13:29:23+08:00" content="2016-12-04">
+              2016-12-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/04/webpack-muti-page-build/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/04/webpack-muti-page-build/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="webpack_多页面构建">webpack 多页面构建</h2><h3 id="目标：">目标：</h3><ul>
+<li>基于webpack支持react多页面构建（不用gulp，gulp-webpack 构建速度太慢[3]), generator-react-webpack 对单页面支持很好，但对多页面，需要改造</li>
+<li>提高开发人员的效率</li>
+<li>并能对项目进行足够的性能优化</li>
+<li>提高构建的效率</li>
+</ul>
+<h3 id="配置文件编写（webpack-config-js）">配置文件编写（webpack.config.js）</h3><h4 id="示例：">示例：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="keyword">var</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>);</span><br><span class="line"><span class="keyword">var</span> node_dir = path.join(__dirname, <span class="string">'./node_modules/'</span>);</span><br><span class="line"><span class="keyword">var</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取所有入口文件</span></span><br><span class="line"><span class="keyword">var</span> getEntry = <span class="function"><span class="keyword">function</span>(<span class="params">globPath</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> entries = &#123;</span><br><span class="line">        vendor: [<span class="string">'jquery'</span>,<span class="string">'react'</span>,<span class="string">'react-dom'</span>,<span class="string">'./src/app'</span>] <span class="comment">// 类库</span></span><br><span class="line">    &#125;;</span><br><span class="line">    glob.sync(globPath).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">entry</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> pathname = entry.split(<span class="string">'/'</span>).splice(-<span class="number">2</span>).join(<span class="string">'/'</span>).split(<span class="string">'.'</span>)[<span class="number">0</span>];</span><br><span class="line">        entries[pathname] = [entry];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(entries);</span><br><span class="line">    <span class="keyword">return</span> entries;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 判断是否是在当前生产环境</span></span><br><span class="line"><span class="keyword">var</span> isProduction = process.env.NODE_ENV === <span class="string">'production'</span>;</span><br><span class="line"><span class="keyword">var</span> entries = getEntry(<span class="string">'./src/view/*/*.jsx'</span>);</span><br><span class="line"><span class="keyword">var</span> chunks = <span class="built_in">Object</span>.keys(entries);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: entries,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.join(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">        filename: isProduction ?<span class="string">'js/[name].[hash:8].js'</span>:<span class="string">'js/[name].js'</span>,</span><br><span class="line">        publicPath: <span class="string">'/dist/'</span>,</span><br><span class="line">        chunkFilename: <span class="string">'chunk/[name].chunk.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        noParse:[</span><br><span class="line">            <span class="comment">/*path.join(node_dir,'./react/dist/react.min.js'),</span><br><span class="line">            path.join(node_dir,'./jquery/dist/jquery.min.js'),</span><br><span class="line">            path.join(node_dir,'./react-dom/dist/react-dom.min.js')*/</span></span><br><span class="line">        ],</span><br><span class="line">        loaders: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.jsx?$/</span>,</span><br><span class="line">            loader: <span class="string">'babel'</span>,</span><br><span class="line">            query: &#123;</span><br><span class="line">                presets: [<span class="string">'es2015'</span>, <span class="string">'react'</span>]</span><br><span class="line">            &#125;,</span><br><span class="line">            exclude: node_dir</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            loader: ExtractTextPlugin.extract(<span class="string">'style'</span>, <span class="string">'css'</span>)</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">            loader: ExtractTextPlugin.extract(<span class="string">'style'</span>, <span class="string">'css!less'</span>)</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            test: <span class="regexp">/\.(png|jpe?g|gif)$/</span>,</span><br><span class="line">            loader: <span class="string">'url?limit=8192&amp;name=img/[hash:8].[ext]'</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            <span class="comment">//文件加载器，处理文件静态资源</span></span><br><span class="line">            test: <span class="regexp">/\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/</span>,</span><br><span class="line">            loader: <span class="string">'file?limit=10000&amp;name=fonts/[hash:8].[ext]'</span></span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>, <span class="string">'.json'</span>],</span><br><span class="line">        alias: &#123;</span><br><span class="line">            mod: node_dir</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">            $: <span class="string">'jquery'</span>, <span class="comment">// 使jquery变成全局变量,不用在自己文件require('jquery')了</span></span><br><span class="line">            jQuery: <span class="string">'jquery'</span>,</span><br><span class="line">            React: <span class="string">'react'</span>,</span><br><span class="line">            ReactDOM: <span class="string">'react-dom'</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="comment">// 类库统一打包生成一个文件</span></span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">            name: <span class="string">'vendor'</span>,</span><br><span class="line">            filename: isProduction ? <span class="string">'js/vendor.[hash:8].js'</span>:<span class="string">'js/vendor.js'</span>,</span><br><span class="line">            minChunks: <span class="number">3</span> <span class="comment">// 提取使用3次以上的模块，打包到vendor里</span></span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">            compress: &#123;</span><br><span class="line">                warnings: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> ExtractTextPlugin(isProduction ? <span class="string">'css/[name].[hash:8].css'</span>:<span class="string">'css/[name].css'</span>)</span><br><span class="line">    ],</span><br><span class="line">    devtool: isProduction ? <span class="literal">null</span> : <span class="string">'source-map'</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 生成HTML文件</span></span><br><span class="line">chunks.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">pathname</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pathname == <span class="string">'vendor'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> conf = &#123;</span><br><span class="line">        title: <span class="string">'My App'</span>,</span><br><span class="line">        filename: isProduction? <span class="string">'../view/'</span> + pathname + <span class="string">'.html'</span> : pathname + <span class="string">'.html'</span>,</span><br><span class="line">        template: <span class="string">'./src/template.html'</span>,</span><br><span class="line">        inject: <span class="string">'body'</span>,</span><br><span class="line">        minify: &#123;</span><br><span class="line">            removeComments: <span class="literal">true</span>,</span><br><span class="line">            collapseWhitespace: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (pathname <span class="keyword">in</span> <span class="built_in">module</span>.exports.entry) &#123;</span><br><span class="line">        conf.chunks = [<span class="string">'vendor'</span>, pathname];</span><br><span class="line">        conf.hash = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">module</span>.exports.plugins.push(<span class="keyword">new</span> HtmlWebpackPlugin(conf));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="Webpack的配置主要包括以下几大项目：">Webpack的配置主要包括以下几大项目：</h4><ul>
+<li><p><strong>entry</strong>：js入口源文件</p>
+<ul>
+<li>为了使用多入口文件，你可以给entry传入一个对象。对象的key代表入口点名字，value代表入口点。当使用多入口点的时候，需要重载output.filename，否责每个入口点都写入到同一个输出文件里面了。使用[name]来得到入口点名字。</li>
+<li><p>例子：</p>
+<pre><code><span class="collection">{
+    entry: <span class="collection">{
+        a: <span class="string">"./a"</span>,
+        b: <span class="string">"./b"</span>,
+        //支持数组形式，将加载数组中的所有模块，但以最后一个模块作为输出
+        //该方法可以添加多个彼此不互相依赖的文件
+        c: <span class="collection">[<span class="string">"./c"</span>, <span class="string">"./d"</span>]</span>
+    }</span>,
+    output: <span class="collection">{
+        path: path.join<span class="list">(<span class="keyword">__dirname</span>, <span class="string">"dist"</span>)</span>,
+        filename: <span class="string">"[name].entry.js"</span> // a.enrty.js, b.enrty.js, c.entry.js
+    }</span>
+}</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><strong>output</strong>：生成文件</p>
+<ul>
+<li><p>output参数是个对象，定义了输出文件的位置及名字.</p>
+</li>
+<li><p>例子：</p>
+<pre><code><span class="tag">output</span>: {
+    <span class="attribute">path</span>: <span class="string">"dist/js/page"</span>,
+    <span class="attribute">publicPath</span>: <span class="string">"/output/"</span>,
+    <span class="attribute">filename</span>: <span class="string">"[name].bundle.js"</span>
+}
+
+<span class="attribute">path</span>: 打包文件存放的绝对路径 
+<span class="attribute">publicPath</span>: 网站运行时的访问路径 
+<span class="attribute">filename</span>:打包后的文件名
+</code></pre></li>
+</ul>
+</li>
+<li><p><strong>module</strong>：模块加载器</p>
+<ul>
+<li><p>在webpack中JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等静态文件都是模块，不同模块的加载是通过模块加载器（webpack-loader）来统一管理的。loaders之间是可以串联的，一个加载器的输出可以作为下一个加载器的输入，最终返回到JavaScript上。</p>
+</li>
+<li><p>例子：</p>
+<pre><code><span class="module"><span class="keyword">module</span>: </span>{
+    <span class="comment">//加载器配置</span>
+    loaders: [
+        <span class="comment">//.css 文件使用 style-loader 和 css-loader 来处理</span>
+        { 
+            test: <span class="regexp">/\.css$/</span>, 
+            loader: <span class="string">'style-loader!css-loader'</span> 
+        },
+        <span class="comment">//.js 文件使用 jsx-loader 来编译处理</span>
+        { 
+            test: <span class="regexp">/\.js$/</span>, 
+            loader: <span class="string">'jsx-loader?harmony'</span> 
+        },
+        <span class="comment">//.scss 文件使用 style-loader、css-loader 和 sass-loader 来编译处理</span>
+        { 
+            test: <span class="regexp">/\.scss$/</span>, 
+            loader: <span class="string">'style!css!sass?sourceMap'</span>
+        },
+        <span class="comment">//图片文件使用 url-loader 来处理，小于8kb的直接转为base64</span>
+        { 
+            test: <span class="regexp">/\.(png|jpg)$/</span>, 
+            loader: <span class="string">'url-loader?limit=8192'</span>
+        }
+    ]
+}    
+</code></pre></li>
+<li><p>多个loader可以用在同一个文件上并且被链式调用。链式调用时从右到左执行且loader之间用“!”来分割。</p>
+</li>
+<li>模块加载器（loader）自身可以根据传入不同的参数进行配置。  </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>resolve</strong>：文件路径的指向</p>
+<ul>
+<li><p>webpack在构建包的时候会按目录的进行文件的查找，resolve属性中的extensions数组中用于配置程序可以自行补全哪些文件后缀：</p>
+</li>
+<li><p>例子：</p>
+<pre><code><span class="string">resolve:</span> {
+    <span class="comment">//查找module的话从这里开始查找</span>
+<span class="label">    root:</span> <span class="string">'/pomy/github/flux-example/src'</span>, <span class="comment">//绝对路径</span>
+    <span class="comment">//自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名</span>
+<span class="label">    extensions:</span> [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>, <span class="string">'.scss'</span>],
+    <span class="comment">//模块别名定义，方便后续直接引用别名，无须多写长长的地址</span>
+<span class="label">    alias:</span> {
+        <span class="string">AppStore :</span> <span class="string">'js/stores/AppStores.js'</span>,<span class="comment">//后续直接 require('AppStore') 即可</span>
+        <span class="string">ActionType :</span> <span class="string">'js/actions/ActionType.js'</span>,
+        <span class="string">AppAction :</span> <span class="string">'js/actions/AppAction.js'</span>
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+<li><p><strong>plugins</strong>：插件，比loader更强大，能使用更多webpack的api</p>
+<ul>
+<li><p>插件一般都是用于输出bundle的node模块。例如，uglifyJSPlugin获取bundle.js然后压缩和混淆内容以减小文件体积。类似的extract-text-webpack-plugin内部使用css-loader和style-loader来收集所有的css到一个地方最终将结果提取结果到一个独立的”styles.css“文件，并且在html里边引用style.css文件。</p>
+<pre><code><span class="keyword">var</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>);
+
+<span class="module"><span class="keyword">module</span>: </span>{
+    loaders: [
+        {
+            test: <span class="regexp">/\.css$/</span>,
+            loader: ExtractTextPlugin.extract(<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>)
+        },
+        {
+            test: <span class="regexp">/\.less$/</span>,
+            loader: ExtractTextPlugin.extract(<span class="string">"style-loader"</span>, <span class="string">"css-loader!less-loader"</span>)
+        }
+    ]
+},
+plugins: [
+    <span class="keyword">new</span> ExtractTextPlugin(<span class="string">"[name].css"</span>)
+]
+</code></pre></li>
+<li><p>code-splitting 插件CommonsChunkPlugin</p>
+<ul>
+<li><p>将多次引用的模块单独打包</p>
+<pre><code><span class="tag">new</span> <span class="tag">webpack</span><span class="class">.optimize</span><span class="class">.CommonsChunkPlugin</span>({
+    <span class="attribute">name</span>: <span class="string">'vendor'</span>,
+    <span class="attribute">filename</span>: isProduction ? <span class="string">'js/vendor.[hash:8].js'</span>:<span class="string">'js/vendor.js'</span>,
+    <span class="attribute">minChunks</span>: <span class="number">3</span> <span class="comment">// 提取使用3次以上的模块，打包到vendor里</span>
+})
+</code></pre></li>
+</ul>
+</li>
+<li><p>多页面 html 生成插件 html-webpack-plugin</p>
+<ul>
+<li><p>例子：</p>
+<pre><code><span class="keyword">var</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>);
+
+chunks.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">pathname</span>) </span>{
+    <span class="keyword">if</span> (pathname == <span class="string">'vendor'</span>) {
+        <span class="keyword">return</span>;
+    }
+    <span class="keyword">var</span> conf = {
+        title: <span class="string">'My App'</span>,
+        filename: isProduction? <span class="string">'../view/'</span> + pathname + <span class="string">'.html'</span> : pathname + <span class="string">'.html'</span>,
+        template: <span class="string">'./src/template.html'</span>,
+        inject: <span class="string">'body'</span>,
+        minify: {
+            removeComments: <span class="literal">true</span>,
+            collapseWhitespace: <span class="literal">false</span>
+        }
+    };
+    <span class="keyword">if</span> (pathname <span class="keyword">in</span> <span class="built_in">module</span>.exports.entry) {
+        conf.chunks = [<span class="string">'vendor'</span>, pathname];
+        conf.hash = <span class="literal">false</span>;
+    }
+    <span class="built_in">module</span>.exports.plugins.push(<span class="keyword">new</span> HtmlWebpackPlugin(conf));
+});
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* src目录下有个template.html文件，无需引入任何css和js，webpack会自动帮我们打包引入，`<span class="tag">&lt;<span class="title">%=</span> <span class="attribute">htmlWebpackPlugin.options.title</span> %&gt;</span>`读取配置好的页面标题
+
+    <span class="comment"><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">title</span>&gt;</span> <span class="tag">&lt;<span class="title">%=</span> <span class="attribute">htmlWebpackPlugin.options.title</span> %&gt;</span> <span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"app"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></span>
+
+
+* 最终通过打包，会生成对应入口的html文件，
+</code></pre><p>比如src/view/index/index.js会生成view/index/index.html</p>
+<pre><code>    <span class="comment"><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">title</span>&gt;</span> My App <span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">href</span>=<span class="value">"/dist/css/vendor.abf9657f.css"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">link</span> <span class="attribute">href</span>=<span class="value">"/dist/css/index/index.abf9657f.css"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"app"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/dist/js/vendor.abf9657f.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/dist/js/index/index.abf9657f.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></span>
+
+
+* 你会发现相关资源文件都自动引入了，十分便捷。
+</code></pre><h3 id="webpack_常用命令">webpack 常用命令</h3><ul>
+<li>webpack 最基本的启动webpack命令</li>
+<li>webpack -w 提供watch方法，实时进行打包更新</li>
+<li>webpack -p 对打包后的文件进行压缩</li>
+<li>webpack -d 提供SourceMaps，方便调试</li>
+<li>webpack –colors 输出结果带彩色，比如：会用红色显示耗时较长的步骤</li>
+<li>webpack –profile 输出性能数据，可以看到每一步的耗时</li>
+<li>webpack –display-modules 默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块</li>
+</ul>
+<h3 id="webpack_dev_server">webpack dev server</h3><ul>
+<li><p>配置示例：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="keyword">var</span> WebpackDevServer = <span class="built_in">require</span>(<span class="string">'webpack-dev-server'</span>);</span><br><span class="line"><span class="keyword">var</span> config = <span class="built_in">require</span>(<span class="string">'./webpack.config.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> config.entry) &#123;</span><br><span class="line">	<span class="comment">// 每个入口文件加入 client websocket 热加载脚本</span></span><br><span class="line">	config.entry[i].unshift(</span><br><span class="line">		<span class="string">"webpack-dev-server/client?http://127.0.0.1:3000/"</span>, </span><br><span class="line">		<span class="string">"webpack/hot/only-dev-server"</span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br><span class="line">config.module.loaders.unshift(&#123;</span><br><span class="line">	test: <span class="regexp">/\.jsx?$/</span>,</span><br><span class="line">	loader: <span class="string">'react-hot'</span>,</span><br><span class="line">	exclude: <span class="regexp">/node_modules/</span></span><br><span class="line">&#125;);</span><br><span class="line">config.plugins.push(<span class="keyword">new</span> webpack.HotModuleReplacementPlugin());</span><br><span class="line"><span class="keyword">new</span> WebpackDevServer(webpack(config), &#123;</span><br><span class="line">	publicPath: config.output.publicPath,</span><br><span class="line">	hot: <span class="literal">true</span>,</span><br><span class="line">	historyApiFallback: <span class="literal">true</span>,</span><br><span class="line">	stats: &#123; colors: <span class="literal">true</span> &#125;</span><br><span class="line">	&#125;).listen(<span class="number">3000</span>, <span class="string">'127.0.0.1'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (err) &#123;</span><br><span class="line">	    <span class="built_in">console</span>.log(err);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'server start'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用处</p>
+<ul>
+<li>开启服务器调试环境</li>
+<li>解决以下两个问题：<ul>
+<li>webpack –watch 打包速度慢</li>
+<li>不能做到hot replace </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>配置</p>
+<ul>
+<li><p><strong>Content Base</strong></p>
+<ul>
+<li>如果不进行设定的话，服务器伺服默认是在当前目录下。</li>
+<li>命令行设置 <code>webpack-dev-server --content-base build/</code></li>
+<li><p>webpack 配置</p>
+<pre><code><span class="tag">devServer</span>: {
+    <span class="attribute">contentBase</span>: <span class="string">'./src/'</span>,
+    <span class="attribute">historyApiFallback</span>: true,
+    <span class="attribute">hot</span>: true,
+    <span class="attribute">port</span>: defaultSettings.port,
+    <span class="attribute">publicPath</span>: <span class="string">'/assets/'</span>,
+    <span class="attribute">noInfo</span>: false
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p><strong>publicPath</strong></p>
+<ul>
+<li>webpack server 伺服的 bundle 是在内存中的，其相对路径由 publicPath 字段指定。</li>
+<li>如果用以上的配置，bundle 可以通过地址 localhost:8080/assets/bundle.js 访问到。（注意：访问的不是output目录下的文件而是内存中的数据！）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>自动更新和热替换</p>
+<ul>
+<li><p>配置：</p>
+<pre><code><span class="variable"><span class="keyword">var</span> config</span> = require(<span class="string">"./webpack.config.js"</span>);
+config.entry.app.unshift(<span class="string">"webpack-dev-server/client?http://localhost:8080/"</span>, <span class="string">"webpack/hot/dev-server"</span>);
+<span class="variable"><span class="keyword">var</span> compiler</span> = webpack(config);
+<span class="variable"><span class="keyword">var</span> server</span> = new webpackDevServer(compiler, {
+    hot: <span class="literal">true</span>
+    ...
+});
+server.listen(<span class="number">8080</span>);
+</code></pre><p>  关键配置： <code>config.entry.app.unshift(&quot;webpack-dev-server/client?http://localhost:8080/&quot;, &quot;webpack/hot/dev-server&quot;);</code></p>
+<p>  在每个入口文件注入 client websocket 热加载脚本。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="参考文档：">参考文档：</h3><p><strong>webpack 多页面构建</strong>  </p>
+<ol>
+<li><a href="http://www.alloyteam.com/2016/03/using-react-to-write-a-simple-activity-pages-design-of-operating-system-article/" target="_blank" rel="external">使用 React 写个简单的活动页面运营系统</a>  </li>
+<li><a href="http://to-u.xyz/2016/05/26/webpack-react-multiplePage/" target="_blank" rel="external">Webpack+React多页面应用探索</a>  </li>
+<li><a href="http://www.jianshu.com/p/f6a2a47d084d" target="_blank" rel="external">webpack不适合多页面应用？你写的插件还不够多</a>  </li>
+<li><a href="http://www.alloyteam.com/2015/10/optimization-of-alloyteam-series-building-articles/" target="_blank" rel="external">【AlloyTeam优化系列】构建篇</a><br><strong>webpack react generator</strong>  </li>
+<li><a href="https://github.com/stylesuxx/generator-react-webpack" target="_blank" rel="external">generator-react-webpack</a><br><strong>webpack 构建优化</strong>  </li>
+<li><a href="https://segmentfault.com/a/1190000005770042" target="_blank" rel="external">开发工具心得：如何 10 倍提高你的 Webpack 构建效率</a>  </li>
+<li><a href="https://github.com/lcxfs1991/blog/issues/2" target="_blank" rel="external">webpack使用优化（基本篇）</a>  </li>
+<li><a href="https://github.com/lcxfs1991/blog/issues/7" target="_blank" rel="external">webpack使用优化（react篇）</a><br><strong>webpack-dev-server</strong>  </li>
+<li><a href="https://segmentfault.com/a/1190000006670084" target="_blank" rel="external">webpack-dev-server使用方法</a>  </li>
+<li><a href="https://webpack.github.io/docs/webpack-dev-server.html" target="_blank" rel="external">WEBPACK DEV SERVER</a><br><strong>多入口以及code-splitting</strong>  </li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points" target="_blank" rel="external">webpack multiple-entry-points example</a>  </li>
+<li><a href="https://webpack.github.io/docs/multiple-entry-points.html" target="_blank" rel="external">MULTIPLE ENTRY POINTS</a>  </li>
+<li><a href="https://webpack.github.io/docs/code-splitting.html" target="_blank" rel="external">CODE SPLITTING</a><br><strong>webpack 配置</strong>  </li>
+<li><a href="https://github.com/dwqs/blog/issues/21" target="_blank" rel="external">详解前端模块化工具-Webpack</a> <strong>不错的文章</strong>  </li>
+<li><a href="https://github.com/chemdemo/chemdemo.github.io/issues/13" target="_blank" rel="external">【翻译】Webpack——令人困惑的地方</a><strong>好文章</strong><br><strong>webpack CommonsChunkPlugin详细教程</strong>  </li>
+<li><a href="https://segmentfault.com/a/1190000006808865" target="_blank" rel="external">webpack CommonsChunkPlugin详细教程</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/20/老生常谈之-css-居中/" itemprop="url">
                   老生常谈之 css 居中
                 </a>
@@ -1712,287 +2090,6 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/04/form/" itemprop="url">
-                  表单（Form）小结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-04T10:42:44+08:00" content="2016-01-04">
-              2016-01-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/04/form/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/04/form/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="介绍">介绍</h2><p>这段时间做了个后台的前端项目。说实话，之前并没有做过后台的项目。在做了后台项目后，发现最重要的是要熟练掌握表单相关的技术。这篇文章将我所做的后台项目中用到的表单相关的知识做一个总结，也算是一种积累吧。:)</p>
-<h3>一个简单的表单示例</h3>
-
-<p>下面是一个简单的表单示例：</p>
-<pre><code>&lt;<span class="keyword">form</span> id=<span class="string">"main-form"</span> action=<span class="string">"http://somesite.com/prog/adduser"</span> method=<span class="string">"post"</span>&gt;
-    &lt;<span class="keyword">label</span> <span class="keyword">for</span>=<span class="string">"name"</span>&gt;姓名: &lt;/<span class="keyword">label</span>&gt;
-    &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"text"</span> name=<span class="string">"name"</span> id=<span class="string">"name"</span>&gt;&lt;<span class="keyword">br</span>&gt;
-    &lt;<span class="keyword">label</span>&gt;
-        性别：
-        &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"radio"</span> name=<span class="string">"sex"</span> value=<span class="string">"Male"</span>&gt;男
-        &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"radio"</span> name=<span class="string">"sex"</span> value=<span class="string">"Female"</span>&gt;女&lt;<span class="keyword">br</span>&gt;
-    &lt;<span class="keyword">label</span>&gt;
-    &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"submit"</span> value=<span class="string">"Send"</span>&gt; &lt;<span class="keyword">input</span> <span class="keyword">type</span>=<span class="string">"reset"</span>&gt;
- &lt;/<span class="keyword">form</span>&gt;
-</code></pre><p>页面如图所示：</p>
-<p><img src="http://img.alicdn.com/tps/TB1h_YhLXXXXXb3aXXXXXXXXXXX-239-81.jpg" alt=""></p>
-<p>当我们点击send按钮时，就能向服务器端发送表单。点击重置按钮时，input中的value值将会是我们设置的默认值。<br>form的action属性值为服务端处理我们提交的表单的URI。<br>method是表单提交的方式。</p>
-<p>input标签是表单中的控件，用户在input中输入的值，或者用户选择了某个radio选项的值就是这个控件的value值。当提交表单时，input中的name和value值编码后传给服务器端，服务器端解码后根据name和value键值对获取用户提交的信息。</p>
-<h2 id="表单提交的过程">表单提交的过程</h2><h3>成功控件</h3>
-
-<p>成功控件是能被提交给服务端的控件，每个成功控件都有其name已经value值，以被作为form数据的一部分传给服务器端。一个成功控件必须在form标签之中，并且有name值。</p>
-<p>此外，成功控件还需满足以下条件：</p>
-<ul>
-<li>控件不能设置为disabled。</li>
-<li>如果form包含多个提交按钮，只有被点击的提交按钮才是成功控件。</li>
-<li>被选中的checkbox才算成功控件。</li>
-<li>被选中的radio才算成功控件。</li>
-<li>select选项，被选中的option才是成功控件，如果没有option被选中，那么这个select不是成功控件，将不被提交。</li>
-<li>包含了文件的file控件才是成功控件。</li>
-</ul>
-<p>注意：如果控件的display属性被设置为none，控件仍然可以是成功的。</p>
-<h3>提交表单</h3>
-
-<p>表单提交可以分为以下几步：</p>
-<ul>
-<li>1、验证成功的控件，如上文所诉。</li>
-<li>2、创建表单数据集，由成功控件的name和value组成的键值对序列。</li>
-<li>3、编码表单数据集，编码方式由form元素的enctype属性来指定。</li>
-<li>4、提交编码后的表单数据集。  </li>
-</ul>
-<h2 id="对多个提交按钮，做不同提交任务的处理">对多个提交按钮，做不同提交任务的处理</h2><p>我们经常会碰到这样的需求，一个页面中有多个不同的按钮，点击按钮时服务端做不同的处理。此时我们改如何处理呢？<br>一种方式是可以给提交按钮设置不同的name，服务端通过判断name来判断用户点击了哪个按钮，然后做相应的处理。另一种方式是给提交按钮设置相同的name，不同的value，服务端通过判断value值来判断用户点击了哪个按钮。</p>
-<p>以上两种方式将判断的工作交给了服务端。对于前端，我们可以用ajax的方式提交表单来实现多个提交按钮的处理。用ajax提交的另一个好处是可以防止页面刷新或者跳转到action指定的页面。</p>
-<p>如果用jQuery，我们可以这么提交：</p>
-<pre><code>$(<span class="string">"#main-form"</span>).on(<span class="string">"submit"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{
-    e.preventDefault();
-    $.post(<span class="keyword">this</span>.action, $(<span class="keyword">this</span>).serialize());
-}); 
-</code></pre><p>用jQuery，如果想上传部分表单，我们可以这么提交</p>
-<pre><code>&lt;div id=<span class="string">"divCustomerInfo"</span>&gt;
-    &lt;p&gt;名称: &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"CustomerName"</span> /&gt;&lt;/p&gt;
-    &lt;p&gt;电话: &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"CustomerTel"</span> /&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-$(<span class="string">"#btnId"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    $.ajax({
-        url: <span class="string">"test.htm"</span>, 
-        <span class="built_in">type</span>: <span class="string">"POST"</span>,
-        data: $(<span class="string">'#divCustomerInfo :text'</span>).fieldSerialize(),
-        success: <span class="function"><span class="keyword">function</span><span class="params">(responseText)</span></span>{
-            alert(responseText);
-        }
-    });
-    <span class="keyword">return</span> <span class="keyword">false</span>;
-});
-</code></pre><p>利用H5的FormData对象，我们可以这么提交：</p>
-<pre><code>document.getElementById(<span class="string">"main-form"</span>).onsubmit = function(e) {
-
-    e.preventDefault();
-
-    var f = e.target,
-        formData = new FormData(f),
-        xhr = new XMLHttpRequest();
-
-    xhr.open(<span class="string">"<span class="keyword">POST</span>"</span>, f.action);
-    xhr.send(formData);
-}
-</code></pre><p>对于jQuery，还有一个强大的插件jquery.form.js，利用这个插件，我们可以这么提交：</p>
-<pre><code> $(<span class="string">'.send-message'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
-    e.preventDefault();
-    <span class="keyword">if</span>(self.validateForm(VALIDATE_TYPE.TEST_MESSAGE)){
-        $(<span class="string">'#main-form'</span>).ajaxSubmit({
-            url: <span class="string">'/message/send_test_message.htm'</span>,
-            success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>{
-                <span class="keyword">if</span>(<span class="keyword">typeof</span> res === <span class="string">'string'</span>)
-                    res = <span class="built_in">JSON</span>.parse(res);
-                <span class="built_in">console</span>.log(res);
-                <span class="keyword">if</span>(res.result === <span class="string">'success'</span>){
-                    $(<span class="string">'.test-success'</span>).removeClass(<span class="string">'hide'</span>);
-                }
-                <span class="keyword">else</span>{
-                    alert(res.errorMsg);
-                    $(<span class="string">'.test-success'</span>).addClass(<span class="string">'hide'</span>);
-                }
-            },
-            error: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>{
-                $(<span class="string">'.test-success'</span>).addClass(<span class="string">'hide'</span>);
-                alert(<span class="string">'提交测试失败，请重试！'</span>);
-                <span class="built_in">console</span>.log(<span class="string">'Ajax error! '</span> + type);
-            }
-        });
-    }<span class="keyword">else</span>{
-        $(<span class="string">'.test-success'</span>).addClass(<span class="string">'hide'</span>);
-    }
-});
-</code></pre><p>利用ajaxSubmit，我们可以设置提交的url，以及成功和失败的回调函数，在处理业务时的确方便很多。而且不用手动序列化提交的表单数据。<br>ajaxSubmit还有一个强大的地方是能够处理文件的提交。</p>
-<h2 id="表单文件上传">表单文件上传</h2><p>下面是一个表单文件上传的例子：</p>
-<pre><code>&lt;form action=<span class="string">"/message/upload_image.htm"</span> method=<span class="string">"post"</span> enctype=<span class="string">"multipart/form-data"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"postimg-form"</span>&gt;
-    &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"form-group"</span>&gt;
-        &lt;input name=<span class="string">"file"</span> id=<span class="string">"file"</span> <span class="class"><span class="keyword">type</span>=</span><span class="string">"file"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"send-file"</span>  style=<span class="string">"display: inline-block;"</span>/&gt;
-    &lt;/div&gt;
-    &lt;div <span class="class"><span class="keyword">class</span>=</span><span class="string">"urlinput-wrap"</span>&gt;
-        &lt;span&gt;图片<span class="type">URL</span>：&lt;/span&gt;
-        &lt;input name=<span class="string">"picurlList"</span> <span class="class"><span class="keyword">type</span>=</span><span class="string">"text"</span> value=<span class="string">"$!{picurlList}"</span>  <span class="class"><span class="keyword">class</span>=</span><span class="string">"img-url not-hidden"</span>&gt;&lt;/input&gt;
-    &lt;/div&gt;
-
-    &lt;button <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span>&gt;取消&lt;/button&gt;
-    &lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"submit"</span> <span class="class"><span class="keyword">class</span>=</span><span class="string">"commit-changepic"</span>&gt;确定&lt;/button&gt;
-&lt;/form&gt;
-</code></pre><p>对于文件上传，必须采用post方式，并且form元素的enctype需要设置为multipart/form-data。</p>
-<p>表单的enctype一般常用的有两种：</p>
-<ul>
-<li><p>application/x-www-form-urlencoded:</p>
-<p>  这是默认的编码方式。它只处理表单域里的value属性值，采用这种变法方式的表单会将表单域的值处理成URL方式。</p>
-</li>
-<li><p>multipart/form-data: </p>
-<p> 这种编码方式会以二进制流的方式来处理表单数据，这中编码方式会把文件域指定的文件内容也封装到请求参数里。</p>
-</li>
-</ul>
-<p>用form的submit提交文件，会导致刷新页面，或者无法在提交成功后在回调函数中处理相应的业务。</p>
-<p>而一般的ajax无法满足文件的上传(HTML5提出了XMLHttpRequest对象的第二版，从此ajax能够上传文件了。)。所幸的是，ajaxSubmit可以支持文件的提交。</p>
-<p>示例代码如下：</p>
-<pre><code>$(<span class="string">'.commit-changepic'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{
-    e.preventDefault();
-    $(<span class="string">'.postimg-form'</span>).ajaxSubmit({
-        success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>{
-            <span class="built_in">console</span>.log(res);
-            <span class="built_in">console</span>.log(res.fileUrl);
-            <span class="keyword">if</span>(res.fileUrl){
-                $(<span class="string">'.poster-img'</span>).attr(<span class="string">'src'</span>,res.fileUrl);
-                $($(<span class="string">'.img-url'</span>)[<span class="number">0</span>]).val(res.fileUrl);
-            }<span class="keyword">else</span>{
-                alert(<span class="string">'图片上传失败！'</span>);
-            }
-        },
-        error: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>{
-            <span class="built_in">console</span>.log(res);
-            alert(<span class="string">'图片上传失败！'</span>);
-        }
-    });
-   });
-</code></pre><p>用H5的FormData上传文件，示例如下：</p>
-<pre><code><span class="keyword">if</span>(<span class="built_in">window</span>.FormData) {　
-　　　　<span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();
-　　　　<span class="comment">// 建立一个upload表单项，值为上传的文件</span>
-　　　　formData.append(<span class="string">'upload'</span>, <span class="built_in">document</span>.getElementById(<span class="string">'upload'</span>).files[<span class="number">0</span>]);
-　　　　<span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();
-　　　　xhr.open(<span class="string">'POST'</span>, $(<span class="keyword">this</span>).attr(<span class="string">'action'</span>));
-　　　　xhr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-　　　　　　<span class="keyword">if</span> (xhr.status === <span class="number">200</span>) {
-　　　　　　　　<span class="built_in">console</span>.log(<span class="string">'上传成功'</span>);
-　　　　　　} <span class="keyword">else</span> {
-　　　　　　　　<span class="built_in">console</span>.log(<span class="string">'出错了'</span>);
-　　　　　　}
-　　　　};
-　　　　xhr.send(formData);
-　　}
-</code></pre><p>ajaxSubmit上传文件的原理还不清楚（猜测可能使用iframe实现的），有空可以研究一下。。。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2038,7 +2135,7 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2055,7 +2152,7 @@ $(<span class="string">"#btnId"</span>).click(<span class="function"><span class
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
