@@ -216,6 +216,206 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/15/fetch/" itemprop="url">
+                  fetch
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-15T10:37:12+08:00" content="2016-12-15">
+              2016-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/15/fetch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/15/fetch/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(<a href="http://www.w3school.com.cn/xmldom/dom_http.asp" target="_blank" rel="external">XMLHttpRequest 对象</a>)。而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。<br>Fetch 的出现就是为了解决 XHR 的问题，其主要优点有：  </p>
+<ul>
+<li>语法简洁，更加语义化</li>
+<li>基于标准 Promise 实现，支持 async/await</li>
+<li>同构方便，使用 <a href="https://github.com/matthew-andrews/isomorphic-fetch" target="_blank" rel="external">isomorphic-fetch</a></li>
+</ul>
+<p>Fetch API 旨在用来简化 HTTP 请求，它包含以下类和方法：</p>
+<ul>
+<li>fetch 方法：用于发起 HTTP 请求</li>
+<li>Request 类：用来描述请求</li>
+<li>Response 类：用来表示响应</li>
+<li>Headers 类：用来表示 HTTP 头部信息</li>
+</ul>
+<p>这些类和方法在网上有着丰富的教程，在此不做赘述，可以查阅参考文献。</p>
+<h3 id="常见的坑">常见的坑</h3><ul>
+<li>fetch 请求默认是不带 cookie 的，需要设置 <code>fetch(url, {credentials: &#39;include&#39;})</code></li>
+<li>服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。可以用<code>response.status</code> 或 <code>response.ok</code> 判断服务端是否返回错误。</li>
+</ul>
+<h3 id="fetch_发送_post_请求">fetch 发送 post 请求</h3><p><strong>$.ajax方法</strong></p>
+<p>首先我们看下 $.ajax post 数据的方法。</p>
+<pre><code>$<span class="built_in">.</span>ajax({
+  <span class="keyword">type</span>: <span class="string">'POST'</span>,
+  url: <span class="string">'/video/v5video/item/add.htm'</span>,
+  <span class="built_in">data</span>: <span class="built_in">data</span>,
+  dataType: <span class="string">'json'</span>
+})
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww1.sinaimg.cn/mw1024/694c764dgw1faqh1go0k7j20om08k40e.jpg" alt=""></p>
+<p>这种情况下，服务器可以正常地解析 post 数据。</p>
+<p><strong>方法1:</strong></p>
+<pre><code>fetch('/video/v5video/item/add.htm', {
+  <span class="keyword">method</span>: '<span class="type">POST</span>',
+  headers: {
+    '<span class="type">Content</span>-<span class="type">Type</span>': 'application/json'
+  },
+  body: <span class="type">JSON</span>.stringify(data),
+  credentials: '<span class="keyword">include</span>'
+})
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww3.sinaimg.cn/large/694c764dgw1faqgc3g82oj20og0aq0v1.jpg" alt=""></p>
+<p>可以看到，请求数据在 payload 中，在一些后台中（如webx），并不支持解析 payload 中的数据，此时将不能正常 post 数据。</p>
+<p><strong>方法2:</strong></p>
+<pre><code>fetch('/video/v5video/item/add.htm', {
+  <span class="keyword">method</span>: '<span class="type">POST</span>',
+  headers: {},
+  body: setFormData(data),
+  credentials: '<span class="keyword">include</span>'
+});
+
+function setFormData(data) {
+  <span class="keyword">let</span> formData = new <span class="type">FormData</span>();
+  <span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">in</span> data) {
+    formData.append(name, data[name]);
+  }
+  <span class="keyword">return</span> formData;
+}
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww4.sinaimg.cn/mw1024/694c764dgw1faqgumuylcj20ro09gmze.jpg" alt=""></p>
+<p>存在着和方法一同样的问题。</p>
+<p><strong>方法3:</strong></p>
+<p>有没有什么方法可以让 fetch 发出和 $.ajax 一样的请求呢？答案是有的：</p>
+<pre><code>fetch('/video/v5video/item/add.htm', {
+  <span class="keyword">method</span>: '<span class="type">POST</span>',
+  body: setUrlSearchParams(data),
+  credentials: '<span class="keyword">include</span>'
+});
+
+function setUrlSearchParams(data) {
+  <span class="keyword">let</span> urlSearchParams = new <span class="type">URLSearchParams</span>();
+  <span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">in</span> data) {
+    urlSearchParams.append(name, data[name]);
+  }
+  <span class="keyword">return</span> urlSearchParams;
+}  
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww4.sinaimg.cn/mw1024/694c764dgw1faqh7rneixj20rq06ygn9.jpg" alt=""></p>
+<p>这样就达到了和 <code>$.ajax</code> 一样的效果了。</p>
+<h3 id="参考文献">参考文献</h3><ul>
+<li>[1] <a href="https://fetch.spec.whatwg.org/" target="_blank" rel="external">Fetch Living Standard</a></li>
+<li>[2] <a href="https://github.com/github/fetch" target="_blank" rel="external">A window.fetch JavaScript polyfill</a></li>
+<li>[3] <a href="https://www.w3ctech.com/topic/854" target="_blank" rel="external">这个API很“迷人”——(新的Fetch API)</a></li>
+<li>[4] <a href="https://segmentfault.com/a/1190000006039533" target="_blank" rel="external">Fetch API</a></li>
+<li>[5] <a href="https://github.com/camsong/blog/issues/2" target="_blank" rel="external">传统 Ajax 已死，Fetch 永生</a></li>
+<li>[6] <a href="http://blog.csdn.net/mhmyqn/article/details/25561535" target="_blank" rel="external">AJAX POST请求中参数以form data和request payload形式在servlet中的获取方式</a></li>
+<li>[7] <a href="http://www.voidcn.com/blog/hsbirenjie/article/p-6206418.html" target="_blank" rel="external">Fetch发送POST请求的坑与解决方案</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/04/nginx-eclipse-proxy/" itemprop="url">
                   mac下eclipse起服务器使用80端口
                 </a>
@@ -1939,167 +2139,6 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/15/30pluscss/" itemprop="url">
-                  30+有用css代码片段
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-15T23:37:29+08:00" content="2016-03-15">
-              2016-03-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/15/30pluscss/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/30pluscss/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原文：<a href="http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://webres.wang/31-css-code-snippets-to-make-you-a-better-coder/?utm_source=tuicool&amp;utm_medium=referral</a></p>
-<h4 id="1、垂直对齐">1、垂直对齐</h4><pre><code><span class="class">.vc</span> <span class="rules">{
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">-webkit-transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
-    <span class="rule"><span class="attribute">-o-transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
-    <span class="rule"><span class="attribute">transform</span>:<span class="value"> <span class="function">translateY</span>(-<span class="number">50%</span>)</span></span>;
-}</span>
-</code></pre><h4 id="2、只在一侧或两侧具有投影">2、只在一侧或两侧具有投影</h4><pre><code><span class="class">.box-shadow</span> <span class="rules">{
-    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#AC92EC</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">160px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">90px</span></span></span>;
-    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> -<span class="number">45px</span></span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">80px</span></span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-}</span>
-
-<span class="rule"><span class="attribute">.box-shadow</span>:<span class="value">after {
-    content: <span class="string">""</span></span></span>;
-    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">150px</span></span></span>;
-    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">1px</span></span></span>;
-    <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">88px</span></span></span>;
-    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">75px</span></span></span>;
-    <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;
-    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;
-    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">50%</span></span></span>;
-    <span class="rule"><span class="attribute">z-index</span>:<span class="value"> -<span class="number">1</span></span></span>;
-    <span class="rule"><span class="attribute">-webkit-box-shadow</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span> <span class="number">8px</span> <span class="number">2px</span> <span class="hexcolor">#000000</span></span></span>;
-       <span class="rule"><span class="attribute">-moz-box-shadow</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span> <span class="number">8px</span> <span class="number">2px</span> <span class="hexcolor">#000000</span></span></span>;
-            <span class="rule"><span class="attribute">box-shadow</span>:<span class="value"> <span class="number">0px</span> <span class="number">0px</span> <span class="number">8px</span> <span class="number">2px</span> <span class="hexcolor">#000000</span></span></span>;
-}
-</code></pre><h4 id="3、渐变背景动画效果">3、渐变背景动画效果</h4><p>。。。未完待续</p>
-<p>。。。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2145,7 +2184,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2162,7 +2201,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

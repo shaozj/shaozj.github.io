@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="前端," />
+  <meta name="keywords" content="fetch," />
 
 
 
@@ -59,49 +59,26 @@
 
 
 
-<meta name="description" content="功能需求
-编译
-压缩
-web服务器
+<meta name="description" content="用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(XMLHttpRequest 对象)。而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。Fetch 的出现就是为了解决 XHR 的问题，其主要优点有：  
 
-webpack学习$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
-
-$ webpack --watch   //监听变动并自动打包
-
-$ webpack -p    //压缩混淆脚本，这个非常非常重要！
-
-$ webpack -d    //生成map映射文件，告知哪些模块被最终">
+语法简洁，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webpack学习">
-<meta property="og:url" content="http://yoursite.com/2016/03/23/webpack学习/index.html">
+<meta property="og:title" content="fetch">
+<meta property="og:url" content="http://yoursite.com/2016/12/15/fetch/index.html">
 <meta property="og:site_name" content="Shaozj's blog">
-<meta property="og:description" content="功能需求
-编译
-压缩
-web服务器
+<meta property="og:description" content="用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(XMLHttpRequest 对象)。而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。Fetch 的出现就是为了解决 XHR 的问题，其主要优点有：  
 
-webpack学习$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
-
-$ webpack --watch   //监听变动并自动打包
-
-$ webpack -p    //压缩混淆脚本，这个非常非常重要！
-
-$ webpack -d    //生成map映射文件，告知哪些模块被最终">
-<meta property="og:updated_time" content="2016-03-23T07:12:56.000Z">
+语法简洁，">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw1024/694c764dgw1faqh1go0k7j20om08k40e.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/694c764dgw1faqgc3g82oj20og0aq0v1.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw1024/694c764dgw1faqgumuylcj20ro09gmze.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw1024/694c764dgw1faqh7rneixj20rq06ygn9.jpg">
+<meta property="og:updated_time" content="2016-12-15T02:39:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webpack学习">
-<meta name="twitter:description" content="功能需求
-编译
-压缩
-web服务器
+<meta name="twitter:title" content="fetch">
+<meta name="twitter:description" content="用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(XMLHttpRequest 对象)。而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。Fetch 的出现就是为了解决 XHR 的问题，其主要优点有：  
 
-webpack学习$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
-
-$ webpack --watch   //监听变动并自动打包
-
-$ webpack -p    //压缩混淆脚本，这个非常非常重要！
-
-$ webpack -d    //生成map映射文件，告知哪些模块被最终">
+语法简洁，">
 
 
 
@@ -119,7 +96,7 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终">
   };
 </script>
 
-  <title> webpack学习 | Shaozj's blog </title>
+  <title> fetch | Shaozj's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +224,7 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终">
             
             
               
-                webpack学习
+                fetch
               
             
           </h1>
@@ -259,8 +236,8 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-23T10:51:53+08:00" content="2016-03-23">
-              2016-03-23
+            <time itemprop="dateCreated" datetime="2016-12-15T10:37:12+08:00" content="2016-12-15">
+              2016-12-15
             </time>
           </span>
 
@@ -289,8 +266,8 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/23/webpack学习/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/23/webpack学习/" itemprop="commentsCount"></span>
+                <a href="/2016/12/15/fetch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/15/fetch/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -312,19 +289,93 @@ $ webpack -d    //生成map映射文件，告知哪些模块被最终">
       
 
       
-        <h4 id="功能需求">功能需求</h4><ul>
-<li>编译</li>
-<li>压缩</li>
-<li>web服务器</li>
+        <p>用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(<a href="http://www.w3school.com.cn/xmldom/dom_http.asp" target="_blank" rel="external">XMLHttpRequest 对象</a>)。而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。<br>Fetch 的出现就是为了解决 XHR 的问题，其主要优点有：  </p>
+<ul>
+<li>语法简洁，更加语义化</li>
+<li>基于标准 Promise 实现，支持 async/await</li>
+<li>同构方便，使用 <a href="https://github.com/matthew-andrews/isomorphic-fetch" target="_blank" rel="external">isomorphic-fetch</a></li>
 </ul>
-<h4 id="webpack学习">webpack学习</h4><pre><code>$ webpack --config XXX<span class="class">.js</span>   <span class="comment">//使用另一份配置文件（比如webpack.config2.js）来打包</span>
+<p>Fetch API 旨在用来简化 HTTP 请求，它包含以下类和方法：</p>
+<ul>
+<li>fetch 方法：用于发起 HTTP 请求</li>
+<li>Request 类：用来描述请求</li>
+<li>Response 类：用来表示响应</li>
+<li>Headers 类：用来表示 HTTP 头部信息</li>
+</ul>
+<p>这些类和方法在网上有着丰富的教程，在此不做赘述，可以查阅参考文献。</p>
+<h3 id="常见的坑">常见的坑</h3><ul>
+<li>fetch 请求默认是不带 cookie 的，需要设置 <code>fetch(url, {credentials: &#39;include&#39;})</code></li>
+<li>服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。可以用<code>response.status</code> 或 <code>response.ok</code> 判断服务端是否返回错误。</li>
+</ul>
+<h3 id="fetch_发送_post_请求">fetch 发送 post 请求</h3><p><strong>$.ajax方法</strong></p>
+<p>首先我们看下 $.ajax post 数据的方法。</p>
+<pre><code>$<span class="built_in">.</span>ajax({
+  <span class="keyword">type</span>: <span class="string">'POST'</span>,
+  url: <span class="string">'/video/v5video/item/add.htm'</span>,
+  <span class="built_in">data</span>: <span class="built_in">data</span>,
+  dataType: <span class="string">'json'</span>
+})
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww1.sinaimg.cn/mw1024/694c764dgw1faqh1go0k7j20om08k40e.jpg" alt=""></p>
+<p>这种情况下，服务器可以正常地解析 post 数据。</p>
+<p><strong>方法1:</strong></p>
+<pre><code>fetch('/video/v5video/item/add.htm', {
+  <span class="keyword">method</span>: '<span class="type">POST</span>',
+  headers: {
+    '<span class="type">Content</span>-<span class="type">Type</span>': 'application/json'
+  },
+  body: <span class="type">JSON</span>.stringify(data),
+  credentials: '<span class="keyword">include</span>'
+})
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww3.sinaimg.cn/large/694c764dgw1faqgc3g82oj20og0aq0v1.jpg" alt=""></p>
+<p>可以看到，请求数据在 payload 中，在一些后台中（如webx），并不支持解析 payload 中的数据，此时将不能正常 post 数据。</p>
+<p><strong>方法2:</strong></p>
+<pre><code>fetch('/video/v5video/item/add.htm', {
+  <span class="keyword">method</span>: '<span class="type">POST</span>',
+  headers: {},
+  body: setFormData(data),
+  credentials: '<span class="keyword">include</span>'
+});
 
-$ webpack --watch   <span class="comment">//监听变动并自动打包</span>
+function setFormData(data) {
+  <span class="keyword">let</span> formData = new <span class="type">FormData</span>();
+  <span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">in</span> data) {
+    formData.append(name, data[name]);
+  }
+  <span class="keyword">return</span> formData;
+}
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww4.sinaimg.cn/mw1024/694c764dgw1faqgumuylcj20ro09gmze.jpg" alt=""></p>
+<p>存在着和方法一同样的问题。</p>
+<p><strong>方法3:</strong></p>
+<p>有没有什么方法可以让 fetch 发出和 $.ajax 一样的请求呢？答案是有的：</p>
+<pre><code>fetch('/video/v5video/item/add.htm', {
+  <span class="keyword">method</span>: '<span class="type">POST</span>',
+  body: setUrlSearchParams(data),
+  credentials: '<span class="keyword">include</span>'
+});
 
-$ webpack -<span class="tag">p</span>    <span class="comment">//压缩混淆脚本，这个非常非常重要！</span>
+function setUrlSearchParams(data) {
+  <span class="keyword">let</span> urlSearchParams = new <span class="type">URLSearchParams</span>();
+  <span class="keyword">for</span> (<span class="keyword">let</span> name <span class="keyword">in</span> data) {
+    urlSearchParams.append(name, data[name]);
+  }
+  <span class="keyword">return</span> urlSearchParams;
+}  
+</code></pre><p>chrome 中的请求信息：</p>
+<p><img src="http://ww4.sinaimg.cn/mw1024/694c764dgw1faqh7rneixj20rq06ygn9.jpg" alt=""></p>
+<p>这样就达到了和 <code>$.ajax</code> 一样的效果了。</p>
+<h3 id="参考文献">参考文献</h3><ul>
+<li>[1] <a href="https://fetch.spec.whatwg.org/" target="_blank" rel="external">Fetch Living Standard</a></li>
+<li>[2] <a href="https://github.com/github/fetch" target="_blank" rel="external">A window.fetch JavaScript polyfill</a></li>
+<li>[3] <a href="https://www.w3ctech.com/topic/854" target="_blank" rel="external">这个API很“迷人”——(新的Fetch API)</a></li>
+<li>[4] <a href="https://segmentfault.com/a/1190000006039533" target="_blank" rel="external">Fetch API</a></li>
+<li>[5] <a href="https://github.com/camsong/blog/issues/2" target="_blank" rel="external">传统 Ajax 已死，Fetch 永生</a></li>
+<li>[6] <a href="http://blog.csdn.net/mhmyqn/article/details/25561535" target="_blank" rel="external">AJAX POST请求中参数以form data和request payload形式在servlet中的获取方式</a></li>
+<li>[7] <a href="http://www.voidcn.com/blog/hsbirenjie/article/p-6206418.html" target="_blank" rel="external">Fetch发送POST请求的坑与解决方案</a></li>
+</ul>
 
-$ webpack -d    <span class="comment">//生成map映射文件，告知哪些模块被最终打包到哪里了</span>
-</code></pre>
       
     </div>
 
@@ -338,7 +389,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
       
         <div class="post-tags">
           
-            <a href="/tags/前端/" rel="tag">#前端</a>
+            <a href="/tags/fetch/" rel="tag">#fetch</a>
           
         </div>
       
@@ -347,17 +398,13 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/18/优化显示效率/" rel="next" title="谷歌前端开发指南之优化内容显示效率">
-                <i class="fa fa-chevron-left"></i> 谷歌前端开发指南之优化内容显示效率
+              <a href="/2016/12/04/nginx-eclipse-proxy/" rel="next" title="mac下eclipse起服务器使用80端口">
+                <i class="fa fa-chevron-left"></i> mac下eclipse起服务器使用80端口
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/07/ES6-模板字符串/" rel="prev" title="ES6 模板字符串">
-                ES6 模板字符串 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -383,8 +430,8 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/23/webpack学习/"
-           data-title="webpack学习" data-url="http://yoursite.com/2016/03/23/webpack学习/">
+      <div class="ds-thread" data-thread-key="2016/12/15/fetch/"
+           data-title="fetch" data-url="http://yoursite.com/2016/12/15/fetch/">
       </div>
     
   </div>
@@ -503,7 +550,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能需求"><span class="nav-number">1.</span> <span class="nav-text">功能需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack学习"><span class="nav-number">2.</span> <span class="nav-text">webpack学习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的坑"><span class="nav-number">1.</span> <span class="nav-text">常见的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch_发送_post_请求"><span class="nav-number">2.</span> <span class="nav-text">fetch 发送 post 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

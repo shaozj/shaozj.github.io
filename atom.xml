@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-04T08:21:26.000Z</updated>
+  <updated>2016-12-15T02:39:40.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,114 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>fetch</title>
+    <link href="http://yoursite.com/2016/12/15/fetch/"/>
+    <id>http://yoursite.com/2016/12/15/fetch/</id>
+    <published>2016-12-15T02:37:12.000Z</published>
+    <updated>2016-12-15T02:39:40.000Z</updated>
+    
+    <content type="html">&lt;p&gt;用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(&lt;a href=&quot;http://www.w3school.com.cn/xmldom/dom_http.asp&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;XMLHttpRequest 对象&lt;/a&gt;)。而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。&lt;br&gt;Fetch 的出现就是为了解决 XHR 的问题，其主要优点有：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;语法简洁，更加语义化&lt;/li&gt;
+&lt;li&gt;基于标准 Promise 实现，支持 async/await&lt;/li&gt;
+&lt;li&gt;同构方便，使用 &lt;a href=&quot;https://github.com/matthew-andrews/isomorphic-fetch&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;isomorphic-fetch&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Fetch API 旨在用来简化 HTTP 请求，它包含以下类和方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fetch 方法：用于发起 HTTP 请求&lt;/li&gt;
+&lt;li&gt;Request 类：用来描述请求&lt;/li&gt;
+&lt;li&gt;Response 类：用来表示响应&lt;/li&gt;
+&lt;li&gt;Headers 类：用来表示 HTTP 头部信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些类和方法在网上有着丰富的教程，在此不做赘述，可以查阅参考文献。&lt;/p&gt;
+&lt;h3 id=&quot;常见的坑&quot;&gt;常见的坑&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;fetch 请求默认是不带 cookie 的，需要设置 &lt;code&gt;fetch(url, {credentials: &amp;#39;include&amp;#39;})&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。可以用&lt;code&gt;response.status&lt;/code&gt; 或 &lt;code&gt;response.ok&lt;/code&gt; 判断服务端是否返回错误。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;fetch_发送_post_请求&quot;&gt;fetch 发送 post 请求&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;$.ajax方法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;首先我们看下 $.ajax post 数据的方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$&lt;span class=&quot;built_in&quot;&gt;.&lt;/span&gt;ajax({
+  &lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&#39;POST&#39;&lt;/span&gt;,
+  url: &lt;span class=&quot;string&quot;&gt;&#39;/video/v5video/item/add.htm&#39;&lt;/span&gt;,
+  &lt;span class=&quot;built_in&quot;&gt;data&lt;/span&gt;: &lt;span class=&quot;built_in&quot;&gt;data&lt;/span&gt;,
+  dataType: &lt;span class=&quot;string&quot;&gt;&#39;json&#39;&lt;/span&gt;
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;chrome 中的请求信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/mw1024/694c764dgw1faqh1go0k7j20om08k40e.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这种情况下，服务器可以正常地解析 post 数据。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法1:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fetch(&#39;/video/v5video/item/add.htm&#39;, {
+  &lt;span class=&quot;keyword&quot;&gt;method&lt;/span&gt;: &#39;&lt;span class=&quot;type&quot;&gt;POST&lt;/span&gt;&#39;,
+  headers: {
+    &#39;&lt;span class=&quot;type&quot;&gt;Content&lt;/span&gt;-&lt;span class=&quot;type&quot;&gt;Type&lt;/span&gt;&#39;: &#39;application/json&#39;
+  },
+  body: &lt;span class=&quot;type&quot;&gt;JSON&lt;/span&gt;.stringify(data),
+  credentials: &#39;&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt;&#39;
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;chrome 中的请求信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/694c764dgw1faqgc3g82oj20og0aq0v1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到，请求数据在 payload 中，在一些后台中（如webx），并不支持解析 payload 中的数据，此时将不能正常 post 数据。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法2:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fetch(&#39;/video/v5video/item/add.htm&#39;, {
+  &lt;span class=&quot;keyword&quot;&gt;method&lt;/span&gt;: &#39;&lt;span class=&quot;type&quot;&gt;POST&lt;/span&gt;&#39;,
+  headers: {},
+  body: setFormData(data),
+  credentials: &#39;&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt;&#39;
+});
+
+function setFormData(data) {
+  &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; formData = new &lt;span class=&quot;type&quot;&gt;FormData&lt;/span&gt;();
+  &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; name &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; data) {
+    formData.append(name, data[name]);
+  }
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; formData;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;chrome 中的请求信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/mw1024/694c764dgw1faqgumuylcj20ro09gmze.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;存在着和方法一同样的问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法3:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;有没有什么方法可以让 fetch 发出和 $.ajax 一样的请求呢？答案是有的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fetch(&#39;/video/v5video/item/add.htm&#39;, {
+  &lt;span class=&quot;keyword&quot;&gt;method&lt;/span&gt;: &#39;&lt;span class=&quot;type&quot;&gt;POST&lt;/span&gt;&#39;,
+  body: setUrlSearchParams(data),
+  credentials: &#39;&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt;&#39;
+});
+
+function setUrlSearchParams(data) {
+  &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; urlSearchParams = new &lt;span class=&quot;type&quot;&gt;URLSearchParams&lt;/span&gt;();
+  &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; name &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; data) {
+    urlSearchParams.append(name, data[name]);
+  }
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; urlSearchParams;
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;chrome 中的请求信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/mw1024/694c764dgw1faqh7rneixj20rq06ygn9.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这样就达到了和 &lt;code&gt;$.ajax&lt;/code&gt; 一样的效果了。&lt;/p&gt;
+&lt;h3 id=&quot;参考文献&quot;&gt;参考文献&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;[1] &lt;a href=&quot;https://fetch.spec.whatwg.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fetch Living Standard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[2] &lt;a href=&quot;https://github.com/github/fetch&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;A window.fetch JavaScript polyfill&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[3] &lt;a href=&quot;https://www.w3ctech.com/topic/854&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这个API很“迷人”——(新的Fetch API)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[4] &lt;a href=&quot;https://segmentfault.com/a/1190000006039533&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fetch API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[5] &lt;a href=&quot;https://github.com/camsong/blog/issues/2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;传统 Ajax 已死，Fetch 永生&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[6] &lt;a href=&quot;http://blog.csdn.net/mhmyqn/article/details/25561535&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AJAX POST请求中参数以form data和request payload形式在servlet中的获取方式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[7] &lt;a href=&quot;http://www.voidcn.com/blog/hsbirenjie/article/p-6206418.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Fetch发送POST请求的坑与解决方案&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用 XMLHttpRequest 来执行异步请求，虽然有用，却并不是最佳 api。它在设计上不符合职责分离原则，将输入、输出和用事件来跟踪的状态混杂在一个对象里(&lt;a href=&quot;http://www.w3school.com.cn/xmldom/dom_http.asp&quot;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="fetch" scheme="http://yoursite.com/tags/fetch/"/>
+    
+  </entry>
   
   <entry>
     <title>mac下eclipse起服务器使用80端口</title>
