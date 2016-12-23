@@ -216,6 +216,179 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/23/webpack-optimization/" itemprop="url">
+                  webpack 构建优化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-23T10:21:56+08:00" content="2016-12-23">
+              2016-12-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/构建/" itemprop="url" rel="index">
+                    <span itemprop="name">构建</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/23/webpack-optimization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/23/webpack-optimization/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="两个问题">两个问题</h3><ol>
+<li>包体积过大</li>
+<li>打包速度太慢</li>
+</ol>
+<h3 id="优化1_webpack-DllPlugin">优化1 webpack.DllPlugin</h3><blockquote>
+<p>能加快打包速度，减小自身业务代码打包后的体积，但代码总体积（包含了第三方库）反而增大</p>
+</blockquote>
+<p>项目中我们要将第三方库的代码单独打包，一般采用的方式是 webpack.optimize.CommonsChunkPlugin 这个插件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line"> vendor: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>] <span class="comment">// 类库</span></span><br><span class="line">&#125;;</span><br><span class="line">   </span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  name: <span class="string">'vendor'</span>,</span><br><span class="line">  filename: <span class="string">'vendor.js'</span>,</span><br><span class="line">  minChunks: <span class="literal">Infinity</span></span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<p>然而，用这种方式，每次我们重新构建代码时，vendor 的代码都要重新构建，从而使得构建的速度变慢。  </p>
+<p>webpack.DllPlugin 就可以解决这个问题，将第三方库事先编译为dll库，之后构建项目自身源码时，就不许要重新构建dll库中的代码。</p>
+<p><strong>首先，我们需要编写 webpack.dll.config.js 。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line">	</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>, <span class="string">'antd'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'build'</span>),</span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'build'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其实，webpack 中的插件也都可以用在 webpack.dll 配置文件中。  </p>
+<p>执行 <code>webpack --config webpack.dll.config.js</code> 后，即可在 build 目录下找到生成的 dll bundle 和对应的 manifest 文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; webpack --config webpack.dll.config.js</span><br><span class="line"></span><br><span class="line">Hash: <span class="number">674</span>d064bed0bcc476713</span><br><span class="line">Version: webpack <span class="number">1.14</span><span class="number">.0</span></span><br><span class="line">Time: <span class="number">4349</span>ms</span><br><span class="line">        Asset     Size  Chunks             Chunk Names</span><br><span class="line">vendor.dll.js  <span class="number">3.59</span> MB       <span class="number">0</span>  [emitted]  vendor</span><br><span class="line">   [<span class="number">0</span>] dll vendor <span class="number">12</span> bytes &#123;<span class="number">0</span>&#125; [built]</span><br><span class="line">    + <span class="number">913</span> hidden modules</span><br></pre></td></tr></table></figure>
+<p><strong>然后，我们在 webpack.config.js 中配置  DLLReferencePlugin 插件。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line"><span class="keyword">new</span> webpack.DllReferencePlugin(&#123;</span><br><span class="line">  context: __dirname,</span><br><span class="line">  manifest: <span class="built_in">require</span>(<span class="string">'./build/vendor-manifest.json'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>在 html 中，需要手动引入 dll 库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/build/vendor.dll.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>性能对比</strong></p>
+<p><strong><em>首次构建:(build)</em></strong><br>采用 CommonsChunkPlugin ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Hash: <span class="number">6</span>ade5ef99f806b597685</span><br><span class="line">Version: webpack <span class="number">1.14</span><span class="number">.0</span></span><br><span class="line">Time: <span class="number">13349</span>ms</span><br><span class="line">                    Asset     Size  Chunks             Chunk Names</span><br><span class="line">program-list/index.js.map  <span class="number">18.7</span> kB       <span class="number">2</span>  [emitted]  program-list/index</span><br><span class="line">           index/index.js  <span class="number">26.2</span> kB       <span class="number">0</span>  [emitted]  index/index</span><br><span class="line">    program-list/index.js  <span class="number">19.3</span> kB       <span class="number">2</span>  [emitted]  program-list/index</span><br><span class="line">    theme-manage/index.js   <span class="number">622</span> kB       <span class="number">3</span>  [emitted]  theme-manage/index</span><br><span class="line">                vendor.js  <span class="number">1.43</span> MB       <span class="number">4</span>  [emitted]  vendor</span><br><span class="line">       index/index.js.map  <span class="number">19.3</span> kB       <span class="number">0</span>  [emitted]  index/index</span><br><span class="line">   <span class="keyword">new</span>-theme/index.js.map   <span class="number">499</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">       <span class="keyword">new</span>-theme/index.js   <span class="number">446</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">theme-manage/index.js.map   <span class="number">727</span> kB       <span class="number">3</span>  [emitted]  theme-manage/index</span><br><span class="line">            vendor.js.map  <span class="number">1.71</span> MB       <span class="number">4</span>  [emitted]  vendor</span><br><span class="line">               index.html  <span class="number">2.45</span> kB          [emitted]  </span><br><span class="line">           <span class="keyword">new</span>-theme.html  <span class="number">2.46</span> kB          [emitted]  </span><br><span class="line">        program-list.html  <span class="number">2.47</span> kB          [emitted]  </span><br><span class="line">        theme-manage.html  <span class="number">2.47</span> kB          [emitted]</span><br></pre></td></tr></table></figure>
+<p>采用 DllPlugin ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Hash: <span class="number">6</span>f2755df167fdbf28a55</span><br><span class="line">Version: webpack <span class="number">1.14</span><span class="number">.0</span></span><br><span class="line">Time: <span class="number">8209</span>ms</span><br><span class="line">                    Asset     Size  Chunks             Chunk Names</span><br><span class="line">program-list/index.js.map  <span class="number">10.4</span> kB       <span class="number">2</span>  [emitted]  program-list/index</span><br><span class="line">           index/index.js  <span class="number">26.1</span> kB       <span class="number">0</span>  [emitted]  index/index</span><br><span class="line">    program-list/index.js    <span class="number">12</span> kB       <span class="number">2</span>  [emitted]  program-list/index</span><br><span class="line">    theme-manage/index.js  <span class="number">48.4</span> kB       <span class="number">3</span>  [emitted]  theme-manage/index</span><br><span class="line">                vendor.js   <span class="number">303</span> kB       <span class="number">4</span>  [emitted]  vendor</span><br><span class="line">       index/index.js.map  <span class="number">19.3</span> kB       <span class="number">0</span>  [emitted]  index/index</span><br><span class="line">   <span class="keyword">new</span>-theme/index.js.map  <span class="number">99.5</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">       <span class="keyword">new</span>-theme/index.js   <span class="number">111</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">theme-manage/index.js.map  <span class="number">39.5</span> kB       <span class="number">3</span>  [emitted]  theme-manage/index</span><br><span class="line">            vendor.js.map   <span class="number">358</span> kB       <span class="number">4</span>  [emitted]  vendor</span><br><span class="line">               index.html   <span class="number">2.5</span> kB          [emitted]  </span><br><span class="line">           <span class="keyword">new</span>-theme.html  <span class="number">2.51</span> kB          [emitted]  </span><br><span class="line">        program-list.html  <span class="number">2.52</span> kB          [emitted]  </span><br><span class="line">        theme-manage.html  <span class="number">2.52</span> kB          [emitted]</span><br></pre></td></tr></table></figure>
+<p>可以看到，用 DllPlugin 能比 CommonsChunkPlugin 约5s。这里的例子是一个多页面构建的例子。<br>注意，此处我们虽然看到 DllPlugin 打包出来的文件要比 CommonsChunkPlugin 的小，但其实是我们把第三方库提取到了 vendor.dll.js 中的原因，加上 vendor.dll.js 中的文件，DllPlugin 打包总文件体积更大。</p>
+<p><strong><em>模块热加载(rebuild)</em></strong><br>采用 CommonsChunkPlugin ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Hash: d8187730060863aecaad</span><br><span class="line">Version: webpack <span class="number">1.14</span><span class="number">.0</span></span><br><span class="line">Time: <span class="number">2478</span>ms</span><br><span class="line">                               Asset      Size  Chunks             Chunk Names</span><br><span class="line"><span class="number">6</span>ade5ef99f806b597685.hot-update.json  <span class="number">36</span> bytes          [emitted]  </span><br><span class="line">                      index/index.js   <span class="number">26.2</span> kB       <span class="number">0</span>             index/index</span><br><span class="line">               program-list/index.js   <span class="number">19.3</span> kB       <span class="number">2</span>             program-list/index</span><br><span class="line">               theme-manage/index.js    <span class="number">622</span> kB       <span class="number">3</span>             theme-manage/index</span><br><span class="line">                           vendor.js   <span class="number">1.43</span> MB       <span class="number">4</span>  [emitted]  vendor</span><br><span class="line"><span class="number">1.6</span>ade5ef99f806b597685.hot-update.js   <span class="number">6.41</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">                  <span class="keyword">new</span>-theme/index.js    <span class="number">446</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">                  index/index.js.map   <span class="number">19.3</span> kB       <span class="number">0</span>             index/index</span><br><span class="line">           program-list/index.js.map   <span class="number">18.7</span> kB       <span class="number">2</span>             program-list/index</span><br><span class="line">           theme-manage/index.js.map    <span class="number">727</span> kB       <span class="number">3</span>             theme-manage/index</span><br><span class="line">              <span class="keyword">new</span>-theme/index.js.map    <span class="number">499</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line"><span class="number">1.6</span>ade5ef99f806b597685.hot-update.js.map   <span class="number">4.41</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">                       vendor.js.map   <span class="number">1.71</span> MB       <span class="number">4</span>  [emitted]  vendor</span><br></pre></td></tr></table></figure>
+<p>采用 DllPlugin ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Hash: ca95bad33ad492f0a11b</span><br><span class="line">Version: webpack <span class="number">1.14</span><span class="number">.0</span></span><br><span class="line">Time: <span class="number">1005</span>ms</span><br><span class="line">                                   Asset      Size  Chunks             Chunk Names</span><br><span class="line">    <span class="number">456</span>baae3287b91efa0d4.hot-update.json  <span class="number">36</span> bytes          [emitted]  </span><br><span class="line">                          index/index.js   <span class="number">26.1</span> kB       <span class="number">0</span>             index/index</span><br><span class="line">                   program-list/index.js     <span class="number">12</span> kB       <span class="number">2</span>             program-list/index</span><br><span class="line">                   theme-manage/index.js   <span class="number">48.4</span> kB       <span class="number">3</span>             theme-manage/index</span><br><span class="line">                               vendor.js    <span class="number">303</span> kB       <span class="number">4</span>  [emitted]  vendor</span><br><span class="line">    <span class="number">1.456</span>baae3287b91efa0d4.hot-update.js    <span class="number">6.4</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">                      <span class="keyword">new</span>-theme/index.js    <span class="number">111</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">                      index/index.js.map   <span class="number">19.3</span> kB       <span class="number">0</span>             index/index</span><br><span class="line">               program-list/index.js.map   <span class="number">10.4</span> kB       <span class="number">2</span>             program-list/index</span><br><span class="line">               theme-manage/index.js.map   <span class="number">39.5</span> kB       <span class="number">3</span>             theme-manage/index</span><br><span class="line">                  <span class="keyword">new</span>-theme/index.js.map   <span class="number">99.5</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line"><span class="number">1.456</span>baae3287b91efa0d4.hot-update.js.map   <span class="number">4.41</span> kB       <span class="number">1</span>  [emitted]  <span class="keyword">new</span>-theme/index</span><br><span class="line">                           vendor.js.map    <span class="number">358</span> kB       <span class="number">4</span>  [emitted]  vendor</span><br></pre></td></tr></table></figure>
+<p>追求极致体验，dll 值得拥有。</p>
+<p style="color: red">另外还需注意到的一点是，antd 这个包非常大，大概有 2.6m，用 dll 的方式，就一次把整个antd 的包都打入 vendor.dll.js 中，使得 vendor.dll.js 非常大。这在开发环境时，为了追求打包速度，可以不考虑包大小。在生产环境下，建议还是采用 antd 推荐的 babel 插件，做按需加载处理，从而减小包的总大小</p>
+
+<h3 id="优化2_HappyPack">优化2 HappyPack</h3><p><strong>配置：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HappyPack = <span class="built_in">require</span>(<span class="string">'happypack'</span>);</span><br><span class="line">	</span><br><span class="line">plugins: [</span><br><span class="line">    <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">      id: <span class="string">'jsx'</span>,</span><br><span class="line">      threads: <span class="number">4</span>,</span><br><span class="line">      loaders: [<span class="string">'react-hot'</span>, <span class="string">'babel?'</span> + <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">        presets: [<span class="string">'es2015'</span>, <span class="string">'stage-0'</span>, <span class="string">'react'</span>]</span><br><span class="line">      &#125;)]</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br><span class="line">    </span><br><span class="line">loaders: [</span><br><span class="line">	&#123;</span><br><span class="line">	    test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">	    <span class="comment">//loader: 'react-hot!babel-loader',</span></span><br><span class="line">	    loaders: [<span class="string">'happypack/loader?id=jsx'</span>],</span><br><span class="line">	    include: [].concat(</span><br><span class="line">	      config.additionalPaths,</span><br><span class="line">	      [ path.join(__dirname, <span class="string">'/../src'</span>) ]</span><br><span class="line">	    )</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>采用 happypack 能进一步将构建时间从10s提升至5s。</p>
+<p>以上两个优化都是优化了构建速度，然而并没能减小代码编译后包的体积大小，这是以后需要继续探索改进的地方。</p>
+<h3 id="参考文档：">参考文档：</h3><ol>
+<li><a href="https://segmentfault.com/a/1190000005770042" target="_blank" rel="external">开发工具心得：如何 10 倍提高你的 Webpack 构建效率</a>  </li>
+<li><a href="https://github.com/lcxfs1991/blog/issues/2" target="_blank" rel="external">webpack使用优化（基本篇）</a>  </li>
+<li><a href="https://github.com/lcxfs1991/blog/issues/7" target="_blank" rel="external">webpack使用优化（react篇）</a>  </li>
+<li><a href="https://segmentfault.com/a/1190000005969643" target="_blank" rel="external">webpack 的 dll 功能</a>  </li>
+<li><a href="https://zhuanlan.zhihu.com/p/21748318" target="_blank" rel="external">彻底解决Webpack打包性能问题</a>  </li>
+<li><a href="https://segmentfault.com/a/1190000005969488" target="_blank" rel="external">使用 webpack + react + redux + es6 开发组件化前端项目</a></li>
+<li><a href="https://github.com/amireh/happypack" target="_blank" rel="external">happypack github</a> </li>
+<li>webpack 2.1 beta20 + happypack 多线程</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/15/fetch/" itemprop="url">
                   fetch
                 </a>
@@ -2018,127 +2191,6 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/17/Charles抓包实战/" itemprop="url">
-                  Charles抓包实战
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-17T14:01:06+08:00" content="2016-03-17">
-              2016-03-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/调试/" itemprop="url" rel="index">
-                    <span itemprop="name">调试</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/17/Charles抓包实战/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/17/Charles抓包实战/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="下载">下载</h3><p>官网下载地址：<a href="http://www.charlesproxy.com/latest-release/download.do" target="_blank" rel="external">http://www.charlesproxy.com/latest-release/download.do</a></p>
-<p>下载后直接安装即可</p>
-<h3 id="抓包">抓包</h3><h4 id="一、http抓包">一、http抓包</h4><ul>
-<li>1、打开Charles程序</li>
-<li>2、查看Mac电脑的IP地址，系统偏好设置-&gt;网络就可以查看到了，比如我的ip地址是：30.11.160.175</li>
-<li>3、打开iOS设置，进入当前wifi连接(Mac在一个局域网内)，设置HTTP代理Group，将服务器填为上一步中获得的IP，即30.11.160.175，端口填8888：</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2184,7 +2236,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2192,7 +2244,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2201,7 +2253,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
