@@ -216,6 +216,147 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/08/yeoman/" itemprop="url">
+                  yeoman 快速上手
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-08T16:35:53+08:00" content="2017-01-08">
+              2017-01-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端/构建/" itemprop="url" rel="index">
+                    <span itemprop="name">构建</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/08/yeoman/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/08/yeoman/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="项目文件名和目录结构">项目文件名和目录结构</h2><p>需要按照约定的方式 <code>generator-name</code> 给项目文件夹命名，name 为你的 generator 的名字。项目目录结构一般如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">generator-name</span><br><span class="line">├───package<span class="class">.json</span></span><br><span class="line">└───generators/</span><br><span class="line">    ├───app/</span><br><span class="line">    │   └───index<span class="class">.js</span></span><br><span class="line">    └───router/</span><br><span class="line">        └───index.js</span><br></pre></td></tr></table></figure>
+<p>package.json 例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"generator-name"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.1.0"</span></span>,</span><br><span class="line">  "<span class="attribute">description</span>": <span class="value"><span class="string">""</span></span>,</span><br><span class="line">  "<span class="attribute">files</span>": <span class="value">[</span><br><span class="line">    <span class="string">"generators"</span></span><br><span class="line">  ]</span>,</span><br><span class="line">  "<span class="attribute">keywords</span>": <span class="value">[<span class="string">"yeoman-generator"</span>]</span>,</span><br><span class="line">  "<span class="attribute">dependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">yeoman-generator</span>": <span class="value"><span class="string">"^1.0.0"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>name 属性必须为 generator- 开头，keywords 属性中必须包含 “yeoman-generator”。</p>
+<p><code>yo name</code> 和 <code>yo name:router</code>，产生所需文件。</p>
+<h2 id="编写_index-js">编写 index.js</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"><span class="keyword">const</span> Generators = <span class="built_in">require</span>(<span class="string">'yeoman-generator'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Generator</span> </span>&#123;</span><br><span class="line">  constructor(args, opts) &#123;</span><br><span class="line">    <span class="comment">// 为了正确初始化，需要调用 super constructor </span></span><br><span class="line">    <span class="keyword">super</span>(args, opts);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 然后，添加自己的代码 </span></span><br><span class="line">    <span class="keyword">this</span>.option(<span class="string">'babel'</span>); <span class="comment">// 这个方法添加了对 `--babel` flag 的支持</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 添加自己的方法</span></span><br><span class="line">  method1() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'method 1 just ran'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  method2() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'method 2 just ran'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>每个在 class 中添加的方法都会在 generator 被调用时被执行一次，而且一般是按顺序执行。不过，有些特殊的方法名会触法特殊的执行顺序。</p>
+<h2 id="运行_generator">运行 generator</h2><p>在 generator-name/ 目录下的命令行中，输入:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(sudo) npm link</span><br></pre></td></tr></table></figure>
+<p>这将安装你的项目依赖，并将本地文件链接到全局模块中。 成功后，即可通过 <code>yo name</code> 指令来生产项目，可以验证你写的 generator。</p>
+<h2 id="运行循环（run_loop）">运行循环（run loop）</h2><p>run loop 是一个队列系统并支持优先级。优先级由特殊的 prototype 方法名决定。如果方法名未匹配优先级，则将放入 default 组。按运行顺序，可用的优先级名如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> initializing : 初始化阶段</span><br><span class="line"><span class="number">2.</span> prompting : 接受用户输入阶段</span><br><span class="line"><span class="number">3.</span> configuring : 保存配置信息和文件，如.editorconfig</span><br><span class="line"><span class="number">4.</span> <span class="keyword">default</span> : 非特定的功能函数名称，如上面说到的method1</span><br><span class="line"><span class="number">5.</span> writing : 生成项目目录结构阶段</span><br><span class="line"><span class="number">6.</span> conflicts : 统一处理冲突，如要生成的文件已经存在是否覆盖等处理</span><br><span class="line"><span class="number">7.</span> install : 安装依赖阶段，如通过npm、bower</span><br><span class="line"><span class="number">8.</span> end : 生成器即将结束</span><br></pre></td></tr></table></figure>
+<p>下面是一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"><span class="keyword">const</span> Generators = <span class="built_in">require</span>(<span class="string">'yeoman-generator'</span>);</span><br><span class="line"><span class="keyword">const</span> utils = <span class="built_in">require</span>(<span class="string">'../../utils/all'</span>);</span><br><span class="line"><span class="keyword">const</span> prompts = <span class="built_in">require</span>(<span class="string">'./prompts'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> packageInfo = <span class="built_in">require</span>(<span class="string">'../../package.json'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baseRootPath = path.join(__dirname, <span class="string">'react-webpack-multipage-template'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Base generator. Will copy all required files from react-webpack-multipage-template</span><br><span class="line"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppGenerator</span> <span class="keyword">extends</span> <span class="title">Generators</span>.<span class="title">Base</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  constructor(args, options) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">super</span>(args, options);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Make options available</span></span><br><span class="line">    <span class="keyword">this</span>.option(<span class="string">'skip-welcome-message'</span>, &#123;</span><br><span class="line">      desc: <span class="string">'Skip the welcome message'</span>,</span><br><span class="line">      type: <span class="built_in">Boolean</span>,</span><br><span class="line">      defaults: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">this</span>.option(<span class="string">'skip-install'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Use our plain template as source</span></span><br><span class="line">    <span class="keyword">this</span>.sourceRoot(baseRootPath);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.config.save();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  initializing() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.options[<span class="string">'skip-welcome-message'</span>]) &#123;</span><br><span class="line">      <span class="keyword">this</span>.log(<span class="built_in">require</span>(<span class="string">'yeoman-welcome'</span>));</span><br><span class="line">      <span class="keyword">this</span>.log(<span class="string">'Out of the box I include Webpack and some default React components.\n'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  prompting() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.prompt(prompts).then((answers) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Make sure to get the correct app name if it is not the default</span></span><br><span class="line">      <span class="keyword">if</span>(answers.appName !== utils.yeoman.getAppName()) &#123;</span><br><span class="line">        answers.appName = utils.yeoman.getAppName(answers.appName);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Set needed global vars for yo</span></span><br><span class="line">      <span class="keyword">this</span>.appName = answers.appName;</span><br><span class="line">      <span class="keyword">this</span>.style = answers.style;</span><br><span class="line">      <span class="keyword">this</span>.cssmodules = answers.cssmodules;</span><br><span class="line">      <span class="keyword">this</span>.postcss = answers.postcss;</span><br><span class="line">      <span class="keyword">this</span>.generatedWithVersion = <span class="built_in">parseInt</span>(packageInfo.version.split(<span class="string">'.'</span>).shift(), <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Set needed keys into config</span></span><br><span class="line">      <span class="keyword">this</span>.config.set(<span class="string">'appName'</span>, <span class="keyword">this</span>.appName);</span><br><span class="line">      <span class="keyword">this</span>.config.set(<span class="string">'appPath'</span>, <span class="keyword">this</span>.appPath);</span><br><span class="line">      <span class="keyword">this</span>.config.set(<span class="string">'style'</span>, <span class="keyword">this</span>.style);</span><br><span class="line">      <span class="keyword">this</span>.config.set(<span class="string">'cssmodules'</span>, <span class="keyword">this</span>.cssmodules);</span><br><span class="line">      <span class="keyword">this</span>.config.set(<span class="string">'postcss'</span>, <span class="keyword">this</span>.postcss);</span><br><span class="line">      <span class="keyword">this</span>.config.set(<span class="string">'generatedWithVersion'</span>, <span class="keyword">this</span>.generatedWithVersion);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  configuring() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Generate our package.json. Make sure to also include the required dependencies for styles</span></span><br><span class="line">    <span class="keyword">let</span> defaultSettings = <span class="keyword">this</span>.fs.readJSON(<span class="string">`<span class="subst">$&#123;baseRootPath&#125;</span>/package.json`</span>);</span><br><span class="line">    <span class="keyword">this</span>.log(<span class="string">'defaultSettings: '</span>, defaultSettings);</span><br><span class="line">    <span class="keyword">this</span>.log(<span class="string">'baseRootPath: '</span>, defaultSettings);</span><br><span class="line">    <span class="keyword">let</span> packageSettings = &#123;</span><br><span class="line">      name: <span class="keyword">this</span>.appName,</span><br><span class="line">      private: <span class="literal">true</span>,</span><br><span class="line">      version: <span class="string">'0.0.1'</span>,</span><br><span class="line">      description: <span class="string">`<span class="subst">$&#123;this.appName&#125;</span> - Generated by generator-react-multipage`</span>,</span><br><span class="line">      main: <span class="string">'src/index.js'</span>,</span><br><span class="line">      scripts: defaultSettings.scripts,</span><br><span class="line">      repository: <span class="string">''</span>,</span><br><span class="line">      keywords: [],</span><br><span class="line">      author: <span class="string">'Your name here'</span>,</span><br><span class="line">      devDependencies: defaultSettings.devDependencies,</span><br><span class="line">      dependencies: defaultSettings.dependencies</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add needed loaders if we have special styles</span></span><br><span class="line">    <span class="keyword">let</span> styleConfig = utils.config.getChoiceByKey(<span class="string">'style'</span>, <span class="keyword">this</span>.style);</span><br><span class="line">    <span class="keyword">if</span>(styleConfig &amp;&amp; styleConfig.packages) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> dependency <span class="keyword">of</span> styleConfig.packages) &#123;</span><br><span class="line">        packageSettings.devDependencies[dependency.name] = dependency.version;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add postcss module if enabled</span></span><br><span class="line">    <span class="keyword">let</span> postcssConfig = utils.config.getChoiceByKey(<span class="string">'postcss'</span>, <span class="string">'postcss'</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.postcss &amp;&amp; postcssConfig &amp;&amp; postcssConfig.packages) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> dependency <span class="keyword">of</span> postcssConfig.packages) &#123;</span><br><span class="line">        packageSettings.devDependencies[dependency.name] = dependency.version;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add cssmodules if enabled</span></span><br><span class="line">    <span class="keyword">const</span> cssmoduleConfig = utils.config.getChoiceByKey(<span class="string">'cssmodules'</span>, <span class="string">'cssmodules'</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.cssmodules &amp;&amp; cssmoduleConfig &amp;&amp; cssmoduleConfig.packages) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> dependency <span class="keyword">of</span> cssmoduleConfig.packages) &#123;</span><br><span class="line">        packageSettings.dependencies[dependency.name] = dependency.version;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.fs.writeJSON(<span class="keyword">this</span>.destinationPath(<span class="string">'package.json'</span>), packageSettings);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  writing() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> excludeList = [</span><br><span class="line">      <span class="string">'LICENSE'</span>,</span><br><span class="line">      <span class="string">'README.md'</span>,</span><br><span class="line">      <span class="string">'CHANGELOG.md'</span>,</span><br><span class="line">      <span class="string">'node_modules'</span>,</span><br><span class="line">      <span class="string">'package.json'</span>,</span><br><span class="line">      <span class="string">'.istanbul.yml'</span>,</span><br><span class="line">      <span class="string">'.travis.yml'</span></span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get all files in our repo and copy the ones we should</span></span><br><span class="line">    fs.readdir(<span class="keyword">this</span>.sourceRoot(), (err, items) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> items) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Skip the item if it is in our exclude list</span></span><br><span class="line">        <span class="keyword">if</span>(excludeList.indexOf(item) !== -<span class="number">1</span>) &#123;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Copy all items to our root</span></span><br><span class="line">        <span class="keyword">let</span> fullPath = path.join(baseRootPath, item);</span><br><span class="line">        <span class="keyword">if</span>(fs.lstatSync(fullPath).isDirectory()) &#123;</span><br><span class="line">          <span class="keyword">this</span>.bulkDirectory(item, item);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (item === <span class="string">'.npmignore'</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.copy(item, <span class="string">'.gitignore'</span>);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.copy(item, item);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  install() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Currently buggy!</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.postcss) &#123;</span><br><span class="line">      <span class="keyword">const</span> postcss = <span class="built_in">require</span>(<span class="string">'./postcss'</span>);</span><br><span class="line">      postcss.write(path.join(<span class="keyword">this</span>.destinationRoot(), <span class="string">'conf/webpack/Base.js'</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.options[<span class="string">'skip-install'</span>]) &#123;</span><br><span class="line">      <span class="keyword">this</span>.installDependencies(&#123; bower: <span class="literal">false</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = AppGenerator;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/23/webpack-optimization/" itemprop="url">
                   webpack 构建优化
                 </a>
@@ -244,20 +385,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/构建/" itemprop="url" rel="index">
-                    <span itemprop="name">构建</span>
+                  <a href="/categories/前端-构建/" itemprop="url" rel="index">
+                    <span itemprop="name">前端,构建</span>
                   </a>
                 </span>
 
@@ -1972,225 +2101,6 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/18/优化显示效率/" itemprop="url">
-                  谷歌前端开发指南之优化内容显示效率
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-18T17:17:45+08:00" content="2016-03-18">
-              2016-03-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/18/优化显示效率/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/18/优化显示效率/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>转载自@笑博，翻译自google大牛</p>
-<pre><code><span class="number">1.</span> 删除不必要的下载（即减少http访问请求）
-<span class="number">2.</span> 优化基于文本的资产的编码和传输大小
-<span class="number">3.</span> 图片优化
-<span class="number">4.</span> 网页字体优化
-<span class="number">5.</span> HTTP 缓存
-</code></pre><h3 id="1-_删除不必要的下载（即减少http访问请求）（最快和最好的优化资源是不需要下载的资源。）">1. 删除不必要的下载（即减少http访问请求）（最快和最好的优化资源是不需要下载的资源。）</h3><ul>
-<li>网页往往会包含一些不必要的资源；或者更糟的是，包含的某些资源会影响网页性能，同时还无法给访问者或所处的网站带来太大价值。</li>
-<li>要实现最佳效果，应针对网页上的每个资源，定期清点和重新评估。</li>
-</ul>
-<h3 id="2-_优化基于文本的资产的编码和传输大小">2. 优化基于文本的资产的编码和传输大小</h3><ul>
-<li>数据压缩<ul>
-<li>将浏览器必须下载的剩余资源的总大小减至最小</li>
-</ul>
-</li>
-<li>源码压缩：预处理和特定于内容的优化</li>
-<li>使用 GZIP 进行文本压缩</li>
-</ul>
-<h3 id="3-_图片优化">3. 图片优化</h3><ul>
-<li>删除和替换图片：<code>要实现所需的效果，是否确实需要图片</code> —— 能否利用CSS效果等更高效的方式替代</li>
-<li>矢量图与光栅图：<ul>
-<li>矢量图（使用线、点和多边形来展示图片）：最适用于由简单的几何形状（例如徽标、文字、图标等）组成的图片，任何分辨率和缩放设置都可以提供清晰的效果，该格式最适用于需要以不同尺寸显示的高分辨率场景和资源。</li>
-<li>光栅图（通过对矩形栅格内每个像素的值进行编码来展示图片）：场景复杂（例如照片等），就应使用光栅图格式 。</li>
-</ul>
-</li>
-<li>高分辨率屏幕的含义（高分辨率屏幕需要高分辨率图片）：尽可能选择矢量图，因为矢量图与分辨率无关，始终可以实现清晰的效果，如果需要光栅图，应提供并优化每个图片的多个版本。</li>
-<li>优化矢量图（SVG文件）<ul>
-<li>通过运行 svgo 之类的工具缩减 SVG 文件 </li>
-<li>因为 SVG 是基于 XML 的格式，所以，还可以采用 GZIP 压缩来减小传输大小 - 确保将服务器配置为压缩 SVG 资源</li>
-</ul>
-</li>
-<li>优化光栅图<ul>
-<li>光栅图是一个 2 维’像素’栅格（如：100 x 100 像素的图片是 10000 个像素的序列），每个像素存储’RGBA‘值：(R) 红色通道、(G) 绿色通道、(B) 蓝色通道和 (A) alpha（透明度）通道</li>
-<li>无论将数据从服务器传输到客户端时使用哪种图片格式，在浏览器对图片进行解码时，每个像素始终占用 4 个字节的内存。对于较大的图片以及可用内存不足的设备（例如低端移动设备）来说，这可能是一个重要的约束条件。</li>
-<li>压缩图片，考虑使用webp</li>
-</ul>
-</li>
-<li>无损图片压缩与有损图片压缩：<ul>
-<li>使用’有损‘过滤器处理图片，删除一些像素数据</li>
-<li>使用’无损‘过滤器处理图片，压缩像素数据</li>
-<li>因为对图片进行编码所使用的算法不同，所以，不同图片格式的质量级别无法直接进行比较：质量为 90 的 JPEG 与质量为 90 的 WebP 效果截然不同。实际上，即使相同图片格式的质量级别，根据压缩程序的使用方式不同，视觉效果可能也会不同！</li>
-</ul>
-</li>
-<li>选择正确的图片格式：<ul>
-<li>普遍支持的三种格式为：GIF、PNG 和 JPEG。除了这些格式之外，某些浏览器还支持 WebP 和 JPEG XR 等较新的格式，可以提供更好的整体压缩以及更多的功能。</li>
-<li>平均来说，与可比的 JPEG 图片相比，WebP 可以使文件大小减少 30%。</li>
-<li>优化工具：<ul>
-<li>gifsicle    创建和优化 GIF 图片</li>
-<li>jpegtran    优化 JPEG 图片</li>
-<li>optipng    无损 PNG 优化</li>
-<li>pngquant    有损 PNG 优化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>提供缩放的图片资源：尽量提供尺寸合适的图片，减少因图片缩放耗费性能<ul>
-<li>尽管您也许无法保证每个资源都以精确的显示尺寸提供，但是，应确保不必要的像素数最少，并确保特别是较大资产以尽可能接近显示尺寸的尺寸提供。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>在优化图片时，要记住下列技巧和方法：</p>
-<ul>
-<li>首选矢量格式：矢量图与分辨率和缩放无关，最适用于多设备或高分辨率的情况。</li>
-<li>缩减和压缩 SVG 资源：大多数绘图应用程序生成的 XML 标记通常包含不必要的元数据，可以删除；确保服务器配置为对 SVG 资源采用 GZIP 压缩。</li>
-<li>选择最佳光栅图格式：确定功能要求，然后选择适合每个特定资源的格式。</li>
-<li>体验光栅格式的最优质量设置：随意降低’质量’设置，效果通常非常好，而字节可能会节省很多。</li>
-<li>删除不必要的图片元数据：许多光栅图包含不必要的资源元数据：地理信息、相机信息等。使用适合的工具删除这些数据。</li>
-<li>提供缩放的图片：调整服务器上的图片尺寸，确保’显示’尺寸尽可能接近图片的’自然’尺寸。尤其要密切关注较大的图片，因为这些图片在调整尺寸时，占用了最大的额外开销！</li>
-<li>自动：投资自动化的工具和基础设施，这样，可以确保所有图片资源始终会进行优化。</li>
-</ul>
-</blockquote>
-<h3 id="4-_网页字体优化">4. 网页字体优化</h3><ul>
-<li>网页字体解析<ul>
-<li>网页字体格式</li>
-<li>通过压缩减小字体大小</li>
-</ul>
-</li>
-<li>使用 @font-face 定义字体系列<ul>
-<li>格式选择</li>
-<li>Unicode-range 子集内嵌</li>
-</ul>
-</li>
-<li>优化加载和呈现</li>
-</ul>
-<h3 id="5-_HTTP_缓存">5. HTTP 缓存</h3><ul>
-<li>使用 ETag 验证缓存的响应<ul>
-<li>服务器会生成并返回一个随机令牌，通常是文件内容的哈希值或者某个其他指纹码。客户端不必了解指纹码是如何生成的，只需要在下一个请求中将其发送给服务器：如果指纹码仍然一致，说明资源未被修改，我们就可以跳过下载。</li>
-<li>实际上，我们唯一要做的就是确保服务器提供必要的 ETag 令牌：查看服务器文档中是否有必要的配置标志。 </li>
-</ul>
-</li>
-<li>Cache-Control</li>
-<li>废弃和更新已缓存的响应</li>
-</ul>
-<blockquote>
-<p>在定义缓存策略时，要记住下列技巧和方法：</p>
-<ul>
-<li>使用一致的网址：如果您在不同的网址上提供相同的内容，将会多次获取和存储该内容。提示：注意，网址区分大小写！</li>
-<li>确保服务器提供验证令牌 (ETag)：通过验证令牌，如果服务器上的资源未被更改，就不必传输相同的字节。</li>
-<li>确定中继缓存可以缓存哪些资源：对所有用户的响应完全相同的资源很适合由 CDN 或其他中继缓存进行缓存。</li>
-<li>确定每个资源的最优缓存周期：不同的资源可能有不同的更新要求。审查并确定每个资源适合的 max-age。</li>
-<li>确定网站的最佳缓存层级：对 HTML 文档组合使用包含内容指纹码的资源网址以及短时间或 no-cache 的生命周期，可以控制客户端获取更新的速度。</li>
-<li>搅动最小化：有些资源的更新比其他资源频繁。如果资源的特定部分（例如 JavaScript 函数或一组 CSS 样式）会经常更新，应考虑将其代码作为单独的文件提供。这样，每次获取更新时，剩余内容（例如不会频繁更新的库代码）可以从缓存中获取，确保下载的内容量最少。</li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2236,7 +2146,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2244,7 +2154,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2253,7 +2163,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2315,7 +2225,7 @@ $ webpack -d    <span class="comment">//生成map映射文件，告知哪些模�
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
