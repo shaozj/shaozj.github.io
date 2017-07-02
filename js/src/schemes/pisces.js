@@ -5,7 +5,7 @@ $(document).ready(function () {
   var sidebarTop = headerHeight + 10;
 
   $sidebar
-    .css({ 'margin-top': sidebarTop })
+    .css({ 'margin-top': 0 }) // sidebarTop, changed by shaozj
     .show();
 
   NexT.utils.isDesktop() && $('.page-post-detail .sidebar-inner').affix({
